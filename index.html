@@ -25,11 +25,17 @@
       <span class="brand-mark">A<span>.</span></span>
       <span class="brand-name">ASAD ALI MULLA<small>DATA · AI · DIGITAL PRODUCTS</small></span>
     </a>
-    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#work">Selected work</a><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#connect">Connect</a>
-      <a class="nav-cta" href="https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing" target="_blank" rel="noopener">Resume <span>↗</span></a>
-    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#work">Selected work</a><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#connect">Connect</a>
+        <a class="nav-cta" href="https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing" target="_blank" rel="noopener">Resume <span>↗</span></a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
@@ -44,13 +50,35 @@
         </div>
         <div class="hero-footnote"><span>01 / 04</span><span>Curiosity, clarity & execution.</span></div>
       </div>
-      <div class="hero-art reveal" aria-label="Abstract emerald and gold generative graphic">
+      <div class="hero-art reveal" aria-label="Abstract 3D interactive generative neural graphic">
+        <canvas id="hero-3d-canvas" class="hero-3d-canvas"></canvas>
         <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-orbit orbit-three"></div>
         <div class="art-core"><span class="core-kicker">IDEAS</span><span class="core-symbol">A<span>.</span></span><span class="core-kicker">INTO IMPACT</span></div>
         <span class="art-label label-top">DATA / 01</span><span class="art-label label-bottom">BUILD / 02</span>
         <div class="art-line"></div>
       </div>
       <div class="hero-scroll"><span></span> SCROLL TO EXPLORE</div>
+    </section>
+
+    <section class="stats-section section-wrap reveal" aria-label="Key highlights and impact">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value"><span class="counter" data-target="24">0</span><span class="stat-plus">+</span></div>
+          <div class="stat-label">Shipped & Prototyped Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value"><span class="counter" data-target="5">0</span><span class="stat-plus">×</span></div>
+          <div class="stat-label">Core Domains (AI · ML · BI · Vision · Web)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value"><span class="counter" data-target="100">0</span><span class="stat-plus">%</span></div>
+          <div class="stat-label">Transparent Code & Public Demos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value"><span class="stat-text">GLOBAL</span><span class="stat-dot-live"></span></div>
+          <div class="stat-label">Open to Roles: India · Saudi · Remote</div>
+        </div>
+      </div>
     </section>
 
     <section class="ticker" aria-label="Areas of work">
@@ -136,6 +164,66 @@
     <span>© <span id="year"></span> Asad Ali Mulla</span>
     <a href="#top" class="back-top">Back to top ↑</a>
   </footer>
+
+  <!-- Interactive Project Deep-Dive Modal -->
+  <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-card" id="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-category" id="modal-category"></span>
+        <span class="status-pill modal-status" id="modal-status"></span>
+      </div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-meta-box">
+        <span class="modal-meta-tag">STAGE & SCOPE NOTES</span>
+        <p id="modal-stage-note"></p>
+      </div>
+      <div class="modal-tags" id="modal-tags"></div>
+      <div class="modal-footer">
+        <a class="button button-primary modal-action-btn" id="modal-live-link" target="_blank" rel="noopener noreferrer">Visit Live Project <span>↗</span></a>
+        <a class="button button-quiet modal-action-btn" id="modal-repo-link" target="_blank" rel="noopener noreferrer">View GitHub Code <span>↗</span></a>
+        <button class="button button-border modal-copy-btn" id="modal-copy-btn" type="button">Copy Link <span>⎘</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Developer CLI Console -->
+  <div class="terminal-widget" id="terminal-widget" aria-hidden="true">
+    <div class="terminal-header" id="terminal-header">
+      <div class="terminal-controls">
+        <span class="t-dot t-red" id="t-close" title="Close"></span>
+        <span class="t-dot t-yellow" id="t-clear" title="Clear"></span>
+        <span class="t-dot t-green" id="t-expand" title="Maximize"></span>
+      </div>
+      <div class="terminal-title">asad@portfolio: ~ (bash)</div>
+      <button class="t-exit-btn" id="t-exit-btn" aria-label="Close terminal">&times;</button>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <div class="terminal-output" id="terminal-output">
+        <p class="t-dim">Asad Ali Mulla — Interactive Portfolio Terminal v2.4</p>
+        <p class="t-dim">Type <span class="t-hl">'help'</span> to see available commands or <span class="t-hl">'projects'</span> to list work.</p>
+      </div>
+      <div class="terminal-input-row">
+        <span class="t-prompt">visitor@asad:~$</span>
+        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating CLI Console Launcher -->
+  <button class="terminal-launcher" id="terminal-launcher" aria-label="Open Interactive CLI Console" title="Open Interactive CLI">
+    <span class="terminal-pulse"></span>
+    <span class="terminal-icon">⚡</span>
+    <span class="terminal-text">CLI Console</span>
+  </button>
+
+  <!-- Fluid Magnetic Cursor (Desktop) -->
+  <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <script src="assets/three.min.js"></script>
   <script src="assets/app.js" defer></script>
 </body>
 </html>
