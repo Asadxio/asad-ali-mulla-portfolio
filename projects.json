@@ -1,0 +1,368 @@
+[
+  {
+    "title": "NOOR-E-HARAM",
+    "category": "Digital Products",
+    "status": "Live",
+    "featured": true,
+    "description": "A premium Hajj, Umrah and Ziyarat travel platform with package presentation, search-focused content and lead-generation workflows.",
+    "tags": [
+      "Web Design",
+      "SEO",
+      "Lead Generation"
+    ],
+    "url": "https://nooreharam.com/",
+    "repo": "",
+    "stageNote": "Public website supplied by Asad; detailed project metrics are not claimed."
+  },
+  {
+    "title": "PDF Toolbox",
+    "category": "Digital Products",
+    "status": "Live",
+    "featured": true,
+    "description": "An online PDF utilities product deployed on a custom domain, with browser-based document workflows and ongoing quality and SEO work.",
+    "tags": [
+      "Web App",
+      "Cloudflare Workers",
+      "PDF.js",
+      "Playwright",
+      "SEO"
+    ],
+    "url": "https://pdf.myoss.in/",
+    "repo": "",
+    "stageNote": "Public deployment supplied by Asad; automated test counts are intentionally not advertised here."
+  },
+  {
+    "title": "Madrasa Tus Salikat Lil Banat",
+    "category": "AI & Software",
+    "status": "In development",
+    "featured": true,
+    "description": "A mobile-first Islamic education platform concept and implementation with learner, teacher and administrator workflows, course content and learning tools.",
+    "tags": [
+      "Expo",
+      "React Native",
+      "Firebase",
+      "Firestore",
+      "Education"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Project stage and current deployed demo need confirmation."
+  },
+  {
+    "title": "Bahar-e-Shariat AI",
+    "category": "AI & Software",
+    "status": "Prototype / research",
+    "featured": true,
+    "description": "An Islamic book research assistant exploring OCR, PDF extraction, hybrid retrieval, embeddings and AI-assisted answers grounded in source material.",
+    "tags": [
+      "OCR",
+      "RAG",
+      "SQLite",
+      "Embeddings",
+      "Gemini"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Prototype/research status based on project notes; verify before describing as production software."
+  },
+  {
+    "title": "QFREE Retail Marketplace",
+    "category": "AI & Software",
+    "status": "Prototype / research",
+    "featured": false,
+    "description": "A multi-vendor retail marketplace project with product browsing, barcode scanning and payment-flow experimentation.",
+    "tags": [
+      "Expo",
+      "FastAPI",
+      "MongoDB",
+      "Stripe test mode"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Project stage and public demo need confirmation."
+  },
+  {
+    "title": "Forest vs Building Classification Using ANN",
+    "category": "Machine Learning",
+    "status": "Repository available",
+    "featured": true,
+    "description": "A neural-network classification project focused on distinguishing forest and building imagery.",
+    "tags": [
+      "ANN",
+      "Python",
+      "Image Classification"
+    ],
+    "url": "https://github.com/Asadxio/Forest-vs-Building-Classification-Using-ANN",
+    "repo": "https://github.com/Asadxio/Forest-vs-Building-Classification-Using-ANN",
+    "stageNote": "Repository available; inspect README and notebook before publishing detailed methodology or metrics."
+  },
+  {
+    "title": "Old Car Price",
+    "category": "Machine Learning",
+    "status": "Repository available",
+    "featured": true,
+    "description": "A machine-learning project exploring used-car price prediction.",
+    "tags": [
+      "Machine Learning",
+      "Python",
+      "Regression"
+    ],
+    "url": "https://github.com/Asadxio/Old-Car-Price",
+    "repo": "https://github.com/Asadxio/Old-Car-Price",
+    "stageNote": "Repository available; evaluation metrics not claimed."
+  },
+  {
+    "title": "Power BI Projects",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": true,
+    "description": "A collection of Power BI visuals and data projects.",
+    "tags": [
+      "Power BI",
+      "Business Intelligence",
+      "Data Visualization"
+    ],
+    "url": "https://github.com/Asadxio/Power-BI",
+    "repo": "https://github.com/Asadxio/Power-BI",
+    "stageNote": "Public repository supplied by Asad; public report links can be added later."
+  },
+  {
+    "title": "Hotel Booking Cancellation Analysis",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": true,
+    "description": "An analysis project examining hotel booking cancellations and revenue-efficiency questions.",
+    "tags": [
+      "Data Analysis",
+      "Business Analytics",
+      "Python"
+    ],
+    "url": "https://github.com/Asadxio/Hotel-Booking-Cancellation-Analysis-Maximizing-Revenue-Efficiency",
+    "repo": "https://github.com/Asadxio/Hotel-Booking-Cancellation-Analysis-Maximizing-Revenue-Efficiency",
+    "stageNote": "Repository title informs the topic; no quantified business impact is claimed."
+  },
+  {
+    "title": "CNN Sea, Building & Forest Classification",
+    "category": "Computer Vision",
+    "status": "Repository available",
+    "featured": false,
+    "description": "A convolutional neural network project involving sea, building and forest image classes.",
+    "tags": [
+      "CNN",
+      "Computer Vision",
+      "Image Classification"
+    ],
+    "url": "https://github.com/Asadxio/CNN-SEA-BUILDING-FOREST---Projects",
+    "repo": "https://github.com/Asadxio/CNN-SEA-BUILDING-FOREST---Projects",
+    "stageNote": "Repository available; performance metrics not claimed."
+  },
+  {
+    "title": "Jupyter Notebook Collection",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": false,
+    "description": "A collection of Jupyter notebook work and exploratory analysis.",
+    "tags": [
+      "Jupyter",
+      "Python",
+      "Data Exploration"
+    ],
+    "url": "https://github.com/Asadxio/Jupyter-Notebook",
+    "repo": "https://github.com/Asadxio/Jupyter-Notebook",
+    "stageNote": "Collection; individual notebooks can be featured after review."
+  },
+  {
+    "title": "Penguin Analysis",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": false,
+    "description": "Exploratory analysis of penguin data, suitable for demonstrating data-cleaning and visualization workflow.",
+    "tags": [
+      "EDA",
+      "Python",
+      "Data Visualization"
+    ],
+    "url": "https://github.com/Asadxio/Penguin-Analysis",
+    "repo": "https://github.com/Asadxio/Penguin-Analysis",
+    "stageNote": "Repository available; details to be verified from project files."
+  },
+  {
+    "title": "Dry Bean Analysis",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": false,
+    "description": "A dry-bean dataset analysis project.",
+    "tags": [
+      "Data Analysis",
+      "Python",
+      "Classification"
+    ],
+    "url": "https://github.com/Asadxio/Dry_Bean-Project-2",
+    "repo": "https://github.com/Asadxio/Dry_Bean-Project-2",
+    "stageNote": "Repository available; exact methods to be verified."
+  },
+  {
+    "title": "Airline Passenger Satisfaction Prediction",
+    "category": "Machine Learning",
+    "status": "Repository available",
+    "featured": true,
+    "description": "A predictive analytics project focused on airline passenger satisfaction.",
+    "tags": [
+      "Predictive Analytics",
+      "Machine Learning",
+      "Python"
+    ],
+    "url": "https://github.com/Asadxio/Project-Report-Airline-Passenger-Satisfaction-Prediction",
+    "repo": "https://github.com/Asadxio/Project-Report-Airline-Passenger-Satisfaction-Prediction",
+    "stageNote": "Repository/report supplied by Asad; metrics not claimed."
+  },
+  {
+    "title": "Cat vs Dog Image Classification",
+    "category": "Computer Vision",
+    "status": "Repository available",
+    "featured": false,
+    "description": "An image-classification project for distinguishing cats from dogs.",
+    "tags": [
+      "CNN",
+      "Computer Vision",
+      "Image Classification"
+    ],
+    "url": "https://github.com/Asadxio/Project-Cat-vs-Dog-Image-Classification",
+    "repo": "https://github.com/Asadxio/Project-Cat-vs-Dog-Image-Classification",
+    "stageNote": "Repository available; evaluation details to be verified."
+  },
+  {
+    "title": "Dry Beans Classification",
+    "category": "Machine Learning",
+    "status": "Repository available",
+    "featured": false,
+    "description": "A supervised classification project using a dry-bean dataset.",
+    "tags": [
+      "Classification",
+      "Python",
+      "Machine Learning"
+    ],
+    "url": "https://github.com/Asadxio/Project-Dry-Beans-Classification",
+    "repo": "https://github.com/Asadxio/Project-Dry-Beans-Classification",
+    "stageNote": "Kept separate from Dry Bean Analysis because it is a separate repository."
+  },
+  {
+    "title": "COVID-19 Chest X-Ray Image Recognition",
+    "category": "Computer Vision",
+    "status": "Research / repository",
+    "featured": false,
+    "description": "A computer-vision research project exploring recognition from chest X-ray images.",
+    "tags": [
+      "Computer Vision",
+      "Medical Imaging",
+      "Classification"
+    ],
+    "url": "https://github.com/Asadxio/Covid-19-Chest-X-Ray-Image-Recognition",
+    "repo": "https://github.com/Asadxio/Covid-19-Chest-X-Ray-Image-Recognition",
+    "stageNote": "Research project only; not a clinically validated diagnostic system."
+  },
+  {
+    "title": "Omnify Internship Task — Ads & Listing Data",
+    "category": "Data & BI",
+    "status": "Repository available",
+    "featured": true,
+    "description": "An analysis task involving Google Ads data and listing-site data.",
+    "tags": [
+      "Google Ads",
+      "Data Analysis",
+      "Marketing Analytics"
+    ],
+    "url": "https://github.com/Asadxio/Omnify-Internship-task-Analysing-google-ads-and-Listing-site-data-",
+    "repo": "https://github.com/Asadxio/Omnify-Internship-task-Analysing-google-ads-and-Listing-site-data-",
+    "stageNote": "Repository title supplied by Asad; internship dates and outcomes need verification."
+  },
+  {
+    "title": "The Analyst — Existing Portfolio",
+    "category": "Other Work",
+    "status": "Live",
+    "featured": false,
+    "description": "An existing portfolio built with Canva; this new portfolio will provide a more extensible, code-based home for the wider body of work.",
+    "tags": [
+      "Portfolio",
+      "Canva"
+    ],
+    "url": "https://theanalyst.my.canva.site/",
+    "repo": "",
+    "stageNote": "Existing site supplied by Asad."
+  },
+  {
+    "title": "Noor-E-Haram AI Lead Assistant",
+    "category": "AI & Software",
+    "status": "Workflow / prototype",
+    "featured": false,
+    "description": "A lead-qualification and response workflow for Umrah inquiries, organizing trip requirements such as dates, group size and budget.",
+    "tags": [
+      "AI Workflow",
+      "Lead Qualification",
+      "Travel"
+    ],
+    "url": "https://nooreharam.com/",
+    "repo": "",
+    "stageNote": "Workflow project; do not imply a publicly available standalone AI product."
+  },
+  {
+    "title": "PDF Toolbox QA & SEO Work",
+    "category": "Other Work",
+    "status": "Completed work / ongoing maintenance",
+    "featured": false,
+    "description": "Deployment verification, browser-based end-to-end testing and technical SEO work associated with PDF Toolbox.",
+    "tags": [
+      "Playwright",
+      "Technical SEO",
+      "Quality Assurance"
+    ],
+    "url": "https://pdf.myoss.in/",
+    "repo": "",
+    "stageNote": "Specific test totals and search-ranking outcomes are omitted pending current verification."
+  },
+  {
+    "title": "Receipt Generator — Market Research",
+    "category": "Research & Concepts",
+    "status": "Research / idea",
+    "featured": false,
+    "description": "Research into free payment-receipt generation tools for Indian users across web and mobile.",
+    "tags": [
+      "Market Research",
+      "Product Discovery",
+      "India"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Research item, not represented as a launched product."
+  },
+  {
+    "title": "Movie Aggregator — Product Concept",
+    "category": "Research & Concepts",
+    "status": "Idea",
+    "featured": false,
+    "description": "A proposed discovery experience for organizing movie information and pointing users to external sources, subject to rights, availability and platform policies.",
+    "tags": [
+      "Product Strategy",
+      "Search",
+      "Content Discovery"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Concept only; no working product claimed."
+  },
+  {
+    "title": "School & Education Platform Planning",
+    "category": "Research & Concepts",
+    "status": "Planning",
+    "featured": false,
+    "description": "Planning work for an education initiative and related digital learning needs.",
+    "tags": [
+      "Education",
+      "Product Planning",
+      "Community"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Planning item; no launched school or platform is claimed."
+  }
+]
