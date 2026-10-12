@@ -4,7 +4,7 @@
     "category": "Digital Products",
     "status": "Live",
     "featured": true,
-    "description": "A premium Hajj, Umrah and Ziyarat travel platform with package presentation, search-focused content and lead-generation workflows.",
+    "description": "A website for Hajj, Umrah and Ziyarat trips. It presents travel packages, shares useful information and helps customers send enquiries.",
     "tags": [
       "Web Design",
       "SEO",
@@ -19,7 +19,7 @@
     "category": "Digital Products",
     "status": "Live",
     "featured": true,
-    "description": "An online PDF utilities product deployed on a custom domain, with browser-based document workflows and ongoing quality and SEO work.",
+    "description": "An online toolkit for working with PDFs in your browser. It runs on its own domain, with ongoing work to improve quality and help people find it through search.",
     "tags": [
       "Web App",
       "Cloudflare Workers",
@@ -36,7 +36,7 @@
     "category": "AI & Software",
     "status": "In development",
     "featured": true,
-    "description": "A mobile-first Islamic education platform concept and implementation with learner, teacher and administrator workflows, course content and learning tools.",
+    "description": "A mobile-friendly Islamic learning platform for students, teachers and admins. It includes courses, learning materials and tools for managing classes.",
     "tags": [
       "Expo",
       "React Native",
@@ -53,7 +53,7 @@
     "category": "AI & Software",
     "status": "Prototype / research",
     "featured": true,
-    "description": "An Islamic book research assistant exploring OCR, PDF extraction, hybrid retrieval, embeddings and AI-assisted answers grounded in source material.",
+    "description": "An assistant for researching Islamic books. It extracts text from PDFs and scanned pages, searches the content and uses AI to answer questions based on the source material.",
     "tags": [
       "OCR",
       "RAG",
@@ -70,7 +70,7 @@
     "category": "AI & Software",
     "status": "Prototype / research",
     "featured": false,
-    "description": "A multi-vendor retail marketplace project with product browsing, barcode scanning and payment-flow experimentation.",
+    "description": "An online marketplace where different sellers can list products. The project explores product search, barcode scanning and payment features.",
     "tags": [
       "Expo",
       "FastAPI",
@@ -146,7 +146,7 @@
     "category": "Computer Vision",
     "status": "Repository available",
     "featured": false,
-    "description": "A convolutional neural network project involving sea, building and forest image classes.",
+    "description": "An image-classification project that uses a neural network to sort pictures into three groups: sea, buildings and forests.",
     "tags": [
       "CNN",
       "Computer Vision",
