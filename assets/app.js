@@ -40,11 +40,20 @@ let soundEnabled = localStorage.getItem("asad_portfolio_sound") === "true";
 
 function initSoundToggle() {
   const soundBtn = document.querySelector("#sound-toggle");
-  const soundIcon = document.querySelector("#sound-icon");
-  if (!soundBtn || !soundIcon) return;
+  const soundIconMuted = document.querySelector("#sound-icon-muted");
+  const soundEq = document.querySelector("#sound-equalizer");
+  if (!soundBtn) return;
 
   function updateIcon() {
-    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+    if (soundIconMuted && soundEq) {
+      if (soundEnabled) {
+        soundIconMuted.style.display = "none";
+        soundEq.style.display = "inline-flex";
+      } else {
+        soundIconMuted.style.display = "inline";
+        soundEq.style.display = "none";
+      }
+    }
     soundBtn.setAttribute("aria-label", soundEnabled ? "Sound enabled (click to mute)" : "Sound muted (click to enable)");
     soundBtn.title = soundEnabled ? "Mute audio feedback" : "Enable tactile audio feedback";
   }
@@ -185,8 +194,10 @@ function updateThreeColors(isDark) {
   if (!threeMaterials || threeMaterials.length === 0) return;
   const wireColor = isDark ? 0xe5b869 : 0xc6a15b;
   const particleColor = isDark ? 0x34d399 : 0x10b981;
+  const neuralColor = isDark ? 0xe5b869 : 0x10b981;
   if (threeMaterials[0]) threeMaterials[0].color.setHex(wireColor);
   if (threeMaterials[1]) threeMaterials[1].color.setHex(particleColor);
+  if (threeMaterials[2]) threeMaterials[2].color.setHex(neuralColor);
 }
 
 /* ==========================================================================
@@ -278,7 +289,45 @@ function initThreeHero() {
   const particleSystem = new THREE.Points(particleGeo, particleMat);
   group.add(particleSystem);
 
-  threeMaterials = [wireMat, particleMat];
+  // 4. Dynamic Synaptic Neural Network Line Graph
+  const nodeCount = 45;
+  const nodePoints = [];
+  for (let i = 0; i < nodeCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos((Math.random() * 2) - 1);
+    const r = 2.1 + Math.random() * 0.9;
+    nodePoints.push(new THREE.Vector3(
+      r * Math.sin(phi) * Math.cos(theta),
+      r * Math.sin(phi) * Math.sin(theta),
+      r * Math.cos(phi)
+    ));
+  }
+
+  const lineCoords = [];
+  const maxDist = 1.35;
+  for (let i = 0; i < nodeCount; i++) {
+    for (let j = i + 1; j < nodeCount; j++) {
+      if (nodePoints[i].distanceTo(nodePoints[j]) < maxDist) {
+        lineCoords.push(
+          nodePoints[i].x, nodePoints[i].y, nodePoints[i].z,
+          nodePoints[j].x, nodePoints[j].y, nodePoints[j].z
+        );
+      }
+    }
+  }
+
+  const neuralLineGeo = new THREE.BufferGeometry();
+  neuralLineGeo.setAttribute("position", new THREE.Float32BufferAttribute(lineCoords, 3));
+  const neuralLineMat = new THREE.LineBasicMaterial({
+    color: isDark ? 0xe5b869 : 0x10b981,
+    transparent: true,
+    opacity: 0.28,
+    blending: THREE.AdditiveBlending
+  });
+  const neuralWeb = new THREE.LineSegments(neuralLineGeo, neuralLineMat);
+  group.add(neuralWeb);
+
+  threeMaterials = [wireMat, particleMat, neuralLineMat];
 
   // Mouse interaction
   let mouseX = 0;
@@ -325,6 +374,8 @@ function initThreeHero() {
     ring2.rotation.x = elapsed * -0.12;
 
     wireMesh.rotation.y = elapsed * 0.04;
+    neuralWeb.rotation.y = elapsed * -0.025;
+    neuralWeb.rotation.z = elapsed * 0.018;
 
     // Shockwave pulse decay
     if (isShockwave) {
@@ -436,6 +487,7 @@ function attachCardClickListeners() {
   });
 
   applyCardTiltEffect();
+  initBentoSpotlight();
 }
 
 function renderFilters() {
@@ -787,6 +839,7 @@ function initCustomCursor() {
   let mouseY = -100;
   let ringX = -100;
   let ringY = -100;
+  let isDown = false;
 
   window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
@@ -797,13 +850,31 @@ function initCustomCursor() {
   function renderRing() {
     ringX += (mouseX - ringX) * 0.18;
     ringY += (mouseY - ringY) * 0.18;
-    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    const scale = isDown ? 0.78 : 1;
+    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${scale})`;
     requestAnimationFrame(renderRing);
   }
   requestAnimationFrame(renderRing);
 
+  // Mouse window bounds detection
+  document.addEventListener("mouseleave", () => {
+    dot.style.opacity = "0";
+    ring.style.opacity = "0";
+  });
+  document.addEventListener("mouseenter", () => {
+    dot.style.opacity = "1";
+    ring.style.opacity = "1";
+  });
+
+  window.addEventListener("mousedown", () => {
+    isDown = true;
+  });
+  window.addEventListener("mouseup", () => {
+    isDown = false;
+  });
+
   // Hover states on interactive items
-  const interactives = "a, button, input, .project-card, .filter-button, .stat-card, .theme-toggle";
+  const interactives = "a, button, input, .project-card, .filter-button, .stat-card, .theme-toggle, .cmd-k-trigger, .sound-toggle, .credential-card, .nav-cta";
   document.addEventListener("mouseover", (e) => {
     if (e.target.closest(interactives)) {
       ring.classList.add("is-hover");
@@ -822,7 +893,7 @@ function initCustomCursor() {
 class TextScramble {
   constructor(el) {
     this.el = el;
-    this.chars = "!<>-_\\/[]{}—=+*^?#________";
+    this.chars = "!<>-_\\/[]{}—=+*^?#01X_";
     this.update = this.update.bind(this);
   }
   setText(newText) {
@@ -871,18 +942,32 @@ class TextScramble {
 }
 
 function initScrambleHeadings() {
-  const headings = document.querySelectorAll(".section-heading h2, .about-left h2");
+  const headings = document.querySelectorAll(".section-heading h2, .about-left h2, .credentials-heading h2");
   headings.forEach(h2 => {
     const orig = h2.textContent;
     let running = false;
-    h2.addEventListener("mouseenter", () => {
+    function triggerScramble() {
       if (running) return;
       running = true;
       const scrambler = new TextScramble(h2);
       scrambler.setText(orig).then(() => {
         running = false;
       });
-    });
+    }
+    h2.addEventListener("mouseenter", triggerScramble);
+
+    // Auto-trigger scramble once when scrolling into view
+    if ("IntersectionObserver" in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            triggerScramble();
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      obs.observe(h2);
+    }
   });
 }
 
@@ -1215,7 +1300,123 @@ function initTactileClickSounds() {
 }
 
 /* ==========================================================================
-   12. Initialization
+   12. Advanced Animation Suite: Scroll Laser, Bento Spotlight, Magnetic Physics,
+       Click Ripples & 3D Floating Glyphs
+   ========================================================================== */
+
+function initScrollProgressBar() {
+  const bar = document.querySelector("#scroll-progress-bar");
+  if (!bar) return;
+
+  function update() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total <= 0) {
+      bar.style.width = "0%";
+      return;
+    }
+    const pct = (window.scrollY / total) * 100;
+    bar.style.width = `${Math.min(Math.max(pct, 0), 100)}%`;
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
+function initBentoSpotlight() {
+  if (window.matchMedia("(hover: none)").matches) return;
+  const cards = document.querySelectorAll(".project-card, .credential-card, .stat-card, .expertise-card");
+
+  cards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+}
+
+function initMagneticButtons() {
+  if (window.matchMedia("(hover: none)").matches) return;
+  const magnets = document.querySelectorAll(".button, .cmd-k-trigger, .sound-toggle, .theme-toggle, .filter-button, .nav-cta, .terminal-launcher");
+
+  magnets.forEach(el => {
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      el.style.transform = `translate3d(${dx * 0.22}px, ${dy * 0.22}px, 0)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "";
+    });
+  });
+}
+
+function initClickRipple() {
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest(".button, .filter-button, .nav-cta, .cmd-k-trigger, .project-details-btn, .theme-toggle, .sound-toggle");
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const ripple = document.createElement("span");
+    ripple.className = "click-ripple";
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+    target.style.position = target.style.position || "relative";
+    target.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  });
+}
+
+function initFloatingGlyphs() {
+  const container = document.querySelector("#floating-glyphs");
+  if (!container) return;
+
+  const glyphList = [
+    "{ }", "01", "λ", "Σ", "f(x)", "∂y/∂x", "W·x + b", "SELECT",
+    "async", "tensor", "np.dot()", "argmax()", "loss=0", "[0, 1]",
+    "ReLU", "SGD", "data[]", "yield"
+  ];
+
+  const items = [];
+  const count = 16;
+
+  for (let i = 0; i < count; i++) {
+    const span = document.createElement("span");
+    span.className = "glyph-item";
+    span.textContent = glyphList[i % glyphList.length];
+    const topPct = (i / count) * 90 + (Math.random() * 5);
+    const leftPct = (Math.random() * 92) + 2;
+    const speed = 0.04 + Math.random() * 0.08;
+
+    span.style.top = `${topPct}%`;
+    span.style.left = `${leftPct}%`;
+    span.dataset.speed = String(speed);
+    container.appendChild(span);
+    items.push(span);
+  }
+
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        items.forEach(item => {
+          const speed = parseFloat(item.dataset.speed) || 0.06;
+          const offset = (scrollY * speed) % 70;
+          item.style.transform = `translate3d(0, ${-offset}px, 0)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   13. Initialization
    ========================================================================== */
 async function init() {
   initTheme();
@@ -1230,6 +1431,11 @@ async function init() {
   initResumeModal();
   fetchLiveGitHubStats();
   initTactileClickSounds();
+  initScrollProgressBar();
+  initBentoSpotlight();
+  initMagneticButtons();
+  initClickRipple();
+  initFloatingGlyphs();
 
   try {
     const response = await fetch("projects.json");

@@ -1790,6 +1790,162 @@ h1, h2, h3, p { margin-top: 0; }
   .modal-card { padding: 26px 20px 22px; }
 }
 
+/* ==========================================================================
+   Advanced Animations & Visual Effects Suite
+   ========================================================================== */
+
+/* 1. Scroll-Linked Glowing Laser Progress Bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--gold), #10b981, #f0d69a);
+  background-size: 200% 100%;
+  box-shadow: 0 0 10px rgba(240, 214, 154, 0.75), 0 0 4px var(--green);
+  z-index: 10001;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+  animation: laserSheen 4s linear infinite;
+}
+@keyframes laserSheen {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* 2. Animated Audio Frequency Equalizer */
+.sound-equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+  width: 14px;
+  vertical-align: middle;
+}
+.eq-bar {
+  display: block;
+  width: 2.5px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+.eq-1 {
+  height: 40%;
+  animation: eqBounce1 0.75s ease-in-out infinite alternate;
+}
+.eq-2 {
+  height: 100%;
+  animation: eqBounce2 0.55s ease-in-out infinite alternate;
+}
+.eq-3 {
+  height: 60%;
+  animation: eqBounce3 0.9s ease-in-out infinite alternate;
+}
+@keyframes eqBounce1 {
+  0% { height: 25%; }
+  100% { height: 90%; }
+}
+@keyframes eqBounce2 {
+  0% { height: 95%; }
+  100% { height: 35%; }
+}
+@keyframes eqBounce3 {
+  0% { height: 40%; }
+  100% { height: 100%; }
+}
+
+/* 3. Bento Grid Dynamic Mouse Spotlight */
+.project-card,
+.credential-card,
+.stat-card,
+.expertise-card {
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before,
+.credential-card::before,
+.stat-card::before,
+.expertise-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(240, 214, 154, 0.12), rgba(16, 185, 129, 0.05), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+:root[data-theme="dark"] .project-card::before,
+:root[data-theme="dark"] .credential-card::before,
+:root[data-theme="dark"] .stat-card::before,
+:root[data-theme="dark"] .expertise-card::before {
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(229, 184, 105, 0.16), rgba(52, 211, 153, 0.07), transparent 70%);
+}
+.project-card:hover::before,
+.credential-card:hover::before,
+.stat-card:hover::before,
+.expertise-card:hover::before {
+  opacity: 1;
+}
+
+/* 4. Click Ripple Wave */
+.click-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(240, 214, 154, 0.45) 0%, rgba(16, 185, 129, 0.15) 50%, transparent 75%);
+  animation: rippleSpread 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  z-index: 99;
+}
+@keyframes rippleSpread {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+}
+
+/* 5. Multi-Layer 3D Floating Data Glyphs */
+.floating-glyphs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.glyph-item {
+  position: absolute;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: var(--text-xs);
+  color: var(--gold);
+  opacity: 0.07;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+}
+:root[data-theme="dark"] .glyph-item {
+  opacity: 0.12;
+  color: #a7f3d0;
+}
+
+/* 6. Magnetic Elements Spring Smoothing */
+.button,
+.cmd-k-trigger,
+.sound-toggle,
+.theme-toggle,
+.filter-button,
+.nav-cta {
+  transition: transform 0.22s cubic-bezier(0.2, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

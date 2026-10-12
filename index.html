@@ -26,8 +26,10 @@
   </script>
 </head>
 <body>
+  <div class="scroll-progress-bar" id="scroll-progress-bar" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-noise" aria-hidden="true"></div>
+  <div class="floating-glyphs" id="floating-glyphs" aria-hidden="true"></div>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Asad Ali Mulla home">
       <span class="brand-mark">A<span>.</span></span>
@@ -39,7 +41,12 @@
         <span class="cmd-k-text">Ctrl+K</span>
       </button>
       <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound effects" title="Audio feedback (Muted by default)">
-        <span id="sound-icon" aria-hidden="true">🔇</span>
+        <span class="sound-icon-muted" id="sound-icon-muted" aria-hidden="true">🔇</span>
+        <div class="sound-equalizer" id="sound-equalizer" aria-hidden="true" style="display: none;">
+          <span class="eq-bar eq-1"></span>
+          <span class="eq-bar eq-2"></span>
+          <span class="eq-bar eq-3"></span>
+        </div>
       </button>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
         <span class="theme-icon-light" aria-hidden="true">☀️</span>
