@@ -33,6 +33,121 @@ function visualClass(i) {
 }
 
 /* ==========================================================================
+   Tactile Web Audio UI Feedback (Zero External Files) & Toast System
+   ========================================================================== */
+let audioCtx = null;
+let soundEnabled = localStorage.getItem("asad_portfolio_sound") === "true";
+
+function initSoundToggle() {
+  const soundBtn = document.querySelector("#sound-toggle");
+  const soundIcon = document.querySelector("#sound-icon");
+  if (!soundBtn || !soundIcon) return;
+
+  function updateIcon() {
+    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+    soundBtn.setAttribute("aria-label", soundEnabled ? "Sound enabled (click to mute)" : "Sound muted (click to enable)");
+    soundBtn.title = soundEnabled ? "Mute audio feedback" : "Enable tactile audio feedback";
+  }
+  updateIcon();
+
+  soundBtn.addEventListener("click", () => {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem("asad_portfolio_sound", String(soundEnabled));
+    updateIcon();
+    if (soundEnabled) {
+      playUiSound("theme");
+      showToast("Tactile audio feedback enabled 🔊");
+    } else {
+      showToast("Audio feedback muted 🔇");
+    }
+  });
+}
+
+function playUiSound(type = "click") {
+  if (!soundEnabled) return;
+  try {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (!audioCtx || audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    if (type === "click") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(260, now + 0.04);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.04);
+    } else if (type === "theme") {
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.12);
+    } else if (type === "open") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(640, now + 0.09);
+      gain.gain.setValueAtTime(0.07, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.09);
+    } else if (type === "close") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(540, now);
+      osc.frequency.exponentialRampToValueAtTime(220, now + 0.08);
+      gain.gain.setValueAtTime(0.07, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === "key") {
+      osc.type = "square";
+      osc.frequency.setValueAtTime(140, now);
+      gain.gain.setValueAtTime(0.03, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.02);
+    }
+  } catch (e) {
+    // AudioContext blocked
+  }
+}
+
+function showToast(message, icon = "⚡") {
+  const container = document.querySelector("#toast-container");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `<span aria-hidden="true">${escapeHTML(icon)}</span><span>${escapeHTML(message)}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(10px)";
+    toast.style.transition = "all 0.25s ease";
+    setTimeout(() => toast.remove(), 260);
+  }, 2600);
+}
+
+/* ==========================================================================
    1. Theme Management (Light Ivory <-> Obsidian Dark)
    ========================================================================== */
 let threeMaterials = [];
@@ -51,6 +166,8 @@ function initTheme() {
       const next = current === "dark" ? "light" : "dark";
       setTheme(next);
       localStorage.setItem("asad_portfolio_theme", next);
+      playUiSound("theme");
+      showToast(next === "dark" ? "Cyber Obsidian dark mode 🌙" : "Ivory light mode ☀️");
     });
   }
 }
@@ -179,6 +296,17 @@ function initThreeHero() {
     targetRotationX = mouseY * 0.8;
   }, { passive: true });
 
+  // Interactive 3D shockwave on canvas click
+  let shockwaveScale = 1;
+  let isShockwave = false;
+
+  canvas.addEventListener("click", () => {
+    isShockwave = true;
+    shockwaveScale = 1.35;
+    playUiSound("open");
+    showToast("Neural mesh shockwave triggered 🌐");
+  });
+
   // Animation Loop
   let clock = new THREE.Clock();
 
@@ -197,6 +325,16 @@ function initThreeHero() {
     ring2.rotation.x = elapsed * -0.12;
 
     wireMesh.rotation.y = elapsed * 0.04;
+
+    // Shockwave pulse decay
+    if (isShockwave) {
+      group.scale.setScalar(shockwaveScale);
+      shockwaveScale += (1.0 - shockwaveScale) * 0.08;
+      if (Math.abs(shockwaveScale - 1.0) < 0.004) {
+        group.scale.setScalar(1.0);
+        isShockwave = false;
+      }
+    }
 
     renderer.render(scene, camera);
   }
@@ -250,6 +388,12 @@ function projectCard(p, i, featured = false) {
     <article class="project-card ${featured ? "featured-large" : ""}" data-index="${i}">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-visual ${visualClass(i)}">
+        <div class="card-browser-bar" aria-hidden="true">
+          <span class="browser-dot dot-r"></span>
+          <span class="browser-dot dot-y"></span>
+          <span class="browser-dot dot-g"></span>
+          <span class="browser-address">${p.url ? escapeHTML(p.url.replace("https://", "").replace(/\/$/, "")) : "asad.myoss.in"}</span>
+        </div>
         <span class="visual-index">${String(i + 1).padStart(2, "0")} / PORTFOLIO</span>
         <div class="visual-word">${escapeHTML(p.title.replace(" Classification", "").replace(" Projects", ""))}</div>
       </div>
@@ -743,15 +887,349 @@ function initScrambleHeadings() {
 }
 
 /* ==========================================================================
-   9. Initialization
+   9. Spotlight Command Palette (Ctrl+K / Cmd+K)
+   ========================================================================== */
+function initCommandPalette() {
+  const palette = document.querySelector("#cmd-palette");
+  const trigger = document.querySelector("#cmd-k-trigger");
+  const input = document.querySelector("#cmd-input");
+  const results = document.querySelector("#cmd-results");
+  if (!palette || !input || !results) return;
+
+  let selectedIdx = 0;
+  let currentItems = [];
+
+  function openPalette() {
+    palette.classList.add("is-open");
+    palette.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    input.value = "";
+    renderCommandList("");
+    playUiSound("open");
+    setTimeout(() => input.focus(), 60);
+  }
+
+  function closePalette() {
+    palette.classList.remove("is-open");
+    palette.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    playUiSound("close");
+  }
+
+  if (trigger) trigger.addEventListener("click", openPalette);
+  palette.addEventListener("click", (e) => {
+    if (e.target === palette) closePalette();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (palette.classList.contains("is-open")) closePalette();
+      else openPalette();
+    } else if (e.key === "/" && !palette.classList.contains("is-open")) {
+      const tag = (document.activeElement && document.activeElement.tagName) || "";
+      if (tag !== "INPUT" && tag !== "TEXTAREA") {
+        e.preventDefault();
+        openPalette();
+      }
+    } else if (e.key === "Escape" && palette.classList.contains("is-open")) {
+      closePalette();
+    }
+  });
+
+  function getCommandCatalog() {
+    const defaultActions = [
+      { type: "action", icon: "☀️", title: "Toggle Theme (Dark / Light)", hint: "Appearance", action: () => { document.querySelector("#theme-toggle")?.click(); } },
+      { type: "action", icon: "🔊", title: "Toggle Sound FX", hint: "Audio", action: () => { document.querySelector("#sound-toggle")?.click(); } },
+      { type: "action", icon: "✉️", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
+      { type: "action", icon: "📄", title: "View Resume (Curriculum Vitae)", hint: "Credentials", action: () => { openResumeModal(); } },
+      { type: "action", icon: "⚡", title: "Open CLI Developer Console", hint: "Terminal", action: () => { document.querySelector("#terminal-launcher")?.click(); } },
+      { type: "action", icon: "🔗", title: "Copy Portfolio URL", hint: "Share", action: () => { navigator.clipboard.writeText("https://asad.myoss.in/").then(() => showToast("Portfolio URL copied to clipboard! 📋")); } }
+    ];
+
+    const navItems = [
+      { type: "nav", icon: "🧭", title: "Selected Work Archive", hint: "Section", action: () => { document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "🧭", title: "About Asad Ali Mulla", hint: "Section", action: () => { document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "🧭", title: "Areas of Focus (Expertise)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "🧭", title: "Credentials & Background", hint: "Section", action: () => { document.querySelector("#credentials")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "🧭", title: "Connect & Socials", hint: "Section", action: () => { document.querySelector("#connect")?.scrollIntoView({ behavior: "smooth" }); } }
+    ];
+
+    const skills = [
+      "Python", "SQL", "Power BI", "Machine Learning", "Computer Vision",
+      "FastAPI", "React Native", "Firebase", "Cloudflare", "Playwright", "Technical SEO"
+    ].map(s => ({
+      type: "skill",
+      icon: "🛠️",
+      title: `Filter projects by: ${s}`,
+      hint: "Skill Tag",
+      action: () => {
+        searchInput.value = s;
+        renderArchive();
+        document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" });
+      }
+    }));
+
+    const projectItems = projects.map(p => ({
+      type: "project",
+      icon: "🚀",
+      title: p.title,
+      hint: `${p.category} · ${p.status}`,
+      action: () => { openProjectModal(p); }
+    }));
+
+    return { defaultActions, navItems, skills, projectItems };
+  }
+
+  function renderCommandList(query) {
+    const q = query.trim().toLowerCase();
+    const catalog = getCommandCatalog();
+    const filtered = [];
+
+    if (!q) {
+      filtered.push({ group: "Quick Actions", items: catalog.defaultActions });
+      filtered.push({ group: "Navigation", items: catalog.navItems });
+      filtered.push({ group: "Featured Work", items: catalog.projectItems.slice(0, 4) });
+    } else {
+      const matchFilter = item => item.title.toLowerCase().includes(q) || item.hint.toLowerCase().includes(q);
+      const mActions = catalog.defaultActions.filter(matchFilter);
+      const mProjects = catalog.projectItems.filter(matchFilter);
+      const mSkills = catalog.skills.filter(matchFilter);
+      const mNav = catalog.navItems.filter(matchFilter);
+
+      if (mActions.length) filtered.push({ group: "Quick Actions", items: mActions });
+      if (mProjects.length) filtered.push({ group: "Projects", items: mProjects });
+      if (mSkills.length) filtered.push({ group: "Skills & Tools", items: mSkills });
+      if (mNav.length) filtered.push({ group: "Navigation", items: mNav });
+    }
+
+    currentItems = [];
+    filtered.forEach(g => g.items.forEach(it => currentItems.push(it)));
+    selectedIdx = 0;
+
+    if (!currentItems.length) {
+      results.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--muted); font-size: var(--text-sm);">No commands or projects match "${escapeHTML(query)}".</div>`;
+      return;
+    }
+
+    let flatIdx = 0;
+    results.innerHTML = filtered.map(g => `
+      <div class="cmd-group-title">${escapeHTML(g.group)}</div>
+      ${g.items.map(it => {
+        const idx = flatIdx++;
+        return `
+          <div class="cmd-item ${idx === selectedIdx ? "is-selected" : ""}" data-idx="${idx}" role="option">
+            <div class="cmd-item-left">
+              <span class="cmd-item-icon" aria-hidden="true">${escapeHTML(it.icon)}</span>
+              <span>${escapeHTML(it.title)}</span>
+            </div>
+            <span class="cmd-item-hint">${escapeHTML(it.hint)}</span>
+          </div>
+        `;
+      }).join("")}
+    `).join("");
+
+    results.querySelectorAll(".cmd-item").forEach(el => {
+      el.addEventListener("click", () => {
+        const idx = parseInt(el.dataset.idx, 10);
+        if (currentItems[idx]) {
+          closePalette();
+          currentItems[idx].action();
+          playUiSound("click");
+        }
+      });
+      el.addEventListener("mouseenter", () => {
+        results.querySelectorAll(".cmd-item").forEach(i => i.classList.remove("is-selected"));
+        el.classList.add("is-selected");
+        selectedIdx = parseInt(el.dataset.idx, 10);
+      });
+    });
+  }
+
+  input.addEventListener("input", (e) => {
+    renderCommandList(e.target.value);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (selectedIdx < currentItems.length - 1) {
+        selectedIdx++;
+        updateSelection();
+      }
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (selectedIdx > 0) {
+        selectedIdx--;
+        updateSelection();
+      }
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (currentItems[selectedIdx]) {
+        closePalette();
+        currentItems[selectedIdx].action();
+        playUiSound("click");
+      }
+    }
+  });
+
+  function updateSelection() {
+    const items = results.querySelectorAll(".cmd-item");
+    items.forEach((item, idx) => {
+      if (idx === selectedIdx) {
+        item.classList.add("is-selected");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("is-selected");
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   10. Direct Contact Modal & In-Page Resume Modal
+   ========================================================================== */
+const contactModal = document.querySelector("#contact-modal");
+const contactClose = document.querySelector("#contact-close");
+const contactBackdrop = document.querySelector("#contact-backdrop");
+const contactForm = document.querySelector("#contact-form");
+const contactSuccess = document.querySelector("#contact-success");
+
+function openContactModal() {
+  if (!contactModal) return;
+  contactModal.classList.add("is-open");
+  contactModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  playUiSound("open");
+  if (contactClose) contactClose.focus();
+}
+
+function closeContactModal() {
+  if (!contactModal) return;
+  contactModal.classList.remove("is-open");
+  contactModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  playUiSound("close");
+}
+
+function initContactModal() {
+  if (contactClose) contactClose.addEventListener("click", closeContactModal);
+  if (contactBackdrop) contactBackdrop.addEventListener("click", closeContactModal);
+
+  const heroBtn = document.querySelector("#hero-contact-btn");
+  if (heroBtn) heroBtn.addEventListener("click", openContactModal);
+
+  const connBtn = document.querySelector("#connect-modal-btn");
+  if (connBtn) connBtn.addEventListener("click", openContactModal);
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.querySelector("#contact-name")?.value.trim() || "Visitor";
+      const submitBtn = document.querySelector("#contact-submit-btn");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Dispatching...";
+      }
+
+      setTimeout(() => {
+        if (contactSuccess) contactSuccess.hidden = false;
+        contactForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Message <span aria-hidden="true">↗</span>';
+        }
+        playUiSound("theme");
+        showToast(`Thank you, ${name}! Message dispatched. ✨`);
+        setTimeout(() => {
+          closeContactModal();
+          if (contactSuccess) contactSuccess.hidden = true;
+        }, 2200);
+      }, 600);
+    });
+  }
+}
+
+const resumeModal = document.querySelector("#resume-modal");
+const resumeClose = document.querySelector("#resume-close");
+const resumeBackdrop = document.querySelector("#resume-backdrop");
+const navResumeBtn = document.querySelector("#nav-resume-btn");
+const resumeContactBtn = document.querySelector("#resume-contact-btn");
+
+function openResumeModal() {
+  if (!resumeModal) return;
+  resumeModal.classList.add("is-open");
+  resumeModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  playUiSound("open");
+  if (resumeClose) resumeClose.focus();
+}
+
+function closeResumeModal() {
+  if (!resumeModal) return;
+  resumeModal.classList.remove("is-open");
+  resumeModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  playUiSound("close");
+}
+
+function initResumeModal() {
+  if (navResumeBtn) navResumeBtn.addEventListener("click", openResumeModal);
+  if (resumeClose) resumeClose.addEventListener("click", closeResumeModal);
+  if (resumeBackdrop) resumeBackdrop.addEventListener("click", closeResumeModal);
+  if (resumeContactBtn) {
+    resumeContactBtn.addEventListener("click", () => {
+      closeResumeModal();
+      openContactModal();
+    });
+  }
+}
+
+/* ==========================================================================
+   11. Live GitHub Stats & Tactile Click Listeners
+   ========================================================================== */
+async function fetchLiveGitHubStats() {
+  const counter = document.querySelector("#github-repo-counter");
+  if (!counter) return;
+  try {
+    const res = await fetch("https://api.github.com/users/Asadxio");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.public_repos && data.public_repos > 0) {
+        counter.dataset.target = String(data.public_repos);
+        counter.textContent = String(data.public_repos);
+      }
+    }
+  } catch (e) {
+    // Offline / rate limit fallback
+  }
+}
+
+function initTactileClickSounds() {
+  const clickables = "button, .project-card, .filter-button, .social-grid a, .nav > a, .text-link, .stat-card";
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(clickables)) {
+      playUiSound("click");
+    }
+  });
+}
+
+/* ==========================================================================
+   12. Initialization
    ========================================================================== */
 async function init() {
   initTheme();
+  initSoundToggle();
   initThreeHero();
   initStatsCounter();
   initTerminal();
   initCustomCursor();
   initScrambleHeadings();
+  initCommandPalette();
+  initContactModal();
+  initResumeModal();
+  fetchLiveGitHubStats();
+  initTactileClickSounds();
 
   try {
     const response = await fetch("projects.json");

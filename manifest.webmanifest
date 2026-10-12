@@ -1,0 +1,17 @@
+{
+  "name": "Asad Ali Mulla — Data, AI & Digital Products",
+  "short_name": "Asad Portfolio",
+  "description": "Portfolio of Asad Ali Mulla covering Data Analytics, Machine Learning, Computer Vision, and Digital Products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d0b",
+  "theme_color": "#0b3d2e",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64 192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

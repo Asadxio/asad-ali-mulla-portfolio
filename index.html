@@ -9,6 +9,14 @@
   <meta property="og:title" content="Asad Ali Mulla — Data, AI & Digital Products">
   <meta property="og:description" content="A portfolio of practical work across data analytics, machine learning, software and digital products.">
   <meta property="og:url" content="https://asad.myoss.in/">
+  <meta property="og:image" content="https://asad.myoss.in/assets/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Asad Ali Mulla — Data, AI & Digital Products">
+  <meta name="twitter:description" content="A portfolio of practical work across data analytics, machine learning, software and digital products.">
+  <meta name="twitter:image" content="https://asad.myoss.in/assets/og-image.svg">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="canonical" href="https://asad.myoss.in/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
@@ -26,14 +34,25 @@
       <span class="brand-name">ASAD ALI MULLA<small>DATA · AI · DIGITAL PRODUCTS</small></span>
     </a>
     <div class="header-right">
+      <button class="cmd-k-trigger" id="cmd-k-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Quick Actions & Search (Ctrl+K)">
+        <span class="cmd-k-icon" aria-hidden="true">⌘</span>
+        <span class="cmd-k-text">Ctrl+K</span>
+      </button>
+      <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound effects" title="Audio feedback (Muted by default)">
+        <span id="sound-icon" aria-hidden="true">🔇</span>
+      </button>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
         <span class="theme-icon-light" aria-hidden="true">☀️</span>
         <span class="theme-icon-dark" aria-hidden="true">🌙</span>
       </button>
       <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Selected work</a><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#connect">Connect</a>
-        <a class="nav-cta" href="https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing" target="_blank" rel="noopener">Resume <span aria-hidden="true">↗</span></a>
+        <a href="#work">Selected work</a>
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#connect">Connect</a>
+        <button class="nav-cta" id="nav-resume-btn" type="button">Resume <span aria-hidden="true">↗</span></button>
       </nav>
     </div>
   </header>
@@ -46,7 +65,7 @@
         <p class="hero-intro">I’m Asad Ali Mulla. I work on data analytics, machine learning, AI apps and digital products. I turn problems into practical tools people can use.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
-          <a class="button button-quiet" href="#connect">Let’s connect <span aria-hidden="true">↗</span></a>
+          <button class="button button-quiet" id="hero-contact-btn" type="button">Let’s connect <span aria-hidden="true">↗</span></button>
         </div>
         <div class="hero-footnote"><span>01 / 04</span><span>Curiosity, clarity & execution.</span></div>
       </div>
@@ -132,6 +151,54 @@
       </div>
     </section>
 
+    <section class="section-wrap credentials-section" id="credentials">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">CONTINUOUS LEARNING &amp; FOUNDATIONS</div>
+          <h2>Credentials &amp; background<span class="gold-dot">.</span></h2>
+        </div>
+        <p>Verified training, academic foundations, and hands-on specializations backing my technical execution.</p>
+      </div>
+      <div class="credentials-grid reveal">
+        <article class="credential-card">
+          <div class="credential-badge" aria-hidden="true">📊</div>
+          <div>
+            <span class="credential-issuer">EKEEDA / APPLIED AI</span>
+            <h3>Data Science &amp; Machine Learning Program</h3>
+            <p>Comprehensive curriculum covering Python, Exploratory Data Analysis, predictive modeling, regression, classification, and model evaluation.</p>
+          </div>
+          <span class="credential-status">Verified Curriculum</span>
+        </article>
+        <article class="credential-card">
+          <div class="credential-badge" aria-hidden="true">📈</div>
+          <div>
+            <span class="credential-issuer">BUSINESS INTELLIGENCE</span>
+            <h3>Power BI &amp; Advanced Analytics</h3>
+            <p>Dashboard engineering, ETL data cleaning, DAX measures, automated reporting, and executive business insights presentation.</p>
+          </div>
+          <span class="credential-status">Specialization</span>
+        </article>
+        <article class="credential-card">
+          <div class="credential-badge" aria-hidden="true">👁️</div>
+          <div>
+            <span class="credential-issuer">DEEP LEARNING</span>
+            <h3>Computer Vision &amp; Neural Networks</h3>
+            <p>Convolutional neural networks (CNN), image classification benchmarks, OCR pipelines, and practical model deployment.</p>
+          </div>
+          <span class="credential-status">Applied Projects</span>
+        </article>
+        <article class="credential-card">
+          <div class="credential-badge" aria-hidden="true">🎓</div>
+          <div>
+            <span class="credential-issuer">ACADEMIC FOUNDATION</span>
+            <h3>Bachelor of Engineering (B.E.)</h3>
+            <p>Rigorous analytical training in quantitative mathematical analysis, structural modeling, problem formulation, and project planning.</p>
+          </div>
+          <span class="credential-status">Degree</span>
+        </article>
+      </div>
+    </section>
+
     <section class="connect-section section-wrap" id="connect">
       <div class="connect-panel reveal">
         <div class="connect-glow"></div>
@@ -139,7 +206,8 @@
         <h2>Let’s make<br><em>something useful.</em></h2>
         <p>Open to relevant roles, freelance projects and collaborations across India, Saudi Arabia and international markets.</p>
         <div class="connect-actions">
-          <a class="button button-gold" href="https://www.linkedin.com/in/asad-ali-mulla-044240262/" target="_blank" rel="noopener">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
+          <button class="button button-gold" id="connect-modal-btn" type="button">Send Direct Message <span aria-hidden="true">✉</span></button>
+          <a class="button button-border" href="https://www.linkedin.com/in/asad-ali-mulla-044240262/" target="_blank" rel="noopener">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
           <a class="button button-border" href="https://github.com/Asadxio" target="_blank" rel="noopener">View GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
@@ -188,6 +256,113 @@
       </div>
     </div>
   </div>
+
+  <!-- Spotlight Command Palette (Ctrl+K / Cmd+K) -->
+  <div class="cmd-palette-backdrop" id="cmd-palette" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Command Palette">
+    <div class="cmd-palette-box">
+      <div class="cmd-palette-input-wrap">
+        <span class="cmd-search-icon" aria-hidden="true">⌕</span>
+        <input type="text" id="cmd-input" class="cmd-input" placeholder="Search projects, skills, commands... (Esc to close)" autocomplete="off" spellcheck="false" aria-label="Command search">
+        <kbd class="cmd-kbd">ESC</kbd>
+      </div>
+      <div class="cmd-results" id="cmd-results" role="listbox"></div>
+      <div class="cmd-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Select</span>
+        <span><kbd>ESC</kbd> Close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Direct Contact Modal -->
+  <div class="project-modal" id="contact-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="contact-modal-title">
+    <div class="modal-backdrop" id="contact-backdrop"></div>
+    <div class="modal-card contact-modal-card">
+      <button class="modal-close" id="contact-close" aria-label="Close contact dialog"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-header">
+        <span class="modal-category">GET IN TOUCH</span>
+        <span class="status-pill">Fast Response</span>
+      </div>
+      <h2 class="modal-title" id="contact-modal-title">Send a direct message<span class="gold-dot">.</span></h2>
+      <p class="modal-desc">Have an open role, freelance project, or data problem? Send a direct message below.</p>
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" name="name" required placeholder="e.g. Sarah Jenkins">
+          </div>
+          <div class="form-field">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" name="email" required placeholder="e.g. sarah@company.com">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="contact-purpose">Subject / Opportunity Type</label>
+          <select id="contact-purpose" name="purpose">
+            <option value="Full-Time / Contract Role">Full-Time / Contract Role</option>
+            <option value="Freelance Project">Freelance / Web / AI Project</option>
+            <option value="Consultation">Data Analytics &amp; BI Consultation</option>
+            <option value="General Connect">General Networking</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="4" required placeholder="Describe your project, timeline, or requirements..."></textarea>
+        </div>
+        <div class="contact-form-footer">
+          <button type="submit" class="button button-primary" id="contact-submit-btn">Send Message <span aria-hidden="true">↗</span></button>
+          <span class="contact-note">Routes straight to Asad's primary email.</span>
+        </div>
+        <div class="contact-success-msg" id="contact-success" hidden>
+          <span class="success-icon" aria-hidden="true">✓</span>
+          <div>
+            <strong>Message Dispatched!</strong>
+            <p>Thank you for reaching out. Asad will review your note and respond promptly.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Resume Modal -->
+  <div class="project-modal" id="resume-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="resume-modal-title">
+    <div class="modal-backdrop" id="resume-backdrop"></div>
+    <div class="modal-card resume-modal-card">
+      <button class="modal-close" id="resume-close" aria-label="Close resume dialog"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-header">
+        <span class="modal-category">CURRICULUM VITAE</span>
+        <span class="status-pill">Verified Credentials</span>
+      </div>
+      <h2 class="modal-title" id="resume-modal-title">Asad Ali Mulla — Executive Resume<span class="gold-dot">.</span></h2>
+      <p class="modal-desc">Data Analytics · Machine Learning · Applied Computer Vision · Digital Products</p>
+      
+      <div class="resume-overview-grid">
+        <div class="resume-section-box">
+          <span class="resume-box-tag">CORE COMPETENCIES</span>
+          <ul class="resume-skill-list">
+            <li><strong>Analytics &amp; BI:</strong> Python, SQL, Power BI, DAX, Pandas, NumPy, Jupyter</li>
+            <li><strong>Machine Learning &amp; AI:</strong> Scikit-Learn, CNN, Neural Networks, Computer Vision, OCR</li>
+            <li><strong>Full-Stack &amp; Cloud:</strong> React Native / Expo, Firebase, FastAPI, Cloudflare Workers</li>
+            <li><strong>Quality &amp; Growth:</strong> Playwright QA, Technical SEO, Automation Workflows</li>
+          </ul>
+        </div>
+        <div class="resume-section-box">
+          <span class="resume-box-tag">REPRESENTATIVE WORK</span>
+          <p>• <strong>NOOR-E-HARAM:</strong> Travel &amp; tour portal with high-conversion lead generation workflows and fast loading times.</p>
+          <p>• <strong>PDF Toolbox:</strong> Cloudflare-deployed browser toolkit processing PDFs securely client-side.</p>
+          <p>• <strong>Bahar-e-Shariat AI:</strong> RAG &amp; OCR assistant for automated document retrieval and semantic search.</p>
+        </div>
+      </div>
+
+      <div class="modal-footer resume-footer">
+        <a class="button button-gold" href="https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing" target="_blank" rel="noopener">Open Full PDF in Google Drive <span aria-hidden="true">↗</span></a>
+        <button class="button button-quiet" id="resume-contact-btn" type="button">Message Asad Directly <span aria-hidden="true">✉</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Toast Notifications -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Interactive Developer CLI Console -->
   <div class="terminal-widget" id="terminal-widget" aria-hidden="true" role="region" aria-label="Developer Terminal">
