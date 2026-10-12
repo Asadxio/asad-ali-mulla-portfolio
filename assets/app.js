@@ -242,12 +242,12 @@ function applyCardTiltEffect() {
 
 function projectCard(p, i, featured = false) {
   const link = p.url
-    ? `<a class="project-link" href="${escapeHTML(p.url)}" target="_blank" rel="noopener noreferrer">${p.repo ? "View repository" : p.status === "Live" ? "Visit live project" : "Explore project"} <span>↗</span></a>`
-    : `<span class="project-link" aria-label="Project link not yet available">Quick view details <span>↗</span></span>`;
+    ? `<a class="project-link" href="${escapeHTML(p.url)}" target="_blank" rel="noopener noreferrer">${p.repo ? "View repository" : p.status === "Live" ? "Visit live project" : "Explore project"} <span aria-hidden="true">↗</span></a>`
+    : `<span class="project-link archived">Internal / Archive</span>`;
   const tags = p.tags.slice(0, 4).map(t => `<span>${escapeHTML(t)}</span>`).join("");
 
   return `
-    <article class="project-card ${featured ? "featured-large" : ""}" data-index="${i}" tabindex="0" role="button" aria-label="View details for ${escapeHTML(p.title)}">
+    <article class="project-card ${featured ? "featured-large" : ""}" data-index="${i}">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-visual ${visualClass(i)}">
         <span class="visual-index">${String(i + 1).padStart(2, "0")} / PORTFOLIO</span>
@@ -261,7 +261,10 @@ function projectCard(p, i, featured = false) {
         <h3>${escapeHTML(p.title)}</h3>
         <p>${escapeHTML(p.description)}</p>
         <div class="tag-list">${tags}</div>
-        ${link}
+        <div class="project-actions">
+          ${link}
+          <button type="button" class="project-details-btn" data-index="${i}" aria-label="View details for ${escapeHTML(p.title)}">View details <span aria-hidden="true">↗</span></button>
+        </div>
       </div>
     </article>`;
 }
@@ -269,24 +272,25 @@ function projectCard(p, i, featured = false) {
 function attachCardClickListeners() {
   document.querySelectorAll(".project-card").forEach(card => {
     card.addEventListener("click", (e) => {
-      // If user clicked directly on the external anchor link, let it open normally
-      if (e.target.closest("a.project-link")) return;
+      // If user clicked directly on an interactive element, let it handle its own event
+      if (e.target.closest("a, button")) return;
       const index = parseInt(card.dataset.index, 10);
       if (!isNaN(index) && projects[index]) {
         openProjectModal(projects[index]);
       }
     });
+  });
 
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        const index = parseInt(card.dataset.index, 10);
-        if (!isNaN(index) && projects[index]) {
-          openProjectModal(projects[index]);
-        }
+  document.querySelectorAll(".project-details-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const index = parseInt(btn.dataset.index, 10);
+      if (!isNaN(index) && projects[index]) {
+        openProjectModal(projects[index]);
       }
     });
   });
+
   applyCardTiltEffect();
 }
 
@@ -341,8 +345,11 @@ const modalLiveLink = document.querySelector("#modal-live-link");
 const modalRepoLink = document.querySelector("#modal-repo-link");
 const modalCopyBtn = document.querySelector("#modal-copy-btn");
 
+let previouslyFocusedElement = null;
+
 function openProjectModal(p) {
   if (!projectModal) return;
+  previouslyFocusedElement = document.activeElement;
 
   modalCategory.textContent = p.category || "Project";
   modalStatus.textContent = p.status || "Completed";
@@ -355,7 +362,7 @@ function openProjectModal(p) {
   if (p.url) {
     modalLiveLink.style.display = "inline-flex";
     modalLiveLink.href = p.url;
-    modalLiveLink.innerHTML = `${p.repo ? "View Repository" : "Visit Live Project"} <span>↗</span>`;
+    modalLiveLink.innerHTML = `${p.repo ? "View Repository" : "Visit Live Project"} <span aria-hidden="true">↗</span>`;
   } else {
     modalLiveLink.style.display = "none";
   }
@@ -366,14 +373,14 @@ function openProjectModal(p) {
   } else {
     modalRepoLink.style.display = "inline-flex";
     modalRepoLink.href = "https://github.com/Asadxio";
-    modalRepoLink.innerHTML = "Explore GitHub <span>↗</span>";
+    modalRepoLink.innerHTML = 'Explore GitHub <span aria-hidden="true">↗</span>';
   }
 
   modalCopyBtn.onclick = () => {
     const urlToCopy = p.url || window.location.href;
     navigator.clipboard.writeText(urlToCopy).then(() => {
       const orig = modalCopyBtn.innerHTML;
-      modalCopyBtn.innerHTML = "Copied! <span>✓</span>";
+      modalCopyBtn.innerHTML = 'Copied! <span aria-hidden="true">✓</span>';
       setTimeout(() => { modalCopyBtn.innerHTML = orig; }, 1800);
     });
   };
@@ -381,6 +388,10 @@ function openProjectModal(p) {
   projectModal.classList.add("is-open");
   projectModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+
+  if (modalClose) {
+    modalClose.focus();
+  }
 }
 
 function closeProjectModal() {
@@ -388,13 +399,37 @@ function closeProjectModal() {
   projectModal.classList.remove("is-open");
   projectModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+
+  if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === "function") {
+    previouslyFocusedElement.focus();
+    previouslyFocusedElement = null;
+  }
 }
 
 if (modalClose) modalClose.addEventListener("click", closeProjectModal);
 if (modalBackdrop) modalBackdrop.addEventListener("click", closeProjectModal);
 window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && projectModal && projectModal.classList.contains("is-open")) {
+  if (!projectModal || !projectModal.classList.contains("is-open")) return;
+  if (e.key === "Escape") {
     closeProjectModal();
+    return;
+  }
+  if (e.key === "Tab") {
+    const focusable = projectModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   }
 });
 
