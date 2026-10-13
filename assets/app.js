@@ -255,11 +255,17 @@ function initThreeHero() {
     showToast("Neural mesh shockwave triggered 🌐");
   });
 
-  // Animation Loop
+  // Animation Loop with Visibility & Intersection Observer Optimization
   let clock = new THREE.Clock();
+  let isCanvasVisible = true;
+  let animId = null;
 
   function animate() {
-    requestAnimationFrame(animate);
+    if (!isCanvasVisible || document.hidden) {
+      animId = null;
+      return;
+    }
+    animId = requestAnimationFrame(animate);
     const elapsed = clock.getElapsedTime();
 
     // Constant smooth rotation + mouse lerp
@@ -288,12 +294,39 @@ function initThreeHero() {
 
     renderer.render(scene, camera);
   }
-  animate();
 
-  // Resize handler
+  function startAnimation() {
+    if (!animId && isCanvasVisible && !document.hidden) {
+      animate();
+    }
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isCanvasVisible = entry.isIntersecting;
+        if (isCanvasVisible) {
+          startAnimation();
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && isCanvasVisible) {
+      startAnimation();
+    }
+  });
+
+  startAnimation();
+
+  // Resize handler with aspect ratio correction
   window.addEventListener("resize", () => {
     const newWidth = canvas.clientWidth || 500;
     const newHeight = canvas.clientHeight || 500;
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
     renderer.setSize(newWidth, newHeight);
   });
 }
@@ -584,11 +617,19 @@ function initTerminal() {
 
   if (!launcher || !widget || !input || !output) return;
 
+  let terminalPreviousFocus = null;
+
   function toggleTerminal() {
     const isOpen = widget.classList.toggle("is-open");
     widget.setAttribute("aria-hidden", String(!isOpen));
     if (isOpen) {
+      terminalPreviousFocus = document.activeElement;
       setTimeout(() => input.focus(), 150);
+    } else {
+      if (terminalPreviousFocus && typeof terminalPreviousFocus.focus === "function") {
+        terminalPreviousFocus.focus();
+        terminalPreviousFocus = null;
+      }
     }
   }
 
@@ -743,6 +784,12 @@ Executive Channels:
       }
     }
   });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && widget.classList.contains("is-open")) {
+      toggleTerminal();
+    }
+  });
 }
 
 /* ==========================================================================
@@ -757,8 +804,10 @@ function initCommandPalette() {
 
   let selectedIdx = 0;
   let currentItems = [];
+  let palettePreviousFocus = null;
 
   function openPalette() {
+    palettePreviousFocus = document.activeElement;
     palette.classList.add("is-open");
     palette.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -773,6 +822,10 @@ function initCommandPalette() {
     palette.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     playUiSound("close");
+    if (palettePreviousFocus && typeof palettePreviousFocus.focus === "function") {
+      palettePreviousFocus.focus();
+      palettePreviousFocus = null;
+    }
   }
 
   if (trigger) trigger.addEventListener("click", openPalette);
@@ -952,14 +1005,18 @@ const contactClose = document.querySelector("#contact-close");
 const contactBackdrop = document.querySelector("#contact-backdrop");
 const contactForm = document.querySelector("#contact-form");
 const contactSuccess = document.querySelector("#contact-success");
+let contactPreviousFocus = null;
 
 function openContactModal() {
   if (!contactModal) return;
+  contactPreviousFocus = document.activeElement;
   contactModal.classList.add("is-open");
   contactModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   playUiSound("open");
-  if (contactClose) contactClose.focus();
+  const nameInput = document.querySelector("#contact-name");
+  if (nameInput) setTimeout(() => nameInput.focus(), 60);
+  else if (contactClose) contactClose.focus();
 }
 
 function closeContactModal() {
@@ -968,6 +1025,10 @@ function closeContactModal() {
   contactModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   playUiSound("close");
+  if (contactPreviousFocus && typeof contactPreviousFocus.focus === "function") {
+    contactPreviousFocus.focus();
+    contactPreviousFocus = null;
+  }
 }
 
 function initContactModal() {
@@ -979,6 +1040,31 @@ function initContactModal() {
 
   const connBtn = document.querySelector("#connect-modal-btn");
   if (connBtn) connBtn.addEventListener("click", openContactModal);
+
+  window.addEventListener("keydown", (e) => {
+    if (!contactModal || !contactModal.classList.contains("is-open")) return;
+    if (e.key === "Escape") {
+      closeContactModal();
+      return;
+    }
+    if (e.key === "Tab") {
+      const focusable = contactModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  });
 
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
@@ -1013,9 +1099,11 @@ const resumeClose = document.querySelector("#resume-close");
 const resumeBackdrop = document.querySelector("#resume-backdrop");
 const navResumeBtn = document.querySelector("#nav-resume-btn");
 const resumeContactBtn = document.querySelector("#resume-contact-btn");
+let resumePreviousFocus = null;
 
 function openResumeModal() {
   if (!resumeModal) return;
+  resumePreviousFocus = document.activeElement;
   resumeModal.classList.add("is-open");
   resumeModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
@@ -1029,6 +1117,10 @@ function closeResumeModal() {
   resumeModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   playUiSound("close");
+  if (resumePreviousFocus && typeof resumePreviousFocus.focus === "function") {
+    resumePreviousFocus.focus();
+    resumePreviousFocus = null;
+  }
 }
 
 function initResumeModal() {
@@ -1041,6 +1133,31 @@ function initResumeModal() {
       openContactModal();
     });
   }
+
+  window.addEventListener("keydown", (e) => {
+    if (!resumeModal || !resumeModal.classList.contains("is-open")) return;
+    if (e.key === "Escape") {
+      closeResumeModal();
+      return;
+    }
+    if (e.key === "Tab") {
+      const focusable = resumeModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  });
 }
 
 /* ==========================================================================
