@@ -29,24 +29,16 @@
   <div class="scroll-progress-bar" id="scroll-progress-bar" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-noise" aria-hidden="true"></div>
-  <div class="floating-glyphs" id="floating-glyphs" aria-hidden="true"></div>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Asad Ali Mulla home">
       <span class="brand-mark">A<span>.</span></span>
       <span class="brand-name">ASAD ALI MULLA<small>DATA · AI · DIGITAL PRODUCTS</small></span>
     </a>
     <div class="header-right">
-      <button class="cmd-k-trigger" id="cmd-k-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Quick Actions & Search (Ctrl+K)">
-        <span class="cmd-k-icon" aria-hidden="true">⌘</span>
-        <span class="cmd-k-text">Ctrl+K</span>
-      </button>
-      <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound effects" title="Audio feedback (Muted by default)">
-        <span class="sound-icon-muted" id="sound-icon-muted" aria-hidden="true">🔇</span>
-        <div class="sound-equalizer" id="sound-equalizer" aria-hidden="true" style="display: none;">
-          <span class="eq-bar eq-1"></span>
-          <span class="eq-bar eq-2"></span>
-          <span class="eq-bar eq-3"></span>
-        </div>
+      <button class="cmd-k-trigger" id="cmd-k-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Quick Actions &amp; Search (Ctrl+K)">
+        <span class="cmd-k-icon" aria-hidden="true">⌕</span>
+        <span class="cmd-k-text">Search projects &amp; skills</span>
+        <kbd class="cmd-k-kbd">⌘K</kbd>
       </button>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
         <span class="theme-icon-light" aria-hidden="true">☀️</span>
@@ -371,39 +363,34 @@
   <!-- Floating Toast Notifications -->
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Interactive Developer CLI Console -->
-  <div class="terminal-widget" id="terminal-widget" aria-hidden="true" role="region" aria-label="Developer Terminal">
+  <!-- Systems & Architecture Console (Executive Tool) -->
+  <div class="terminal-widget" id="terminal-widget" aria-hidden="true" role="region" aria-label="Systems & Architecture Console">
     <div class="terminal-header" id="terminal-header">
       <div class="terminal-controls" aria-hidden="true">
-        <span class="t-dot t-red" id="t-close" title="Close"></span>
-        <span class="t-dot t-yellow" id="t-clear" title="Clear"></span>
-        <span class="t-dot t-green" id="t-expand" title="Maximize"></span>
+        <span class="t-dot t-red" id="t-close" title="Close console"></span>
+        <span class="t-dot t-yellow" id="t-clear" title="Clear buffer"></span>
+        <span class="t-dot t-green" id="t-expand" title="Maximize view"></span>
       </div>
-      <div class="terminal-title">asad@portfolio: ~ (bash)</div>
+      <div class="terminal-title">Systems &amp; Architecture Console — asad.myoss.in [v2.4]</div>
       <button class="t-exit-btn" id="t-exit-btn" aria-label="Close terminal"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="terminal-body" id="terminal-body">
       <div class="terminal-output" id="terminal-output">
-        <p class="t-dim">Asad Ali Mulla — Interactive Portfolio Terminal v2.4</p>
-        <p class="t-dim">Type <span class="t-hl">'help'</span> to see available commands or <span class="t-hl">'projects'</span> to list work.</p>
+        <p class="t-dim">Asad Ali Mulla — Systems &amp; Data Engineering Console [Production Environment]</p>
+        <p class="t-dim">Type <span class="t-hl">'help'</span> for command index or <span class="t-hl">'status'</span> for architectural health.</p>
       </div>
       <div class="terminal-input-row">
-        <span class="t-prompt">visitor@asad:~$</span>
+        <span class="t-prompt">asad.myoss.in [prod] &gt;</span>
         <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
       </div>
     </div>
   </div>
 
-  <!-- Floating CLI Console Launcher -->
-  <button class="terminal-launcher" id="terminal-launcher" aria-label="Open Interactive CLI Console" title="Open Interactive CLI">
-    <span class="terminal-pulse"></span>
-    <span class="terminal-icon">⚡</span>
-    <span class="terminal-text">CLI Console</span>
+  <!-- Systems Console Launcher -->
+  <button class="terminal-launcher" id="terminal-launcher" aria-label="Open Systems & Architecture Console" title="Open Systems & Architecture Console">
+    <span class="terminal-icon" aria-hidden="true">&gt;_</span>
+    <span class="terminal-text">Systems Console</span>
   </button>
-
-  <!-- Fluid Magnetic Cursor (Desktop) -->
-  <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-  <div class="custom-cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <script src="assets/three.min.js"></script>
   <script src="assets/app.js" defer></script>

@@ -33,115 +33,13 @@ function visualClass(i) {
 }
 
 /* ==========================================================================
-   Tactile Web Audio UI Feedback (Zero External Files) & Toast System
+   Executive Notifications & Status Toast System
    ========================================================================== */
-let audioCtx = null;
-let soundEnabled = localStorage.getItem("asad_portfolio_sound") === "true";
-
-function initSoundToggle() {
-  const soundBtn = document.querySelector("#sound-toggle");
-  const soundIconMuted = document.querySelector("#sound-icon-muted");
-  const soundEq = document.querySelector("#sound-equalizer");
-  if (!soundBtn) return;
-
-  function updateIcon() {
-    if (soundIconMuted && soundEq) {
-      if (soundEnabled) {
-        soundIconMuted.style.display = "none";
-        soundEq.style.display = "inline-flex";
-      } else {
-        soundIconMuted.style.display = "inline";
-        soundEq.style.display = "none";
-      }
-    }
-    soundBtn.setAttribute("aria-label", soundEnabled ? "Sound enabled (click to mute)" : "Sound muted (click to enable)");
-    soundBtn.title = soundEnabled ? "Mute audio feedback" : "Enable tactile audio feedback";
-  }
-  updateIcon();
-
-  soundBtn.addEventListener("click", () => {
-    soundEnabled = !soundEnabled;
-    localStorage.setItem("asad_portfolio_sound", String(soundEnabled));
-    updateIcon();
-    if (soundEnabled) {
-      playUiSound("theme");
-      showToast("Tactile audio feedback enabled 🔊");
-    } else {
-      showToast("Audio feedback muted 🔇");
-    }
-  });
+function playUiSound() {
+  // Silent execution for executive enterprise design
 }
 
-function playUiSound(type = "click") {
-  if (!soundEnabled) return;
-  try {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) audioCtx = new AudioContext();
-    }
-    if (!audioCtx || audioCtx.state === "suspended") {
-      audioCtx.resume();
-    }
-    const now = audioCtx.currentTime;
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    if (type === "click") {
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(260, now + 0.04);
-      gain.gain.setValueAtTime(0.08, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.04);
-    } else if (type === "theme") {
-      osc.type = "triangle";
-      osc.frequency.setValueAtTime(440, now);
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
-      gain.gain.setValueAtTime(0.09, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.12);
-    } else if (type === "open") {
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(320, now);
-      osc.frequency.exponentialRampToValueAtTime(640, now + 0.09);
-      gain.gain.setValueAtTime(0.07, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.09);
-    } else if (type === "close") {
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(540, now);
-      osc.frequency.exponentialRampToValueAtTime(220, now + 0.08);
-      gain.gain.setValueAtTime(0.07, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.08);
-    } else if (type === "key") {
-      osc.type = "square";
-      osc.frequency.setValueAtTime(140, now);
-      gain.gain.setValueAtTime(0.03, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.02);
-    }
-  } catch (e) {
-    // AudioContext blocked
-  }
-}
-
-function showToast(message, icon = "⚡") {
+function showToast(message, icon = "✓") {
   const container = document.querySelector("#toast-container");
   if (!container) return;
   const toast = document.createElement("div");
@@ -155,6 +53,7 @@ function showToast(message, icon = "⚡") {
     setTimeout(() => toast.remove(), 260);
   }, 2600);
 }
+
 
 /* ==========================================================================
    1. Theme Management (Light Ivory <-> Obsidian Dark)
@@ -708,27 +607,48 @@ function initTerminal() {
 
   const commands = {
     help: () => `
-Available Commands:
-  • <span class="t-hl">about</span>      — Bio & background
-  • <span class="t-hl">skills</span>     — Technical competencies
-  • <span class="t-hl">projects</span>   — Featured projects directory
-  • <span class="t-hl">contact</span>    — Socials & reach out
-  • <span class="t-hl">resume</span>     — View resume in Google Drive
-  • <span class="t-hl">theme</span>      — Toggle dark/light appearance
-  • <span class="t-hl">matrix</span>     — Launch digital rain stream
-  • <span class="t-hl">clear</span>      — Clear terminal buffer
-  • <span class="t-hl">date</span>       — Show current local system time
-  • <span class="t-hl">exit</span>       — Close CLI console`,
+Systems & Architecture Console — Available Commands:
+  • <span class="t-hl">status</span>        — Production system health and pipeline verification
+  • <span class="t-hl">overview</span>      — Executive profile & technical focus
+  • <span class="t-hl">architecture</span>  — Engineering stack and deployment tools
+  • <span class="t-hl">skills</span>        — Core technical specializations
+  • <span class="t-hl">projects</span>      — Verified project directories and links
+  • <span class="t-hl">credentials</span>   — Verified certifications and tracks
+  • <span class="t-hl">contact</span>       — Executive communication channels
+  • <span class="t-hl">resume</span>        — Verified credentials document (PDF)
+  • <span class="t-hl">theme</span>         — Toggle display mode (dark/light)
+  • <span class="t-hl">clear</span>         — Clear terminal output buffer
+  • <span class="t-hl">exit</span>          — Close console window`,
+
+    status: () => `
+SYSTEM HEALTH & ARCHITECTURE STATUS:
+  • Host:           asad.myoss.in (Production SSL Verified)
+  • Pipelines:      Online (Data Analytics, ML Inference, Vision OCR)
+  • Repositories:   Public & Verified on GitHub (@Asadxio)
+  • Uptime:         100% (GitHub Enterprise CDN / Cloudflare)
+  • Availability:   Open for Technical Engagements & High-Impact Roles`,
+
+    architecture: () => `
+TECHNICAL ARCHITECTURE & TOOLING:
+  • Core Stack:     Python 3.11, SQL, Power BI, Pandas, NumPy, Scikit-Learn
+  • Applied AI:     TensorFlow, CNN Computer Vision, OCR Pipelines, FastAPI
+  • Web & Systems:  React Native / Expo, Cloudflare Workers, Firebase, HTML5/CSS3
+  • Reliability:    Playwright Automation, Continuous Integration, Technical SEO`,
+
+    overview: () => `
+Asad Ali Mulla — Data Analytics, Machine Learning & Digital Products.
+Focus: Designing robust data systems, machine learning pipelines, and performant web products that solve measurable real-world problems.`,
 
     about: () => `
 Asad Ali Mulla — Data Analytics, Machine Learning & Digital Products.
-Focus: Building clear, reliable, and grounded tech solutions from exploratory data modeling to modern web software.`,
+Focus: Designing robust data systems, machine learning pipelines, and performant web products that solve measurable real-world problems.`,
 
     skills: () => `
-[DATA & BI]        Python, SQL, Power BI, Pandas, NumPy, Jupyter
-[ML & VISION]      Scikit-learn, CNN, TensorFlow, Computer Vision, OCR
-[FULL STACK]       React Native / Expo, Firebase, FastAPI, Cloudflare, HTML/CSS/JS
-[TESTING & SEO]    Playwright, Technical SEO, Automation Workflows`,
+CORE COMPETENCY TRACKS:
+  [DATA & BI]        Python, SQL, Power BI, Pandas, NumPy, Jupyter, ETL Modeling
+  [ML & VISION]      Scikit-learn, CNN, TensorFlow, Computer Vision, OCR
+  [FULL STACK]       FastAPI, React Native, Firebase, Cloudflare, HTML5/CSS3/JS
+  [AUTOMATION & SEO] Playwright, Technical SEO, CI/CD, Enterprise Automation`,
 
     projects: () => `
 Selected Highlights:
@@ -737,8 +657,15 @@ Selected Highlights:
   3. GitHub Profile    — <a class="t-link" href="https://github.com/Asadxio" target="_blank">https://github.com/Asadxio</a>
 Total projects in archive: 24`,
 
+    credentials: () => `
+VERIFIED CREDENTIALS & SPECIALIZATIONS:
+  • Generative AI & LLMs       — RAG Architecture, Vector Embeddings & Prompt Systems
+  • Machine Learning & Vision  — CNN Classification, Computer Vision & OCR
+  • Advanced SQL & Analytics   — Enterprise Warehousing, ETL Pipelines & Power BI Dashboards
+  • Applied Engineering        — Production Web Systems, Cloudflare, Firebase & Python`,
+
     contact: () => `
-Get In Touch:
+Executive Channels:
   • LinkedIn:  <a class="t-link" href="https://www.linkedin.com/in/asad-ali-mulla-044240262/" target="_blank">linkedin.com/in/asad-ali-mulla-044240262/</a>
   • GitHub:    <a class="t-link" href="https://github.com/Asadxio" target="_blank">github.com/Asadxio</a>
   • X/Twitter: <a class="t-link" href="https://twitter.com/AsadXio" target="_blank">@AsadXio</a>
@@ -746,7 +673,7 @@ Get In Touch:
 
     resume: () => {
       window.open("https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing", "_blank");
-      return "Opening resume in new tab...";
+      return "Opening credentials document in new window...";
     },
 
     theme: () => {
@@ -757,18 +684,9 @@ Get In Touch:
       return `Theme switched to ${next} mode.`;
     },
 
-    date: () => new Date().toString(),
+    date: () => new Date().toUTCString(),
 
-    matrix: () => {
-      const chars = "010101 ASAD DATA AI ML POWER_BI VISION CLOUDFLARE 2026";
-      let str = "";
-      for (let i = 0; i < 4; i++) {
-        str += Array.from({ length: 32 }, () => chars[Math.floor(Math.random() * chars.length)]).join("") + "\n";
-      }
-      return `<span style="color:#00ff88;font-size:10px;">${str}Matrix simulation stream complete.</span>`;
-    },
-
-    sudo: () => "Permission denied: Guest user cannot execute root commands 😉",
+    sudo: () => "Permission denied: Root administrative privileges restricted to primary operator.",
 
     clear: () => {
       output.innerHTML = "";
@@ -777,7 +695,7 @@ Get In Touch:
 
     exit: () => {
       toggleTerminal();
-      return "Closing session...";
+      return "Session closed.";
     }
   };
 
@@ -793,7 +711,7 @@ Get In Touch:
       const cmd = raw.toLowerCase().split(" ")[0];
       const cmdRow = document.createElement("div");
       cmdRow.className = "t-command";
-      cmdRow.innerHTML = `visitor@asad:~$ ${escapeHTML(raw)}`;
+      cmdRow.innerHTML = `asad.myoss.in [prod] &gt; ${escapeHTML(raw)}`;
       output.appendChild(cmdRow);
 
       const respRow = document.createElement("div");
@@ -803,7 +721,7 @@ Get In Touch:
         const res = commands[cmd]();
         if (res) respRow.innerHTML = res;
       } else {
-        respRow.innerHTML = `command not found: ${escapeHTML(cmd)}. Type <span class="t-hl">'help'</span> for list of commands.`;
+        respRow.innerHTML = `command not recognized: ${escapeHTML(cmd)}. Type <span class="t-hl">'help'</span> for list of commands.`;
       }
 
       output.appendChild(respRow);
@@ -823,150 +741,6 @@ Get In Touch:
         historyIdx = history.length;
         input.value = "";
       }
-    }
-  });
-}
-
-/* ==========================================================================
-   7. Fluid Magnetic Custom Cursor (Desktop)
-   ========================================================================== */
-function initCustomCursor() {
-  const dot = document.querySelector("#cursor-dot");
-  const ring = document.querySelector("#cursor-ring");
-  if (!dot || !ring || window.matchMedia("(hover: none)").matches) return;
-
-  let mouseX = -100;
-  let mouseY = -100;
-  let ringX = -100;
-  let ringY = -100;
-  let isDown = false;
-
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-  }, { passive: true });
-
-  function renderRing() {
-    ringX += (mouseX - ringX) * 0.18;
-    ringY += (mouseY - ringY) * 0.18;
-    const scale = isDown ? 0.78 : 1;
-    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${scale})`;
-    requestAnimationFrame(renderRing);
-  }
-  requestAnimationFrame(renderRing);
-
-  // Mouse window bounds detection
-  document.addEventListener("mouseleave", () => {
-    dot.style.opacity = "0";
-    ring.style.opacity = "0";
-  });
-  document.addEventListener("mouseenter", () => {
-    dot.style.opacity = "1";
-    ring.style.opacity = "1";
-  });
-
-  window.addEventListener("mousedown", () => {
-    isDown = true;
-  });
-  window.addEventListener("mouseup", () => {
-    isDown = false;
-  });
-
-  // Hover states on interactive items
-  const interactives = "a, button, input, .project-card, .filter-button, .stat-card, .theme-toggle, .cmd-k-trigger, .sound-toggle, .credential-card, .nav-cta";
-  document.addEventListener("mouseover", (e) => {
-    if (e.target.closest(interactives)) {
-      ring.classList.add("is-hover");
-    }
-  });
-  document.addEventListener("mouseout", (e) => {
-    if (e.target.closest(interactives)) {
-      ring.classList.remove("is-hover");
-    }
-  });
-}
-
-/* ==========================================================================
-   8. Hacker Text Scramble Effect on Headings
-   ========================================================================== */
-class TextScramble {
-  constructor(el) {
-    this.el = el;
-    this.chars = "!<>-_\\/[]{}—=+*^?#01X_";
-    this.update = this.update.bind(this);
-  }
-  setText(newText) {
-    const oldText = this.el.innerText;
-    const length = Math.max(oldText.length, newText.length);
-    const promise = new Promise((resolve) => (this.resolve = resolve));
-    this.queue = [];
-    for (let i = 0; i < length; i++) {
-      const from = oldText[i] || "";
-      const to = newText[i] || "";
-      const start = Math.floor(Math.random() * 20);
-      const end = start + Math.floor(Math.random() * 20);
-      this.queue.push({ from, to, start, end });
-    }
-    cancelAnimationFrame(this.frameRequest);
-    this.frame = 0;
-    this.update();
-    return promise;
-  }
-  update() {
-    let output = "";
-    let complete = 0;
-    for (let i = 0, n = this.queue.length; i < n; i++) {
-      let { from, to, start, end, char } = this.queue[i];
-      if (this.frame >= end) {
-        complete++;
-        output += to;
-      } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
-          char = this.chars[Math.floor(Math.random() * this.chars.length)];
-          this.queue[i].char = char;
-        }
-        output += `<span style="color:var(--gold);opacity:0.8;">${char}</span>`;
-      } else {
-        output += from;
-      }
-    }
-    this.el.innerHTML = output;
-    if (complete === this.queue.length) {
-      this.resolve();
-    } else {
-      this.frameRequest = requestAnimationFrame(this.update);
-      this.frame++;
-    }
-  }
-}
-
-function initScrambleHeadings() {
-  const headings = document.querySelectorAll(".section-heading h2, .about-left h2, .credentials-heading h2");
-  headings.forEach(h2 => {
-    const orig = h2.textContent;
-    let running = false;
-    function triggerScramble() {
-      if (running) return;
-      running = true;
-      const scrambler = new TextScramble(h2);
-      scrambler.setText(orig).then(() => {
-        running = false;
-      });
-    }
-    h2.addEventListener("mouseenter", triggerScramble);
-
-    // Auto-trigger scramble once when scrolling into view
-    if ("IntersectionObserver" in window) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            triggerScramble();
-            obs.disconnect();
-          }
-        });
-      }, { threshold: 0.4 });
-      obs.observe(h2);
     }
   });
 }
@@ -1024,20 +798,19 @@ function initCommandPalette() {
 
   function getCommandCatalog() {
     const defaultActions = [
-      { type: "action", icon: "☀️", title: "Toggle Theme (Dark / Light)", hint: "Appearance", action: () => { document.querySelector("#theme-toggle")?.click(); } },
-      { type: "action", icon: "🔊", title: "Toggle Sound FX", hint: "Audio", action: () => { document.querySelector("#sound-toggle")?.click(); } },
-      { type: "action", icon: "✉️", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
+      { type: "action", icon: "◐", title: "Toggle Theme (Dark / Light)", hint: "Appearance", action: () => { document.querySelector("#theme-toggle")?.click(); } },
+      { type: "action", icon: "✉", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
       { type: "action", icon: "📄", title: "View Resume (Curriculum Vitae)", hint: "Credentials", action: () => { openResumeModal(); } },
-      { type: "action", icon: "⚡", title: "Open CLI Developer Console", hint: "Terminal", action: () => { document.querySelector("#terminal-launcher")?.click(); } },
-      { type: "action", icon: "🔗", title: "Copy Portfolio URL", hint: "Share", action: () => { navigator.clipboard.writeText("https://asad.myoss.in/").then(() => showToast("Portfolio URL copied to clipboard! 📋")); } }
+      { type: "action", icon: ">_", title: "Open Systems & Architecture Console", hint: "Console", action: () => { document.querySelector("#terminal-launcher")?.click(); } },
+      { type: "action", icon: "↗", title: "Copy Portfolio URL", hint: "Share", action: () => { navigator.clipboard.writeText("https://asad.myoss.in/").then(() => showToast("Portfolio URL copied to clipboard ✓")); } }
     ];
 
     const navItems = [
-      { type: "nav", icon: "🧭", title: "Selected Work Archive", hint: "Section", action: () => { document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); } },
-      { type: "nav", icon: "🧭", title: "About Asad Ali Mulla", hint: "Section", action: () => { document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); } },
-      { type: "nav", icon: "🧭", title: "Areas of Focus (Expertise)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
-      { type: "nav", icon: "🧭", title: "Credentials & Background", hint: "Section", action: () => { document.querySelector("#credentials")?.scrollIntoView({ behavior: "smooth" }); } },
-      { type: "nav", icon: "🧭", title: "Connect & Socials", hint: "Section", action: () => { document.querySelector("#connect")?.scrollIntoView({ behavior: "smooth" }); } }
+      { type: "nav", icon: "§", title: "Selected Work Archive", hint: "Section", action: () => { document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "About Asad Ali Mulla", hint: "Section", action: () => { document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Areas of Focus (Expertise)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Credentials & Background", hint: "Section", action: () => { document.querySelector("#credentials")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Connect & Socials", hint: "Section", action: () => { document.querySelector("#connect")?.scrollIntoView({ behavior: "smooth" }); } }
     ];
 
     const skills = [
@@ -1045,9 +818,9 @@ function initCommandPalette() {
       "FastAPI", "React Native", "Firebase", "Cloudflare", "Playwright", "Technical SEO"
     ].map(s => ({
       type: "skill",
-      icon: "🛠️",
+      icon: "◆",
       title: `Filter projects by: ${s}`,
-      hint: "Skill Tag",
+      hint: "Specialization",
       action: () => {
         searchInput.value = s;
         renderArchive();
@@ -1057,7 +830,7 @@ function initCommandPalette() {
 
     const projectItems = projects.map(p => ({
       type: "project",
-      icon: "🚀",
+      icon: "◈",
       title: p.title,
       hint: `${p.category} · ${p.status}`,
       action: () => { openProjectModal(p); }
@@ -1290,18 +1063,8 @@ async function fetchLiveGitHubStats() {
   }
 }
 
-function initTactileClickSounds() {
-  const clickables = "button, .project-card, .filter-button, .social-grid a, .nav > a, .text-link, .stat-card";
-  document.addEventListener("click", (e) => {
-    if (e.target.closest(clickables)) {
-      playUiSound("click");
-    }
-  });
-}
-
 /* ==========================================================================
-   12. Advanced Animation Suite: Scroll Laser, Bento Spotlight, Magnetic Physics,
-       Click Ripples & 3D Floating Glyphs
+   10. Executive UI Polish: Scroll Indicator, Bento Spotlight & Magnetic Physics
    ========================================================================== */
 
 function initScrollProgressBar() {
@@ -1339,7 +1102,7 @@ function initBentoSpotlight() {
 
 function initMagneticButtons() {
   if (window.matchMedia("(hover: none)").matches) return;
-  const magnets = document.querySelectorAll(".button, .cmd-k-trigger, .sound-toggle, .theme-toggle, .filter-button, .nav-cta, .terminal-launcher");
+  const magnets = document.querySelectorAll(".button, .cmd-k-trigger, .theme-toggle, .filter-button, .nav-cta, .terminal-launcher");
 
   magnets.forEach(el => {
     el.addEventListener("mousemove", (e) => {
@@ -1354,88 +1117,21 @@ function initMagneticButtons() {
   });
 }
 
-function initClickRipple() {
-  document.addEventListener("click", (e) => {
-    const target = e.target.closest(".button, .filter-button, .nav-cta, .cmd-k-trigger, .project-details-btn, .theme-toggle, .sound-toggle");
-    if (!target) return;
-
-    const rect = target.getBoundingClientRect();
-    const ripple = document.createElement("span");
-    ripple.className = "click-ripple";
-    ripple.style.left = `${e.clientX - rect.left}px`;
-    ripple.style.top = `${e.clientY - rect.top}px`;
-    target.style.position = target.style.position || "relative";
-    target.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 700);
-  });
-}
-
-function initFloatingGlyphs() {
-  const container = document.querySelector("#floating-glyphs");
-  if (!container) return;
-
-  const glyphList = [
-    "{ }", "01", "λ", "Σ", "f(x)", "∂y/∂x", "W·x + b", "SELECT",
-    "async", "tensor", "np.dot()", "argmax()", "loss=0", "[0, 1]",
-    "ReLU", "SGD", "data[]", "yield"
-  ];
-
-  const items = [];
-  const count = 16;
-
-  for (let i = 0; i < count; i++) {
-    const span = document.createElement("span");
-    span.className = "glyph-item";
-    span.textContent = glyphList[i % glyphList.length];
-    const topPct = (i / count) * 90 + (Math.random() * 5);
-    const leftPct = (Math.random() * 92) + 2;
-    const speed = 0.04 + Math.random() * 0.08;
-
-    span.style.top = `${topPct}%`;
-    span.style.left = `${leftPct}%`;
-    span.dataset.speed = String(speed);
-    container.appendChild(span);
-    items.push(span);
-  }
-
-  let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        items.forEach(item => {
-          const speed = parseFloat(item.dataset.speed) || 0.06;
-          const offset = (scrollY * speed) % 70;
-          item.style.transform = `translate3d(0, ${-offset}px, 0)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-}
-
 /* ==========================================================================
-   13. Initialization
+   11. Executive Initialization
    ========================================================================== */
 async function init() {
   initTheme();
-  initSoundToggle();
   initThreeHero();
   initStatsCounter();
   initTerminal();
-  initCustomCursor();
-  initScrambleHeadings();
   initCommandPalette();
   initContactModal();
   initResumeModal();
   fetchLiveGitHubStats();
-  initTactileClickSounds();
   initScrollProgressBar();
   initBentoSpotlight();
   initMagneticButtons();
-  initClickRipple();
-  initFloatingGlyphs();
 
   try {
     const response = await fetch("projects.json");
