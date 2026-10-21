@@ -513,6 +513,22 @@ function openProjectModal(p) {
     });
   };
 
+  const modalInquireBtn = document.querySelector("#modal-inquire-btn");
+  if (modalInquireBtn) {
+    modalInquireBtn.onclick = () => {
+      const title = p.title || "Project";
+      closeProjectModal();
+      openContactModal();
+      const purposeSelect = document.querySelector("#contact-purpose");
+      if (purposeSelect) purposeSelect.value = "Freelance Project";
+      const msgArea = document.querySelector("#contact-message");
+      if (msgArea) {
+        msgArea.value = `Hi Asad, I explored your project "${title}" in your portfolio and would like to discuss...`;
+        setTimeout(() => msgArea.focus(), 120);
+      }
+    };
+  }
+
   projectModal.classList.add("is-open");
   projectModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
@@ -656,6 +672,7 @@ Systems & Architecture Console — Available Commands:
   • <span class="t-hl">projects</span>      — Verified project directories and links
   • <span class="t-hl">credentials</span>   — Verified certifications and tracks
   • <span class="t-hl">contact</span>       — Executive communication channels
+  • <span class="t-hl">email</span>         — Direct email address & inquiry details
   • <span class="t-hl">resume</span>        — Verified credentials document (PDF)
   • <span class="t-hl">theme</span>         — Toggle display mode (dark/light)
   • <span class="t-hl">clear</span>         — Clear terminal output buffer
@@ -707,10 +724,18 @@ VERIFIED CREDENTIALS & SPECIALIZATIONS:
 
     contact: () => `
 Executive Channels:
+  • Primary Email: aliasadcivil007@gmail.com
   • LinkedIn:  <a class="t-link" href="https://www.linkedin.com/in/asad-ali-mulla-044240262/" target="_blank">linkedin.com/in/asad-ali-mulla-044240262/</a>
   • GitHub:    <a class="t-link" href="https://github.com/Asadxio" target="_blank">github.com/Asadxio</a>
   • X/Twitter: <a class="t-link" href="https://twitter.com/AsadXio" target="_blank">@AsadXio</a>
   • Kaggle:    <a class="t-link" href="https://www.kaggle.com/asadxio" target="_blank">kaggle.com/asadxio</a>`,
+
+    email: () => `
+DIRECT INQUIRIES & CONTACT:
+  • Primary Email:  aliasadcivil007@gmail.com
+  • Turnaround:     Direct response within 24 hours
+  • Location:       India · Available for Saudi Arabia & Remote Global Engagements
+  • Direct Link:    <a class="t-link" href="mailto:aliasadcivil007@gmail.com">Launch Mail Client ↗</a>`,
 
     resume: () => {
       window.open("https://drive.google.com/file/d/1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk/view?usp=sharing", "_blank");
@@ -852,7 +877,9 @@ function initCommandPalette() {
   function getCommandCatalog() {
     const defaultActions = [
       { type: "action", icon: "◐", title: "Toggle Theme (Dark / Light)", hint: "Appearance", action: () => { document.querySelector("#theme-toggle")?.click(); } },
+      { type: "action", icon: "⤓", title: "Direct Download Resume PDF (1-Click)", hint: "Resume", action: () => { window.open("https://drive.google.com/uc?export=download&id=1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk", "_blank"); showToast("Downloading Asad Ali Mulla Resume ⤓"); } },
       { type: "action", icon: "✉", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
+      { type: "action", icon: "✉", title: "Copy Email: aliasadcivil007@gmail.com", hint: "Contact", action: () => { navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => showToast("Copied aliasadcivil007@gmail.com to clipboard ✓")); } },
       { type: "action", icon: "📄", title: "View Resume (Curriculum Vitae)", hint: "Credentials", action: () => { openResumeModal(); } },
       { type: "action", icon: ">_", title: "Open Systems & Architecture Console", hint: "Console", action: () => { document.querySelector("#terminal-launcher")?.click(); } },
       { type: "action", icon: "↗", title: "Copy Portfolio URL", hint: "Share", action: () => { navigator.clipboard.writeText("https://asad.myoss.in/").then(() => showToast("Portfolio URL copied to clipboard ✓")); } }
@@ -1041,6 +1068,32 @@ function initContactModal() {
   const connBtn = document.querySelector("#connect-modal-btn");
   if (connBtn) connBtn.addEventListener("click", openContactModal);
 
+  const modalCopyEmailBtn = document.querySelector("#modal-copy-email-btn");
+  if (modalCopyEmailBtn) {
+    modalCopyEmailBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => {
+        showToast("Email address copied to clipboard ✓");
+        modalCopyEmailBtn.innerHTML = 'Copied! <span aria-hidden="true">✓</span>';
+        setTimeout(() => { modalCopyEmailBtn.innerHTML = 'Copy <span aria-hidden="true">⎘</span>'; }, 1800);
+      });
+    });
+  }
+
+  const mailtoBtn = document.querySelector("#contact-mailto-btn");
+  function updateMailto() {
+    if (!mailtoBtn) return;
+    const name = document.querySelector("#contact-name")?.value.trim() || "Visitor";
+    const purpose = document.querySelector("#contact-purpose")?.value || "General Connect";
+    const message = document.querySelector("#contact-message")?.value.trim() || "";
+    const subject = `[Portfolio] ${purpose} from ${name}`;
+    const body = `Name: ${name}\nPurpose: ${purpose}\n\nMessage:\n${message}`;
+    mailtoBtn.href = `mailto:aliasadcivil007@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  if (contactForm) {
+    contactForm.addEventListener("input", updateMailto);
+    updateMailto();
+  }
+
   window.addEventListener("keydown", (e) => {
     if (!contactModal || !contactModal.classList.contains("is-open")) return;
     if (e.key === "Escape") {
@@ -1070,13 +1123,27 @@ function initContactModal() {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const name = document.querySelector("#contact-name")?.value.trim() || "Visitor";
+      const email = document.querySelector("#contact-email")?.value.trim() || "";
+      const purpose = document.querySelector("#contact-purpose")?.value || "General Connect";
+      const message = document.querySelector("#contact-message")?.value.trim() || "";
       const submitBtn = document.querySelector("#contact-submit-btn");
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Dispatching...";
       }
 
-      setTimeout(() => {
+      // Live submission via Web3Forms API with automatic mailto fallback
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: "e34ba114-1e0e-473d-82c5-1f971bca42b3",
+          name,
+          email,
+          subject: `[Portfolio Inquiry] ${purpose} from ${name}`,
+          message: `Opportunity: ${purpose}\nSender: ${name} (${email})\n\nMessage:\n${message}`
+        })
+      }).then(res => res.json()).then(data => {
         if (contactSuccess) contactSuccess.hidden = false;
         contactForm.reset();
         if (submitBtn) {
@@ -1084,12 +1151,32 @@ function initContactModal() {
           submitBtn.innerHTML = 'Send Message <span aria-hidden="true">↗</span>';
         }
         playUiSound("theme");
-        showToast(`Thank you, ${name}! Message dispatched. ✨`);
+        showToast(`Thank you, ${name}! Message dispatched to Asad ✨`);
         setTimeout(() => {
           closeContactModal();
           if (contactSuccess) contactSuccess.hidden = true;
-        }, 2200);
-      }, 600);
+        }, 2400);
+      }).catch(() => {
+        // Fallback: If offline or API fails, trigger default mail client
+        updateMailto();
+        if (mailtoBtn && mailtoBtn.href) {
+          window.location.href = mailtoBtn.href;
+        }
+        if (contactSuccess) {
+          contactSuccess.hidden = false;
+          const strong = contactSuccess.querySelector("strong");
+          if (strong) strong.textContent = "Opening Email Client...";
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Message <span aria-hidden="true">↗</span>';
+        }
+        showToast("Opened inquiry in your email client ✉");
+        setTimeout(() => {
+          closeContactModal();
+          if (contactSuccess) contactSuccess.hidden = true;
+        }, 2400);
+      });
     });
   }
 }
@@ -1234,6 +1321,39 @@ function initMagneticButtons() {
   });
 }
 
+function initGlobalQuickActions() {
+  const aboutEmailBtn = document.querySelector("#about-copy-email");
+  if (aboutEmailBtn) {
+    aboutEmailBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => {
+        showToast("Email copied: aliasadcivil007@gmail.com ✨");
+        const chipText = aboutEmailBtn.querySelector(".chip-email-text");
+        if (chipText) {
+          const orig = chipText.textContent;
+          chipText.textContent = "Copied to clipboard!";
+          setTimeout(() => { chipText.textContent = orig; }, 1800);
+        }
+      });
+    });
+  }
+
+  const connectEmailBtn = document.querySelector("#connect-copy-email-btn");
+  if (connectEmailBtn) {
+    connectEmailBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => {
+        showToast("Email copied: aliasadcivil007@gmail.com ✨");
+        connectEmailBtn.innerHTML = 'Copied! <span aria-hidden="true">✓</span>';
+        setTimeout(() => { connectEmailBtn.innerHTML = '<span>Copy</span> <span aria-hidden="true">⎘</span>'; }, 1800);
+      });
+    });
+  }
+
+  const aboutResumeBtn = document.querySelector("#about-resume-btn");
+  if (aboutResumeBtn) {
+    aboutResumeBtn.addEventListener("click", openResumeModal);
+  }
+}
+
 /* ==========================================================================
    11. Executive Initialization
    ========================================================================== */
@@ -1245,6 +1365,7 @@ async function init() {
   initCommandPalette();
   initContactModal();
   initResumeModal();
+  initGlobalQuickActions();
   fetchLiveGitHubStats();
   initScrollProgressBar();
   initBentoSpotlight();
