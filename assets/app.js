@@ -11,7 +11,7 @@
  *  - Hacker Text Scramble Effect
  */
 
-const categories = ["All work", "Digital Products", "Data & BI", "Machine Learning", "Computer Vision", "AI & Software", "Other Work", "Research & Concepts"];
+const categories = ["All work", "Business Software", "Digital Products", "Data & BI", "Machine Learning", "Computer Vision", "AI & Software", "Other Work", "Research & Concepts"];
 let projects = [];
 let activeCategory = "All work";
 
@@ -519,11 +519,21 @@ function openProjectModal(p) {
       const title = p.title || "Project";
       closeProjectModal();
       openContactModal();
-      const purposeSelect = document.querySelector("#contact-purpose");
-      if (purposeSelect) purposeSelect.value = "Freelance Project";
+      const serviceSelect = document.querySelector("#contact-service");
+      if (serviceSelect) {
+        if (p.category === "Business Software") {
+          serviceSelect.value = "Custom Software";
+        } else if (p.category === "Digital Products") {
+          serviceSelect.value = "Website Development";
+        } else if (p.category && p.category.includes("AI")) {
+          serviceSelect.value = "AI Automation";
+        } else {
+          serviceSelect.value = "Custom Software";
+        }
+      }
       const msgArea = document.querySelector("#contact-message");
       if (msgArea) {
-        msgArea.value = `Hi Asad, I explored your project "${title}" in your portfolio and would like to discuss...`;
+        msgArea.value = `Hi Asad, I explored your project "${title}" in your portfolio and would like to discuss a similar project...`;
         setTimeout(() => msgArea.focus(), 120);
       }
     };
@@ -667,6 +677,7 @@ function initTerminal() {
 Systems & Architecture Console — Available Commands:
   • <span class="t-hl">status</span>        — Production system health and pipeline verification
   • <span class="t-hl">overview</span>      — Executive profile & technical focus
+  • <span class="t-hl">services</span>      — Client services (Websites, Custom Software, AI Automation)
   • <span class="t-hl">architecture</span>  — Engineering stack and deployment tools
   • <span class="t-hl">skills</span>        — Core technical specializations
   • <span class="t-hl">projects</span>      — Verified project directories and links
@@ -708,12 +719,20 @@ CORE COMPETENCY TRACKS:
   [FULL STACK]       FastAPI, React Native, Firebase, Cloudflare, HTML5/CSS3/JS
   [AUTOMATION & SEO] Playwright, Technical SEO, CI/CD, Enterprise Automation`,
 
+    services: () => `
+CLIENT SERVICES &amp; SOLUTIONS:
+  [01] Website Development      — High-performance business & corporate websites, landing pages, SEO.
+  [02] Custom Software & Apps   — Business systems, Inventory & GST billing software, mobile apps.
+  [03] AI Automation & Bots     — Intelligent customer support chatbots, WhatsApp automation, workflows.
+Type 'contact' to initiate a project enquiry.`,
+
     projects: () => `
 Selected Highlights:
-  1. NOOR-E-HARAM      — <a class="t-link" href="https://nooreharam.com/" target="_blank">https://nooreharam.com/</a>
-  2. PDF Toolbox       — <a class="t-link" href="https://pdf.myoss.in/" target="_blank">https://pdf.myoss.in/</a>
-  3. GitHub Profile    — <a class="t-link" href="https://github.com/Asadxio" target="_blank">https://github.com/Asadxio</a>
-Total projects in archive: 24`,
+  1. Inventory & Billing System — Custom Business Management System & GST Invoicing [Prototype]
+  2. NOOR-E-HARAM              — <a class="t-link" href="https://nooreharam.com/" target="_blank">https://nooreharam.com/</a>
+  3. PDF Toolbox               — <a class="t-link" href="https://pdf.myoss.in/" target="_blank">https://pdf.myoss.in/</a>
+  4. GitHub Profile            — <a class="t-link" href="https://github.com/Asadxio" target="_blank">https://github.com/Asadxio</a>
+Total projects in archive: 25`,
 
     credentials: () => `
 VERIFIED CREDENTIALS & SPECIALIZATIONS:
@@ -877,6 +896,7 @@ function initCommandPalette() {
   function getCommandCatalog() {
     const defaultActions = [
       { type: "action", icon: "◐", title: "Toggle Theme (Dark / Light)", hint: "Appearance", action: () => { document.querySelector("#theme-toggle")?.click(); } },
+      { type: "action", icon: "🚀", title: "Start a Project (Website, Custom Software, AI Automation)", hint: "Client Inquiry", action: () => { openContactModal(); } },
       { type: "action", icon: "⤓", title: "Direct Download Resume PDF (1-Click)", hint: "Resume", action: () => { window.open("https://drive.google.com/uc?export=download&id=1mB_SIPnnv3y_hB-CiimIU7OT_vVpUtuk", "_blank"); showToast("Downloading Asad Ali Mulla Resume ⤓"); } },
       { type: "action", icon: "✉", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
       { type: "action", icon: "✉", title: "Copy Email: aliasadcivil007@gmail.com", hint: "Contact", action: () => { navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => showToast("Copied aliasadcivil007@gmail.com to clipboard ✓")); } },
@@ -887,13 +907,15 @@ function initCommandPalette() {
 
     const navItems = [
       { type: "nav", icon: "§", title: "Selected Work Archive", hint: "Section", action: () => { document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Client Services & Solutions", hint: "Section", action: () => { document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "About Asad Ali Mulla", hint: "Section", action: () => { document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); } },
-      { type: "nav", icon: "§", title: "Areas of Focus (Expertise)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Core Engineering Stack (Tools)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "Credentials & Background", hint: "Section", action: () => { document.querySelector("#credentials")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "Connect & Socials", hint: "Section", action: () => { document.querySelector("#connect")?.scrollIntoView({ behavior: "smooth" }); } }
     ];
 
     const skills = [
+      "Business Software", "Inventory Tracking", "Website Development", "AI Automation",
       "Python", "SQL", "Power BI", "Machine Learning", "Computer Vision",
       "FastAPI", "React Native", "Firebase", "Cloudflare", "Playwright", "Technical SEO"
     ].map(s => ({
@@ -1068,6 +1090,25 @@ function initContactModal() {
   const connBtn = document.querySelector("#connect-modal-btn");
   if (connBtn) connBtn.addEventListener("click", openContactModal);
 
+  const acquisitionBtn = document.querySelector("#acquisition-start-btn");
+  if (acquisitionBtn) acquisitionBtn.addEventListener("click", openContactModal);
+
+  // Bind all Service Card CTA buttons to pre-populate service dropdown
+  document.querySelectorAll(".service-cta-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const serviceVal = btn.dataset.service || "Website Development";
+      openContactModal();
+      const serviceSelect = document.querySelector("#contact-service");
+      if (serviceSelect) {
+        serviceSelect.value = serviceVal;
+      }
+      const msgArea = document.querySelector("#contact-message");
+      if (msgArea && !msgArea.value.trim()) {
+        msgArea.placeholder = `Describe your ${serviceVal.toLowerCase()} goals, expected features, or timelines...`;
+      }
+    });
+  });
+
   const modalCopyEmailBtn = document.querySelector("#modal-copy-email-btn");
   if (modalCopyEmailBtn) {
     modalCopyEmailBtn.addEventListener("click", () => {
@@ -1080,17 +1121,36 @@ function initContactModal() {
   }
 
   const mailtoBtn = document.querySelector("#contact-mailto-btn");
+  const contactError = document.querySelector("#contact-error");
+  const contactErrorText = document.querySelector("#contact-error-text");
+
+  function getFormValues() {
+    return {
+      name: document.querySelector("#contact-name")?.value.trim() || "",
+      business: document.querySelector("#contact-business")?.value.trim() || "",
+      email: document.querySelector("#contact-email")?.value.trim() || "",
+      phone: document.querySelector("#contact-phone")?.value.trim() || "",
+      service: document.querySelector("#contact-service")?.value || "Website Development",
+      budget: document.querySelector("#contact-budget")?.value || "Discuss / Flexible",
+      message: document.querySelector("#contact-message")?.value.trim() || "",
+      botcheck: document.querySelector('input[name="botcheck"]')?.checked || false
+    };
+  }
+
   function updateMailto() {
     if (!mailtoBtn) return;
-    const name = document.querySelector("#contact-name")?.value.trim() || "Visitor";
-    const purpose = document.querySelector("#contact-purpose")?.value || "General Connect";
-    const message = document.querySelector("#contact-message")?.value.trim() || "";
-    const subject = `[Portfolio] ${purpose} from ${name}`;
-    const body = `Name: ${name}\nPurpose: ${purpose}\n\nMessage:\n${message}`;
+    const { name, business, email, phone, service, budget, message } = getFormValues();
+    const displayName = name || "Prospective Client";
+    const subject = `[Client Inquiry] ${service} from ${displayName}${business ? ` (${business})` : ""}`;
+    const body = `Full Name: ${displayName}\nBusiness: ${business || "N/A"}\nEmail: ${email || "Not specified"}\nWhatsApp / Phone: ${phone || "Not specified"}\nService Required: ${service}\nEstimated Budget: ${budget}\n\nProject Scope & Requirements:\n${message || "(Enter project details)"}`;
     mailtoBtn.href = `mailto:aliasadcivil007@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
+
   if (contactForm) {
-    contactForm.addEventListener("input", updateMailto);
+    contactForm.addEventListener("input", () => {
+      if (contactError && !contactError.hidden) contactError.hidden = true;
+      updateMailto();
+    });
     updateMailto();
   }
 
@@ -1101,7 +1161,7 @@ function initContactModal() {
       return;
     }
     if (e.key === "Tab") {
-      const focusable = contactModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      const focusable = contactModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]):not([tabindex="-1"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
       if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -1122,40 +1182,89 @@ function initContactModal() {
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const name = document.querySelector("#contact-name")?.value.trim() || "Visitor";
-      const email = document.querySelector("#contact-email")?.value.trim() || "";
-      const purpose = document.querySelector("#contact-purpose")?.value || "General Connect";
-      const message = document.querySelector("#contact-message")?.value.trim() || "";
+      const vals = getFormValues();
+
+      // Bot protection
+      if (vals.botcheck) {
+        console.warn("Spam submission blocked.");
+        return;
+      }
+
+      // Validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!vals.name) {
+        showFormError("Please enter your name.");
+        document.querySelector("#contact-name")?.focus();
+        return;
+      }
+      if (!vals.email || !emailRegex.test(vals.email)) {
+        showFormError("Please enter a valid email address.");
+        document.querySelector("#contact-email")?.focus();
+        return;
+      }
+      if (!vals.phone || vals.phone.length < 6) {
+        showFormError("Please enter a valid WhatsApp or phone number.");
+        document.querySelector("#contact-phone")?.focus();
+        return;
+      }
+      if (!vals.message || vals.message.length < 10) {
+        showFormError("Please describe your project (at least 10 characters).");
+        document.querySelector("#contact-message")?.focus();
+        return;
+      }
+
+      if (contactError) contactError.hidden = true;
+
       const submitBtn = document.querySelector("#contact-submit-btn");
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Dispatching...";
       }
 
-      // Live submission via Web3Forms API with automatic mailto fallback
+      const subject = `[Client Inquiry] ${vals.service} from ${vals.name}${vals.business ? ` (${vals.business})` : ""}`;
+      const compiledMessage = `FULL NAME: ${vals.name}
+BUSINESS: ${vals.business || "N/A"}
+EMAIL: ${vals.email}
+WHATSAPP / PHONE: ${vals.phone}
+SERVICE REQUIRED: ${vals.service}
+ESTIMATED BUDGET: ${vals.budget}
+
+PROJECT SCOPE & REQUIREMENTS:
+${vals.message}`;
+
+      // Live submission via Web3Forms API
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
           access_key: "e34ba114-1e0e-473d-82c5-1f971bca42b3",
-          name,
-          email,
-          subject: `[Portfolio Inquiry] ${purpose} from ${name}`,
-          message: `Opportunity: ${purpose}\nSender: ${name} (${email})\n\nMessage:\n${message}`
+          name: vals.name,
+          email: vals.email,
+          phone: vals.phone,
+          business: vals.business,
+          service: vals.service,
+          budget: vals.budget,
+          subject: subject,
+          message: compiledMessage
         })
       }).then(res => res.json()).then(data => {
-        if (contactSuccess) contactSuccess.hidden = false;
-        contactForm.reset();
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Send Message <span aria-hidden="true">↗</span>';
+        if (data.success) {
+          if (contactSuccess) contactSuccess.hidden = false;
+          contactForm.reset();
+          updateMailto();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Project Enquiry <span aria-hidden="true">↗</span>';
+          }
+          playUiSound("theme");
+          showToast(`Thank you, ${vals.name}! Project enquiry dispatched to Asad ✨`);
+          setTimeout(() => {
+            closeContactModal();
+            if (contactSuccess) contactSuccess.hidden = true;
+          }, 2800);
+        } else {
+          throw new Error(data.message || "Submission failed");
         }
-        playUiSound("theme");
-        showToast(`Thank you, ${name}! Message dispatched to Asad ✨`);
-        setTimeout(() => {
-          closeContactModal();
-          if (contactSuccess) contactSuccess.hidden = true;
-        }, 2400);
       }).catch(() => {
         // Fallback: If offline or API fails, trigger default mail client
         updateMailto();
@@ -1166,18 +1275,29 @@ function initContactModal() {
           contactSuccess.hidden = false;
           const strong = contactSuccess.querySelector("strong");
           if (strong) strong.textContent = "Opening Email Client...";
+          const p = contactSuccess.querySelector("p");
+          if (p) p.textContent = "Connecting to your mail client with your pre-filled inquiry.";
         }
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Send Message <span aria-hidden="true">↗</span>';
+          submitBtn.innerHTML = 'Send Project Enquiry <span aria-hidden="true">↗</span>';
         }
-        showToast("Opened inquiry in your email client ✉");
+        showToast("Opening inquiry in your email client ✉");
         setTimeout(() => {
           closeContactModal();
           if (contactSuccess) contactSuccess.hidden = true;
-        }, 2400);
+        }, 2800);
       });
     });
+  }
+
+  function showFormError(msg) {
+    if (contactError && contactErrorText) {
+      contactErrorText.textContent = msg;
+      contactError.hidden = false;
+    } else {
+      alert(msg);
+    }
   }
 }
 
@@ -1291,7 +1411,7 @@ function initScrollProgressBar() {
 
 function initBentoSpotlight() {
   if (window.matchMedia("(hover: none)").matches) return;
-  const cards = document.querySelectorAll(".project-card, .credential-card, .stat-card, .expertise-card");
+  const cards = document.querySelectorAll(".project-card, .credential-card, .stat-card, .expertise-card, .service-card");
 
   cards.forEach(card => {
     card.addEventListener("mousemove", (e) => {

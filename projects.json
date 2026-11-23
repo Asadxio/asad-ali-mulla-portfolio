@@ -1,5 +1,22 @@
 [
   {
+    "title": "Inventory & Billing Management System",
+    "category": "Business Software",
+    "status": "Portfolio Demo / Prototype",
+    "featured": true,
+    "description": "A modern business management platform designed to simplify inventory tracking, sales billing, purchase management, customer records and business reporting.",
+    "tags": [
+      "Business Software",
+      "Inventory Tracking",
+      "Billing & GST",
+      "Sales & Purchases",
+      "Analytics Dashboard"
+    ],
+    "url": "",
+    "repo": "",
+    "stageNote": "Portfolio Demo / Prototype. Architecture encompasses 8 core modules: Dashboard (KPIs & low-stock alerts), Inventory (SKU/barcode & stock adjustment history), Billing (GST-ready sequential PDF invoices), Sales, Purchases, Customer CRM, and Exportable Reports."
+  },
+  {
     "title": "NOOR-E-HARAM",
     "category": "Digital Products",
     "status": "Live",
