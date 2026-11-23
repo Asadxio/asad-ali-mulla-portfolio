@@ -28,6 +28,19 @@ const SITE_CONFIG = {
   debug: false
 };
 
+function trackEvent(eventName, eventProps = {}) {
+  if (SITE_CONFIG.analyticsEnabled) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, eventProps);
+    } else if (typeof window.plausible === "function") {
+      window.plausible(eventName, { props: eventProps });
+    }
+  }
+  if (SITE_CONFIG.debug) {
+    console.debug(`[Analytics Event: ${eventName}]`, eventProps);
+  }
+}
+
 const categories = [
   "All work",
   "Web Development",
@@ -102,7 +115,7 @@ function initTheme() {
       setTheme(next);
       localStorage.setItem("asad_portfolio_theme", next);
       playUiSound("theme");
-      showToast(next === "dark" ? "Cyber Obsidian dark mode 🌙" : "Ivory light mode ☀️");
+      showToast(next === "dark" ? "Dark mode enabled" : "Light mode enabled");
     });
   }
 }
@@ -279,7 +292,7 @@ function initThreeHero() {
     isShockwave = true;
     shockwaveScale = 1.35;
     playUiSound("open");
-    showToast("Neural mesh shockwave triggered 🌐");
+    showToast("Neural mesh pulse triggered");
   });
 
   // Animation Loop with Visibility & Intersection Observer Optimization
@@ -418,7 +431,7 @@ function projectCard(p, i, featured = false) {
         <div class="tag-list">${tags}</div>
         <div class="project-actions">
           ${link}
-          <button type="button" class="project-details-btn" data-index="${i}" aria-label="View details for ${escapeHTML(p.title)}">View details <span aria-hidden="true">↗</span></button>
+          <button type="button" class="project-details-btn" data-index="${i}" aria-label="View details for ${escapeHTML(p.title)}">View details <span aria-hidden="true">→</span></button>
         </div>
       </div>
     </article>`;
@@ -458,6 +471,7 @@ function renderFilters() {
 
   filterBar.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
     activeCategory = btn.dataset.category;
+    trackEvent("filter_applied", { category: activeCategory });
     renderFilters();
     renderArchive();
   }));
@@ -480,6 +494,7 @@ function renderArchive() {
 }
 
 function renderFeatured() {
+  if (!featuredGrid) return;
   const featured = projects.filter(p => p.featured).slice(0, 6);
   featuredGrid.innerHTML = featured.map(p => projectCard(p, projects.indexOf(p), true)).join("");
   attachCardClickListeners();
@@ -656,6 +671,7 @@ function openProjectModal(p) {
   projectModal.classList.add("is-open");
   projectModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  trackEvent("project_inspected", { title: p.title || "Project", category: p.category || "General" });
 
   if (modalClose) {
     modalClose.focus();
@@ -828,65 +844,66 @@ function initTerminal() {
 
   const commands = {
     help: () => `
-Systems & Architecture Console — Available Commands:
-  • <span class="t-hl">status</span>        — Production system health and pipeline verification
-  • <span class="t-hl">overview</span>      — Executive profile & technical focus
-  • <span class="t-hl">services</span>      — Client services (Websites, Custom Software, AI Automation)
+Interactive Developer Console — Available Commands:
+  • <span class="t-hl">status</span>        — Architecture health and portfolio verification
+  • <span class="t-hl">overview</span>      — Engineering profile & core technical focus
+  • <span class="t-hl">services</span>      — Client offerings (Web Apps, Custom Software, AI Automation)
   • <span class="t-hl">architecture</span>  — Engineering stack and deployment tools
-  • <span class="t-hl">skills</span>        — Core technical specializations
-  • <span class="t-hl">projects</span>      — Verified project directories and links
-  • <span class="t-hl">credentials</span>   — Verified certifications and tracks
-  • <span class="t-hl">contact</span>       — Executive communication channels
+  • <span class="t-hl">skills</span>        — Technical capabilities & tools
+  • <span class="t-hl">projects</span>      — Project builds, live demos and repositories
+  • <span class="t-hl">credentials</span>   — Engineering background and certifications
+  • <span class="t-hl">contact</span>       — Direct communication channels
   • <span class="t-hl">email</span>         — Direct email address & inquiry details
-  • <span class="t-hl">resume</span>        — Verified credentials document (PDF)
+  • <span class="t-hl">resume</span>        — Downloadable resume document
   • <span class="t-hl">theme</span>         — Toggle display mode (dark/light)
   • <span class="t-hl">clear</span>         — Clear terminal output buffer
   • <span class="t-hl">exit</span>          — Close console window`,
 
     status: () => `
-SYSTEM HEALTH & ARCHITECTURE STATUS:
-  • Host:           asad.myoss.in (Production SSL Verified)
-  • Pipelines:      Online (Data Analytics, ML Inference, Vision OCR)
+PORTFOLIO &amp; ARCHITECTURE STATUS:
+  • Host:           asad.myoss.in (HTTPS Secured)
+  • Tech Stack:     Vanilla ES6+, CSS3 Design Tokens, Modern Micro-Interactions
   • Repositories:   Public & Verified on GitHub (@Asadxio)
-  • Uptime:         100% (GitHub Enterprise CDN / Cloudflare)
-  • Availability:   Open for Technical Engagements & High-Impact Roles`,
+  • Regions:        Serving Clients in India &amp; Saudi Arabia / Gulf
+  • Availability:   Open for Client Projects &amp; Select Technical Contracts`,
 
     architecture: () => `
-TECHNICAL ARCHITECTURE & TOOLING:
-  • Core Stack:     Python 3.11, SQL, Power BI, Pandas, NumPy, Scikit-Learn
-  • Applied AI:     TensorFlow, CNN Computer Vision, OCR Pipelines, FastAPI
-  • Web & Systems:  React Native / Expo, Cloudflare Workers, Firebase, HTML5/CSS3
-  • Reliability:    Playwright Automation, Continuous Integration, Technical SEO`,
+TECHNICAL ARCHITECTURE &amp; TOOLING:
+  • Web &amp; Apps:    HTML5/CSS3, JavaScript (ES6+), React Native / Expo, Tailwind
+  • Backend &amp; APIs: Python (FastAPI, Flask), Node.js, RESTful APIs, Webhooks
+  • AI Automation:  Gemini API, OpenAI, Prompt Engineering, Workflow Automation
+  • Data &amp; Cloud:  PostgreSQL, SQLite, Firebase, Power BI, Cloudflare, Git`,
 
     overview: () => `
-Asad Ali Mulla — Data Analytics, Machine Learning & Digital Products.
-Focus: Designing robust data systems, machine learning pipelines, and performant web products that solve measurable real-world problems.`,
+Asad Ali Mulla — Full-Stack Engineer, Custom Software &amp; AI Automation Developer.
+Focus: Building web applications, custom business software, and intelligent AI automation for businesses in India, Saudi Arabia, and globally.`,
 
     about: () => `
-Asad Ali Mulla — Data Analytics, Machine Learning & Digital Products.
-Focus: Designing robust data systems, machine learning pipelines, and performant web products that solve measurable real-world problems.`,
+Asad Ali Mulla — Full-Stack Engineer, Custom Software &amp; AI Automation Developer.
+Focus: Building web applications, custom business software, and intelligent AI automation for businesses in India, Saudi Arabia, and globally.`,
 
     skills: () => `
 CORE COMPETENCY TRACKS:
-  [DATA & BI]        Python, SQL, Power BI, Pandas, NumPy, Jupyter, ETL Modeling
-  [ML & VISION]      Scikit-learn, CNN, TensorFlow, Computer Vision, OCR
-  [FULL STACK]       FastAPI, React Native, Firebase, Cloudflare, HTML5/CSS3/JS
-  [AUTOMATION & SEO] Playwright, Technical SEO, CI/CD, Enterprise Automation`,
+  [WEB & APPS]       HTML5, CSS3, JavaScript (ES6+), React Native, Tailwind CSS
+  [BACKEND & APIS]   Python (FastAPI/Flask), Node.js, REST APIs, Webhooks
+  [AI & AUTOMATION]  LLM APIs, AI Chatbots, Prompt Engineering, Automation Scripts
+  [DATA & DATABASES] PostgreSQL, SQLite, Firebase, Power BI, DAX, Pandas`,
 
     services: () => `
 CLIENT SERVICES &amp; SOLUTIONS:
   [01] Website Development      — High-performance business & corporate websites, landing pages, SEO.
   [02] Custom Software & Apps   — Business systems, Inventory & GST billing software, mobile apps.
   [03] AI Automation & Bots     — Intelligent customer support chatbots, WhatsApp automation, workflows.
-Type 'contact' to initiate a project enquiry.`,
+Type 'contact' to initiate a project inquiry.`,
 
     projects: () => `
 Selected Highlights:
-  1. Inventory & Billing System — Custom Business Management System & GST Invoicing [Prototype]
-  2. NOOR-E-HARAM              — <a class="t-link" href="https://nooreharam.com/" target="_blank">https://nooreharam.com/</a>
-  3. PDF Toolbox               — <a class="t-link" href="https://pdf.myoss.in/" target="_blank">https://pdf.myoss.in/</a>
-  4. GitHub Profile            — <a class="t-link" href="https://github.com/Asadxio" target="_blank">https://github.com/Asadxio</a>
-Total projects in archive: 25`,
+  1. NOOR-E-HARAM              — https://nooreharam.com/ [Live Deployment]
+  2. PDF Toolbox               — https://pdf.myoss.in/ [Live Deployment]
+  3. Inventory & Billing System — Custom Business Management System & GST Invoicing [Demo]
+  4. Bahar-e-Shariat AI        — Contextual RAG Document Assistant [Research/Demo]
+  5. GitHub Profile            — https://github.com/Asadxio
+Total projects in archive: ${projects.length || 29}`,
 
     credentials: () => `
 VERIFIED CREDENTIALS & SPECIALIZATIONS:
@@ -999,6 +1016,19 @@ function initCommandPalette() {
   const input = document.querySelector("#cmd-input");
   const results = document.querySelector("#cmd-results");
   if (!palette || !input || !results) return;
+
+  const kbd = trigger ? trigger.querySelector(".cmd-k-kbd") : null;
+  if (kbd) {
+    const isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isTouch) {
+      kbd.style.display = "none";
+    } else {
+      kbd.textContent = isMac ? "⌘K" : "Ctrl K";
+      trigger.setAttribute("title", `Search & Actions (${isMac ? '⌘K' : 'Ctrl+K'})`);
+      trigger.setAttribute("aria-label", `Open Command Palette (${isMac ? '⌘K' : 'Ctrl+K'})`);
+    }
+  }
 
   let selectedIdx = 0;
   let currentItems = [];
@@ -1242,7 +1272,12 @@ function initContactModal() {
   if (contactBackdrop) contactBackdrop.addEventListener("click", closeContactModal);
 
   const heroBtn = document.querySelector("#hero-contact-btn");
-  if (heroBtn) heroBtn.addEventListener("click", openContactModal);
+  if (heroBtn) {
+    heroBtn.addEventListener("click", () => {
+      trackEvent("start_project_clicked", { source: "hero" });
+      openContactModal();
+    });
+  }
 
   const connBtn = document.querySelector("#connect-modal-btn");
   if (connBtn) connBtn.addEventListener("click", openContactModal);
@@ -1266,25 +1301,28 @@ function initContactModal() {
     });
   });
 
+  // Bind start-inquiry-cta buttons
+  document.querySelectorAll(".start-inquiry-cta").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const serviceVal = btn.dataset.service || "Website Development";
+      openContactModal();
+      const serviceSelect = document.querySelector("#contact-service");
+      if (serviceSelect) serviceSelect.value = serviceVal;
+    });
+  });
+
   // Bind all Work With Me Engagement Model CTA buttons to pre-populate modal
   document.querySelectorAll(".wwm-model-cta").forEach(btn => {
     btn.addEventListener("click", () => {
-      const model = btn.dataset.model || "Custom Development";
+      const serviceVal = btn.dataset.service || "Custom Software";
       openContactModal();
       const serviceSelect = document.querySelector("#contact-service");
       if (serviceSelect) {
-        if (model === "Fixed-Scope Project") {
-          serviceSelect.value = "Website Development";
-        } else if (model === "Custom Development") {
-          serviceSelect.value = "Custom Software";
-        } else {
-          serviceSelect.value = "Custom Software";
-        }
+        serviceSelect.value = serviceVal;
       }
       const msgArea = document.querySelector("#contact-message");
-      if (msgArea) {
-        msgArea.value = `Hi Asad, I'm interested in an engagement under the "${model}" model. Here are details about what I want to build...`;
-        setTimeout(() => msgArea.focus(), 120);
+      if (msgArea && !msgArea.value.trim()) {
+        msgArea.placeholder = `Tell me about your project scope, requirements, or business objectives...`;
       }
     });
   });
@@ -1311,10 +1349,11 @@ function initContactModal() {
       email: document.querySelector("#contact-email")?.value.trim() || "",
       phone: document.querySelector("#contact-phone")?.value.trim() || "",
       service: document.querySelector("#contact-service")?.value || "Website Development",
-      budget: document.querySelector("#contact-budget")?.value || "Discuss / Flexible",
-      timeline: document.querySelector("#contact-timeline")?.value || "Flexible / Ready Now",
+      budget: document.querySelector("#contact-budget")?.value || "Flexible / Open to discussion",
+      timeline: document.querySelector("#contact-timeline")?.value || "Flexible / To be discussed",
       message: document.querySelector("#contact-message")?.value.trim() || "",
-      botcheck: document.querySelector('input[name="botcheck"]')?.checked || false
+      botcheck: document.querySelector('input[name="botcheck"]')?.checked || false,
+      gotcha: document.querySelector('input[name="_gotcha"]')?.value || ""
     };
   }
 
@@ -1366,8 +1405,11 @@ function initContactModal() {
       const vals = getFormValues();
 
       // Bot protection
-      if (vals.botcheck) {
+      if (vals.botcheck || vals.gotcha) {
         console.warn("Spam submission blocked.");
+        if (contactSuccess) contactSuccess.hidden = false;
+        contactForm.reset();
+        setTimeout(() => closeContactModal(), 1200);
         return;
       }
 
@@ -1378,14 +1420,12 @@ function initContactModal() {
         document.querySelector("#contact-name")?.focus();
         return;
       }
-      if (!vals.email || !emailRegex.test(vals.email)) {
-        showFormError("Please enter a valid email address.");
-        document.querySelector("#contact-email")?.focus();
-        return;
-      }
-      if (!vals.phone || vals.phone.length < 6) {
-        showFormError("Please enter a valid WhatsApp or phone number.");
-        document.querySelector("#contact-phone")?.focus();
+      const hasValidEmail = vals.email && emailRegex.test(vals.email);
+      const hasValidPhone = vals.phone && vals.phone.replace(/\D/g, "").length >= 7;
+      if (!hasValidEmail && !hasValidPhone) {
+        showFormError("Please provide at least a valid Email address or WhatsApp number.");
+        if (!vals.email) document.querySelector("#contact-email")?.focus();
+        else document.querySelector("#contact-phone")?.focus();
         return;
       }
       if (!vals.message || vals.message.length < 10) {
@@ -1399,14 +1439,14 @@ function initContactModal() {
       const submitBtn = document.querySelector("#contact-submit-btn");
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = "Dispatching...";
+        submitBtn.textContent = "Sending Inquiry...";
       }
 
       const subject = `[Client Inquiry] ${vals.service} from ${vals.name}${vals.business ? ` (${vals.business})` : ""}`;
       const compiledMessage = `FULL NAME: ${vals.name}
 BUSINESS: ${vals.business || "N/A"}
-EMAIL: ${vals.email}
-WHATSAPP / PHONE: ${vals.phone}
+EMAIL: ${vals.email || "Not provided"}
+WHATSAPP / PHONE: ${vals.phone || "Not provided"}
 SERVICE REQUIRED: ${vals.service}
 ESTIMATED BUDGET: ${vals.budget}
 EXPECTED TIMELINE: ${vals.timeline}
@@ -1421,8 +1461,8 @@ ${vals.message}`;
         body: JSON.stringify({
           access_key: "e34ba114-1e0e-473d-82c5-1f971bca42b3",
           name: vals.name,
-          email: vals.email,
-          phone: vals.phone,
+          email: vals.email || "inquiry@client.direct",
+          phone: vals.phone || "",
           business: vals.business,
           service: vals.service,
           budget: vals.budget,
@@ -1437,10 +1477,13 @@ ${vals.message}`;
           updateMailto();
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Send Project Enquiry <span aria-hidden="true">↗</span>';
+            submitBtn.innerHTML = 'Send Project Inquiry →';
           }
           playUiSound("theme");
-          showToast(`Thank you, ${vals.name}! Project enquiry dispatched to Asad ✨`);
+          showToast(`Thank you, ${vals.name}! Project inquiry sent to Asad ✓`);
+          if (typeof trackEvent === "function") {
+            trackEvent("inquiry_submitted", { service: vals.service, budget: vals.budget });
+          }
           setTimeout(() => {
             closeContactModal();
             if (contactSuccess) contactSuccess.hidden = true;
@@ -1463,7 +1506,7 @@ ${vals.message}`;
         }
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Send Project Enquiry <span aria-hidden="true">↗</span>';
+          submitBtn.innerHTML = 'Send Project Inquiry →';
         }
         showToast("Opening inquiry in your email client ✉");
         setTimeout(() => {
@@ -1498,6 +1541,7 @@ function openResumeModal() {
   resumeModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   playUiSound("open");
+  trackEvent("resume_modal_opened");
   if (resumeClose) resumeClose.focus();
 }
 
@@ -1654,6 +1698,19 @@ function initGlobalQuickActions() {
   const aboutResumeBtn = document.querySelector("#about-resume-btn");
   if (aboutResumeBtn) {
     aboutResumeBtn.addEventListener("click", openResumeModal);
+  }
+
+  document.querySelectorAll('a[download]').forEach(a => {
+    a.addEventListener("click", () => {
+      trackEvent("resume_downloaded", { file: a.getAttribute("download") || "resume.pdf" });
+    });
+  });
+
+  const heroWorkBtn = document.querySelector('a.button[href="#work"]');
+  if (heroWorkBtn) {
+    heroWorkBtn.addEventListener("click", () => {
+      trackEvent("view_work_clicked", { source: "hero" });
+    });
   }
 }
 
