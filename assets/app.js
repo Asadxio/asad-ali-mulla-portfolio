@@ -11,6 +11,23 @@
  *  - Hacker Text Scramble Effect
  */
 
+const SITE_CONFIG = {
+  name: "Asad Ali Mulla",
+  email: "aliasadcivil007@gmail.com",
+  phone: "+91 91373 30084",
+  phoneRaw: "919137330084",
+  whatsappUrl: "https://wa.me/919137330084?text=Hi%20Asad%2C%20I%20am%20interested%20in%20discussing%20a%20project.",
+  socials: {
+    github: "https://github.com/Asadxio",
+    linkedin: "https://linkedin.com/in/asadalimulla",
+    kaggle: "https://kaggle.com/asadalimulla",
+    medium: "https://medium.com/@asadmulla",
+    x: "https://x.com/AsadAliMulla"
+  },
+  analyticsEnabled: false,
+  debug: false
+};
+
 const categories = [
   "All work",
   "Web Development",
@@ -698,16 +715,38 @@ function updateDynamicStats(list) {
   const elLive = document.querySelector("#stat-live-projects");
   const elDemos = document.querySelector("#stat-interactive-demos");
   const elRepos = document.querySelector("#stat-github-repos");
+  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (elTotal) { elTotal.dataset.target = String(total); elTotal.textContent = String(total); }
-  if (elLive) { elLive.dataset.target = String(live); elLive.textContent = String(live); }
-  if (elDemos) { elDemos.dataset.target = String(demos); elDemos.textContent = String(demos); }
-  if (elRepos) { elRepos.dataset.target = String(repos); elRepos.textContent = String(repos); }
+  if (elTotal) {
+    elTotal.dataset.target = String(total);
+    if (prefersReduced) elTotal.textContent = String(total);
+  }
+  if (elLive) {
+    elLive.dataset.target = String(live);
+    if (prefersReduced) elLive.textContent = String(live);
+  }
+  if (elDemos) {
+    elDemos.dataset.target = String(demos);
+    if (prefersReduced) elDemos.textContent = String(demos);
+  }
+  if (elRepos) {
+    elRepos.dataset.target = String(repos);
+    if (prefersReduced) elRepos.textContent = String(repos);
+  }
 }
 
 function initStatsCounter() {
   const counters = document.querySelectorAll(".counter");
   if (!counters.length) return;
+
+  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced) {
+    counters.forEach(counter => {
+      const target = counter.dataset.target;
+      if (target) counter.textContent = target;
+    });
+    return;
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -717,7 +756,7 @@ function initStatsCounter() {
           if (isNaN(target)) return;
 
           let start = 0;
-          const duration = 1600;
+          const duration = 1400;
           const startTime = performance.now();
 
           function updateNumber(now) {
