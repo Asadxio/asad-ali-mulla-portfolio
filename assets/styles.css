@@ -1156,6 +1156,381 @@ h1, h2, h3, p { margin-top: 0; }
 }
 
 /* ==========================================================================
+   Work With Me Section (Process, Expectations, Engagement & Tech Strip)
+   ========================================================================== */
+.work-with-me-section {
+  padding: 100px 0 90px;
+}
+
+.wwm-subblock {
+  margin-top: 64px;
+}
+
+.wwm-subblock-header {
+  margin-bottom: 28px;
+}
+
+.wwm-subheading {
+  font: 700 var(--heading-md) var(--display);
+  letter-spacing: -0.03em;
+  margin: 6px 0 8px;
+  color: var(--ink);
+}
+
+.wwm-subdesc {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 680px;
+}
+
+/* 6-Step Process Cards */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.process-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 24px;
+  position: relative;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+}
+
+:root[data-theme="dark"] .process-card {
+  background: rgba(15, 23, 20, 0.65);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.process-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 28px rgba(179, 134, 54, 0.09);
+}
+
+:root[data-theme="dark"] .process-card:hover {
+  box-shadow: 0 12px 32px rgba(229, 184, 105, 0.1);
+}
+
+.process-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.process-step-num {
+  font: 700 var(--text-xs) var(--mono);
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+
+.process-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.process-title {
+  font: 700 var(--text-base) var(--display);
+  color: var(--ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.process-desc {
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* What Clients Can Expect */
+.expectations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.expectation-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 22px 22px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.02);
+}
+
+:root[data-theme="dark"] .expectation-card {
+  background: rgba(15, 23, 20, 0.65);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+.expectation-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(11, 61, 46, 0.06);
+}
+
+:root[data-theme="dark"] .expectation-card:hover {
+  box-shadow: 0 8px 24px rgba(229, 184, 105, 0.08);
+}
+
+.expectation-icon {
+  font-size: 24px;
+  line-height: 1.2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.expectation-content h4 {
+  font: 700 var(--text-sm) var(--display);
+  color: var(--ink);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.expectation-content p {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Project Engagement Models */
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.engagement-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 34px 28px;
+  position: relative;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+
+:root[data-theme="dark"] .engagement-card {
+  background: rgba(15, 23, 20, 0.65);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.engagement-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 30px rgba(11, 61, 46, 0.08);
+}
+
+:root[data-theme="dark"] .engagement-card:hover {
+  box-shadow: 0 12px 32px rgba(229, 184, 105, 0.1);
+}
+
+.engagement-featured {
+  border-color: var(--gold);
+  box-shadow: 0 8px 30px rgba(179, 134, 54, 0.1);
+}
+
+:root[data-theme="dark"] .engagement-featured {
+  border-color: rgba(229, 184, 105, 0.55);
+  box-shadow: 0 8px 32px rgba(229, 184, 105, 0.12);
+}
+
+.engagement-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.engagement-badge {
+  font: 600 11px var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge-featured {
+  background: rgba(179, 134, 54, 0.14);
+  color: var(--gold);
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+:root[data-theme="dark"] .badge-featured {
+  background: rgba(229, 184, 105, 0.18);
+  color: var(--gold);
+}
+
+.engagement-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.engagement-title {
+  font: 700 var(--heading-md) var(--display);
+  letter-spacing: -0.03em;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.engagement-subtitle {
+  font: 500 var(--text-xs) var(--mono);
+  color: var(--gold);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+
+.engagement-desc {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.engagement-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.engagement-features li {
+  font-size: var(--text-xs);
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.engagement-action {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.wwm-model-cta {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Technology Strip */
+.wwm-tech-strip {
+  background: var(--tag-bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 36px 32px;
+  margin-top: 64px;
+  margin-bottom: 48px;
+}
+
+:root[data-theme="dark"] .wwm-tech-strip {
+  background: rgba(15, 23, 20, 0.55);
+}
+
+.tech-strip-header h4 {
+  font: 700 var(--heading-sm) var(--display);
+  letter-spacing: -0.02em;
+  margin: 6px 0 6px;
+  color: var(--ink);
+}
+
+.tech-strip-header p {
+  font-size: var(--text-xs);
+  color: var(--muted);
+  margin: 0;
+}
+
+.tech-badge-cluster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+
+.tech-cluster-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cluster-label {
+  font: 700 11px var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.cluster-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tech-tag {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font: 500 var(--text-xs) var(--sans);
+  color: var(--ink);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tech-tag:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+/* Work With Me Conversion Banner Overrides */
+.wwm-conversion-banner {
+  margin-top: 20px;
+}
+
+.wwm-wa-action {
+  color: #25d366 !important;
+  border-color: rgba(37, 211, 102, 0.45) !important;
+}
+
+.wwm-wa-action:hover {
+  background: #25d366 !important;
+  color: #0b1c14 !important;
+  border-color: #25d366 !important;
+}
+
+:root[data-theme="dark"] .wwm-wa-action {
+  color: #34d399 !important;
+  border-color: rgba(52, 211, 153, 0.45) !important;
+}
+
+:root[data-theme="dark"] .wwm-wa-action:hover {
+  background: #10b981 !important;
+  color: #05140d !important;
+}
+
+/* ==========================================================================
    Client Acquisition Section ("Have a Business Idea? Let's Build It.")
    ========================================================================== */
 .client-acquisition {
@@ -2233,6 +2608,8 @@ h1, h2, h3, p { margin-top: 0; }
   .social-grid { grid-template-columns: repeat(3, 1fr); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .credentials-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .engagement-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
 @media (max-width: 650px) {
@@ -2318,6 +2695,13 @@ h1, h2, h3, p { margin-top: 0; }
   .services-section { padding: 75px 0; }
   .services-grid { grid-template-columns: 1fr; gap: 16px; margin-bottom: 36px; }
   .service-card { padding: 24px 20px; }
+  .work-with-me-section { padding: 75px 0; }
+  .wwm-subblock { margin-top: 48px; }
+  .process-grid { grid-template-columns: 1fr; gap: 14px; }
+  .expectations-grid { grid-template-columns: 1fr; gap: 12px; }
+  .engagement-card { padding: 26px 20px; }
+  .wwm-tech-strip { padding: 26px 20px; margin-top: 48px; margin-bottom: 36px; }
+  .tech-badge-cluster { grid-template-columns: 1fr; gap: 18px; }
   .client-acquisition { padding-top: 40px; padding-bottom: 50px; }
   .acquisition-banner { padding: 36px 20px; }
   .acquisition-triad { grid-template-columns: 1fr; gap: 18px; margin-bottom: 26px; }
@@ -2365,7 +2749,10 @@ h1, h2, h3, p { margin-top: 0; }
 .credential-card,
 .stat-card,
 .expertise-card,
-.service-card {
+.service-card,
+.process-card,
+.expectation-card,
+.engagement-card {
   position: relative;
   overflow: hidden;
 }
@@ -2373,7 +2760,10 @@ h1, h2, h3, p { margin-top: 0; }
 .credential-card::before,
 .stat-card::before,
 .expertise-card::before,
-.service-card::before {
+.service-card::before,
+.process-card::before,
+.expectation-card::before,
+.engagement-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -2391,14 +2781,20 @@ h1, h2, h3, p { margin-top: 0; }
 :root[data-theme="dark"] .credential-card::before,
 :root[data-theme="dark"] .stat-card::before,
 :root[data-theme="dark"] .expertise-card::before,
-:root[data-theme="dark"] .service-card::before {
+:root[data-theme="dark"] .service-card::before,
+:root[data-theme="dark"] .process-card::before,
+:root[data-theme="dark"] .expectation-card::before,
+:root[data-theme="dark"] .engagement-card::before {
   background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(229, 184, 105, 0.12), rgba(52, 211, 153, 0.04), transparent 70%);
 }
 .project-card:hover::before,
 .credential-card:hover::before,
 .stat-card:hover::before,
 .expertise-card:hover::before,
-.service-card:hover::before {
+.service-card:hover::before,
+.process-card:hover::before,
+.expectation-card:hover::before,
+.engagement-card:hover::before {
   opacity: 1;
 }
 

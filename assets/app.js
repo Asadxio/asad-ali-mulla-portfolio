@@ -1023,6 +1023,7 @@ function initCommandPalette() {
     const navItems = [
       { type: "nav", icon: "§", title: "Selected Work Archive", hint: "Section", action: () => { document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "Client Services & Solutions", hint: "Section", action: () => { document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" }); } },
+      { type: "nav", icon: "§", title: "Work With Me & Process", hint: "Section", action: () => { document.querySelector("#work-with-me")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "About Asad Ali Mulla", hint: "Section", action: () => { document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "Core Engineering Stack (Tools)", hint: "Section", action: () => { document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); } },
       { type: "nav", icon: "§", title: "Credentials & Background", hint: "Section", action: () => { document.querySelector("#credentials")?.scrollIntoView({ behavior: "smooth" }); } },
@@ -1222,6 +1223,29 @@ function initContactModal() {
       const msgArea = document.querySelector("#contact-message");
       if (msgArea && !msgArea.value.trim()) {
         msgArea.placeholder = `Describe your ${serviceVal.toLowerCase()} goals, expected features, or timelines...`;
+      }
+    });
+  });
+
+  // Bind all Work With Me Engagement Model CTA buttons to pre-populate modal
+  document.querySelectorAll(".wwm-model-cta").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const model = btn.dataset.model || "Custom Development";
+      openContactModal();
+      const serviceSelect = document.querySelector("#contact-service");
+      if (serviceSelect) {
+        if (model === "Fixed-Scope Project") {
+          serviceSelect.value = "Website Development";
+        } else if (model === "Custom Development") {
+          serviceSelect.value = "Custom Software";
+        } else {
+          serviceSelect.value = "Custom Software";
+        }
+      }
+      const msgArea = document.querySelector("#contact-message");
+      if (msgArea) {
+        msgArea.value = `Hi Asad, I'm interested in an engagement under the "${model}" model. Here are details about what I want to build...`;
+        setTimeout(() => msgArea.focus(), 120);
       }
     });
   });
@@ -1531,7 +1555,7 @@ function initScrollProgressBar() {
 
 function initBentoSpotlight() {
   if (window.matchMedia("(hover: none)").matches) return;
-  const cards = document.querySelectorAll(".project-card, .credential-card, .stat-card, .expertise-card, .service-card");
+  const cards = document.querySelectorAll(".project-card, .credential-card, .stat-card, .expertise-card, .service-card, .process-card, .expectation-card, .engagement-card");
 
   cards.forEach(card => {
     card.addEventListener("mousemove", (e) => {
