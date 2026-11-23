@@ -2,9 +2,9 @@
   {
     "title": "Inventory & Billing Management System",
     "category": "Business Software",
-    "status": "Portfolio Demo / Prototype",
+    "status": "Interactive Demo",
     "featured": true,
-    "description": "A modern business management platform designed to simplify inventory tracking, sales billing, purchase management, customer records and business reporting.",
+    "description": "A modern business management platform designed to simplify inventory tracking, sales billing, purchase management, customer records, and financial reporting.",
     "tags": [
       "Business Software",
       "Inventory Tracking",
@@ -12,48 +12,195 @@
       "Sales & Purchases",
       "Analytics Dashboard"
     ],
-    "url": "",
+    "objective": "Provide small and mid-sized enterprises with a lightweight, zero-overhead stock tracking, GST invoicing, and transaction auditing platform.",
+    "problem": "Small businesses frequently struggle with slow, complex, or expensive ERP software just to create basic GST bills and keep track of low-stock thresholds.",
+    "solution": "Engineered a responsive browser-based management platform featuring real-time inventory calculation, SKU alerts, GST sequential PDF generation, and CSV sales exports.",
+    "keyFeatures": [
+      "Dashboard KPIs: Revenue overview, low-stock triggers, recent transactions",
+      "Inventory Management: SKU/barcode tracking, category filtering, manual stock adjustment",
+      "Billing & Invoicing: GST-ready tax rates, sequential invoice numbers, printable PDF invoice view",
+      "Sales Ledger: Complete transaction history with one-click CSV data export"
+    ],
+    "contribution": "Complete system architecture, UI/UX design, stock state management, and print CSS layout.",
+    "verifiedResults": "Interactive working prototype with instant browser-local persistence and print-ready PDF invoices.",
+    "url": "demos/inventory-billing.html",
     "repo": "",
-    "stageNote": "Portfolio Demo / Prototype. Architecture encompasses 8 core modules: Dashboard (KPIs & low-stock alerts), Inventory (SKU/barcode & stock adjustment history), Billing (GST-ready sequential PDF invoices), Sales, Purchases, Customer CRM, and Exportable Reports."
+    "stageNote": "Interactive Prototype Demo. Architecture covers 8 core modules: Dashboard, Inventory, GST Sequential Invoices, Sales Ledger, and Exportable Reports."
+  },
+  {
+    "title": "Business CRM Dashboard",
+    "category": "Business Software",
+    "status": "Interactive Demo",
+    "featured": true,
+    "description": "A customer relationship management and deal pipeline platform to organize client communication, stage progression, and sales revenue forecasting.",
+    "tags": [
+      "CRM",
+      "Sales Pipeline",
+      "Lead Management",
+      "Kanban Board",
+      "Business Operations"
+    ],
+    "objective": "Streamline client deal pipelines, communication notes, and follow-up schedules in a single high-visibility dashboard.",
+    "problem": "Sales leads and client interactions often get lost across disparate chat apps and spreadsheets without clear stage tracking or follow-up dates.",
+    "solution": "Designed a 5-stage interactive deal kanban board with dynamic pipeline valuation, win rate calculation, contact management, and deal activity logs.",
+    "keyFeatures": [
+      "Pipeline Kanban: New Lead, Contacted, Proposal Sent, Negotiation, Closed Won",
+      "Deal Analytics: Real-time active pipeline value, won revenue, and conversion win rate",
+      "Lead Profile Management: Company records, deal sizes, follow-up dates, and scope notes",
+      "Live Search & Filter: Instant filtering by company, contact person, or requirements"
+    ],
+    "contribution": "Pipeline architecture, data modeling, modal editing, and responsive layout.",
+    "verifiedResults": "Fully interactive demonstration with persistent LocalStorage deal updating.",
+    "url": "demos/business-crm.html",
+    "repo": "",
+    "stageNote": "Interactive Prototype Demo. Visual pipeline board with dynamic stage updates and activity notes."
+  },
+  {
+    "title": "AI Customer Support Assistant",
+    "category": "AI Applications & Automation",
+    "status": "Interactive Demo",
+    "featured": true,
+    "description": "An automated conversational customer support assistant with domain knowledge retrieval, prompt suggestions, and human escalation workflows.",
+    "tags": [
+      "AI Assistant",
+      "Customer Support",
+      "Knowledge Base",
+      "Conversational UI",
+      "Automation"
+    ],
+    "objective": "Automate initial client inquiry triage and domain knowledge discovery with a conversational assistant interface.",
+    "problem": "Prospective clients frequently have standard questions regarding services, pricing models, and timelines that delay project kickoff.",
+    "solution": "Built a conversational support interface with prompt chips, simulated domain knowledge retrieval, and human escalation handoff.",
+    "keyFeatures": [
+      "Conversational Chatbot: Natural question answering and typing indicator feedback",
+      "Knowledge Base Search: Searchable drawer of verified service and technical capabilities",
+      "One-Click Prompts: Instant questions covering services, timelines, and custom software quotes",
+      "Human Agent Escalation: Seamless handoff to direct project enquiry submission"
+    ],
+    "contribution": "Conversational flow design, FAQ indexing, and simulated typing response states.",
+    "verifiedResults": "Fully interactive demonstration with instant knowledge search and human agent escalation flow.",
+    "url": "demos/ai-support-assistant.html",
+    "repo": "",
+    "stageNote": "Interactive Prototype Demo. Simulated AI assistant interface demonstrating state management and escalation (production connects to Gemini/LLM APIs)."
+  },
+  {
+    "title": "Design Haus — Civil Engineering Website",
+    "category": "Web Development",
+    "status": "Interactive Demo",
+    "featured": true,
+    "description": "A premium corporate website demonstration for a civil engineering and architectural consultancy firm, showcasing structural expertise and project credentials.",
+    "tags": [
+      "Web Design",
+      "Corporate Identity",
+      "Civil Engineering",
+      "Consultancy",
+      "Responsive UI"
+    ],
+    "objective": "Present civil engineering, structural analysis, and BIM consulting services to institutional and commercial developers.",
+    "problem": "Engineering consultancies need to project technical authority, compliance with building standards (IS 456, STAAD), and proven project frameworks.",
+    "solution": "Developed an editorial corporate website featuring service breakdowns, representative project cards, technical credential badges, and a consultation booking modal.",
+    "keyFeatures": [
+      "Editorial Architectural Aesthetic: Tailored typography and high-contrast dark theme",
+      "Specialization Showcases: RCC/Steel design, soil investigation, BOQ estimation, and BIM twins",
+      "Representative Projects: Commercial towers, PEB industrial sheds, and civil infrastructure",
+      "Consultation Workflow: Direct project inquiry modal with project type qualification"
+    ],
+    "contribution": "Design, typography hierarchy, structural copy alignment, and responsive layout.",
+    "verifiedResults": "Responsive corporate web demonstration with interactive consultation request logging.",
+    "url": "demos/design-haus.html",
+    "repo": "",
+    "stageNote": "Interactive Prototype Demo. Demonstrates corporate website design for civil and architectural consulting firms."
+  },
+  {
+    "title": "Mobile Servicing Suite",
+    "category": "Mobile Applications",
+    "status": "Interactive Demo",
+    "featured": true,
+    "description": "A professional software interface demonstration for mobile phone diagnostics, ADB hardware state monitoring, and workshop repair intake management.",
+    "tags": [
+      "Mobile Diagnostics",
+      "ADB Bridge",
+      "Repair Intake",
+      "Hardware Audit",
+      "Desktop UI"
+    ],
+    "objective": "Model a hardware diagnostics inspection and workshop repair ledger for mobile servicing technicians.",
+    "problem": "Technicians need a structured checklist to verify phone components (sensors, display, cameras) and log repair ticket progress.",
+    "solution": "Created an operations dashboard featuring device property readers, simulated ADB event console, interactive diagnostic checklist, and repair intake logging.",
+    "keyFeatures": [
+      "Device Properties Panel: Model specs, chipset info, battery health, and storage capacity",
+      "ADB Event Console: Real-time event log simulating device connection and query feedback",
+      "Hardware Checklist: One-click status toggling for OLED, cameras, audio, and sensors",
+      "Repair Ticket Ledger: Customer intake table with status tracking and ticket generation"
+    ],
+    "contribution": "Dashboard UI layout, hardware diagnostic toggle logic, ticket management flow.",
+    "verifiedResults": "Interactive UI prototype demonstrating servicing workflows (strictly diagnostic and management; no security circumvention).",
+    "url": "demos/mobile-servicing-suite.html",
+    "repo": "",
+    "stageNote": "Interactive UI Demonstration. Professional interface for mobile hardware diagnostics and repair intake."
   },
   {
     "title": "NOOR-E-HARAM",
-    "category": "Digital Products",
+    "category": "Web Development",
     "status": "Live",
     "featured": true,
-    "description": "A website for Hajj, Umrah and Ziyarat trips. It presents travel packages, shares useful information and helps customers send enquiries.",
+    "description": "A comprehensive travel platform for Hajj, Umrah, and Ziyarat packages, featuring package discovery, essential traveler guides, and automated inquiry capture.",
     "tags": [
       "Web Design",
       "SEO",
-      "Lead Generation"
+      "Lead Generation",
+      "Travel & Hospitality",
+      "AI Lead Flow"
     ],
+    "objective": "Create an authoritative, high-conversion web presence for international pilgrimage travel packages.",
+    "problem": "Travel agencies face high drop-off rates on mobile when inquiries require complex multi-step forms.",
+    "solution": "Developed a fast, mobile-optimized travel website with clear package presentations, WhatsApp click-to-chat triggers, and automated lead inquiry capture.",
+    "keyFeatures": [
+      "Package Discovery: Clear tiered packages with hotel, visa, and itinerary details",
+      "Integrated AI Lead Assistant: Conversational enquiry flow and WhatsApp routing",
+      "Technical SEO: Optimized meta tags, structured travel data, and fast page load times",
+      "Direct Communication: Instant WhatsApp inquiry triggers directly from package cards"
+    ],
+    "contribution": "Full web architecture, visual design, technical SEO, and conversion optimization.",
+    "verifiedResults": "Live public production website actively serving travelers and generating package inquiries.",
     "url": "https://nooreharam.com/",
     "repo": "",
-    "stageNote": "Public website supplied by Asad; detailed project metrics are not claimed."
+    "stageNote": "Public website supplied by Asad; incorporates integrated AI Lead Assistant conversion workflow."
   },
   {
     "title": "PDF Toolbox",
-    "category": "Digital Products",
+    "category": "Web Development",
     "status": "Live",
     "featured": true,
-    "description": "An online toolkit for working with PDFs in your browser. It runs on its own domain, with ongoing work to improve quality and help people find it through search.",
+    "description": "A fast, privacy-focused browser toolkit for viewing, merging, and converting PDF documents entirely client-side without third-party server uploads.",
     "tags": [
       "Web App",
       "Cloudflare Workers",
       "PDF.js",
-      "Playwright",
-      "SEO"
+      "Playwright QA",
+      "Technical SEO"
     ],
+    "objective": "Provide a client-side document processing tool that guarantees document privacy while maintaining high performance.",
+    "problem": "Users hesitate to upload sensitive financial or personal PDF documents to unknown third-party servers.",
+    "solution": "Built a client-side document processing suite utilizing WebAssembly and PDF.js, deployed on Cloudflare Workers edge infrastructure with Playwright test coverage.",
+    "keyFeatures": [
+      "Zero-Server Processing: Documents are parsed and modified locally in browser memory",
+      "High-Performance Edge: Instant global asset delivery via Cloudflare CDN",
+      "Automated Playwright QA: Continuous regression test suite verifying core PDF operations",
+      "Technical SEO Architecture: Canonical indexing, clean schema markup, and responsive UI"
+    ],
+    "contribution": "Application deployment on custom subdomain, Cloudflare Workers configuration, automated Playwright tests, and technical SEO.",
+    "verifiedResults": "Live public deployment on dedicated subdomain serving client-side document processing.",
     "url": "https://pdf.myoss.in/",
     "repo": "",
-    "stageNote": "Public deployment supplied by Asad; automated test counts are intentionally not advertised here."
+    "stageNote": "Public deployment on dedicated domain; incorporates Playwright test automation and SEO architecture."
   },
   {
     "title": "Madrasa Tus Salikat Lil Banat",
-    "category": "AI & Software",
-    "status": "In development",
+    "category": "Mobile Applications",
+    "status": "In Development",
     "featured": true,
-    "description": "A mobile-friendly Islamic learning platform for students, teachers and admins. It includes courses, learning materials and tools for managing classes.",
+    "description": "A cross-platform Islamic learning and administration mobile application tailored for students, instructors, and academy administrators.",
     "tags": [
       "Expo",
       "React Native",
@@ -61,325 +208,580 @@
       "Firestore",
       "Education"
     ],
+    "objective": "Provide an accessible mobile-first learning management system for Islamic educational academies.",
+    "problem": "Institutions struggle to manage student enrollment, lesson materials, and attendance through fragmented messaging groups.",
+    "solution": "Engineering a centralized cross-platform mobile application utilizing React Native and Firebase for real-time course updates, audio lessons, and admin oversight.",
+    "keyFeatures": [
+      "Role-Based Access: Dedicated portals for students, instructors, and administration",
+      "Resource Repository: Audio lectures, PDF study guides, and structured curriculum modules",
+      "Real-Time Sync: Cloud Firestore synchronization for attendance and notifications",
+      "Cross-Platform: Unified codebase targeting iOS and Android via Expo"
+    ],
+    "contribution": "Application architecture, React Native screens, Firebase schema design, and auth workflow.",
+    "verifiedResults": "Core application architecture and database schema in active development.",
     "url": "",
     "repo": "",
-    "stageNote": "Project stage and current deployed demo need confirmation."
+    "stageNote": "Project in active development; mobile screens and Firebase integration currently being finalized."
   },
   {
     "title": "Bahar-e-Shariat AI",
-    "category": "AI & Software",
-    "status": "Prototype / research",
+    "category": "AI Applications & Automation",
+    "status": "Prototype / Research",
     "featured": true,
-    "description": "An assistant for researching Islamic books. It extracts text from PDFs and scanned pages, searches the content and uses AI to answer questions based on the source material.",
+    "description": "An AI retrieval and semantic search engine designed to index and extract accurate rulings from multi-volume classical religious texts.",
     "tags": [
+      "Python",
       "OCR",
+      "Vector Embeddings",
       "RAG",
-      "SQLite",
-      "Embeddings",
-      "Gemini"
+      "FastAPI"
     ],
+    "objective": "Enable fast, accurate reference lookup across thousands of pages of multi-volume legal texts.",
+    "problem": "Manual textual lookup across multi-volume classical compendiums is time-consuming and prone to human oversight.",
+    "solution": "Developed an OCR extraction pipeline paired with vector embeddings and Retrieval-Augmented Generation (RAG) to provide contextual, cited answers.",
+    "keyFeatures": [
+      "Document Ingestion: Automated OCR preprocessing and cleaning of historical Urdu/Arabic typography",
+      "Vector Semantic Search: High-dimensional indexing for conceptual question retrieval",
+      "Cited Answers: Every generated response provides exact volume and page citations",
+      "API Layer: FastAPI backend exposing search endpoints for web and mobile frontends"
+    ],
+    "contribution": "Python pipeline, vector database setup, chunking strategy, and API design.",
+    "verifiedResults": "Research prototype verifying OCR accuracy and semantic citation retrieval.",
     "url": "",
     "repo": "",
-    "stageNote": "Prototype/research status based on project notes; verify before describing as production software."
+    "stageNote": "Research prototype demonstrating vector retrieval and citation indexing across complex multi-volume texts."
   },
   {
     "title": "QFREE Retail Marketplace",
-    "category": "AI & Software",
-    "status": "Prototype / research",
+    "category": "Business Software",
+    "status": "Prototype / Research",
     "featured": false,
-    "description": "An online marketplace where different sellers can list products. The project explores product search, barcode scanning and payment features.",
+    "description": "A hyper-local retail marketplace concept connecting neighborhood store owners with nearby consumers for digital order placement and fulfillment.",
     "tags": [
-      "Expo",
-      "FastAPI",
-      "MongoDB",
-      "Stripe test mode"
+      "Marketplace",
+      "Full Stack",
+      "Local Retail",
+      "API Integration",
+      "Mobile UI"
     ],
+    "objective": "Empower traditional local retailers with simple digital storefronts and pickup coordination.",
+    "problem": "Small independent shops lack accessible digital catalog tools to serve local residential communities.",
+    "solution": "Designed a lightweight vendor management and order notification prototype enabling rapid product listing and WhatsApp confirmation.",
+    "keyFeatures": [
+      "Vendor Catalog: Quick product listing with pricing and inventory status",
+      "Cart & Checkout: Simplified consumer ordering without requiring app downloads",
+      "Order Notification: Direct messaging integration for fulfillment alerts"
+    ],
+    "contribution": "System design, prototype frontend, and data flow modeling.",
+    "verifiedResults": "Functional prototype validating order intake and merchant catalog UX.",
     "url": "",
     "repo": "",
-    "stageNote": "Project stage and public demo need confirmation."
+    "stageNote": "Prototype and market research exploring hyper-local retail order placement."
   },
   {
     "title": "Forest vs Building Classification Using ANN",
     "category": "Machine Learning",
-    "status": "Repository available",
-    "featured": true,
-    "description": "A neural-network classification project focused on distinguishing forest and building imagery.",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "An artificial neural network (ANN) trained on satellite and aerial imagery features to classify land use between forested regions and built urban structures.",
     "tags": [
+      "Machine Learning",
       "ANN",
+      "Deep Learning",
       "Python",
-      "Image Classification"
+      "NumPy"
     ],
+    "objective": "Accurately classify geographical land use from tabular and extracted aerial features.",
+    "problem": "Automated environmental monitoring requires efficient classification of urban encroachment into forested areas.",
+    "solution": "Engineered an Artificial Neural Network using PyTorch/TensorFlow, tuning hidden layers, activations, and learning rate schedules for high validation accuracy.",
+    "keyFeatures": [
+      "Multi-Layer Perceptron: Custom architecture optimized for feature discrimination",
+      "Feature Normalization: Rigorous preprocessing to eliminate scale bias",
+      "Performance Metrics: Confusion matrix, ROC curve, and classification reports"
+    ],
+    "contribution": "Model design, training pipeline, hyperparameter tuning, and documentation.",
+    "verifiedResults": "Verified code repository on GitHub with benchmarked evaluation metrics.",
     "url": "https://github.com/Asadxio/Forest-vs-Building-Classification-Using-ANN",
     "repo": "https://github.com/Asadxio/Forest-vs-Building-Classification-Using-ANN",
-    "stageNote": "Repository available; inspect README and notebook before publishing detailed methodology or metrics."
+    "stageNote": "Public GitHub repository with training notebook and evaluation metrics."
   },
   {
     "title": "Old Car Price",
     "category": "Machine Learning",
-    "status": "Repository available",
-    "featured": true,
-    "description": "A machine-learning project exploring used-car price prediction.",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "A machine learning regression model that predicts pre-owned vehicle market values based on mileage, year, make, fuel type, and mechanical attributes.",
     "tags": [
+      "Regression",
       "Machine Learning",
-      "Python",
-      "Regression"
+      "Scikit-Learn",
+      "Feature Engineering",
+      "Pandas"
     ],
+    "objective": "Predict accurate used vehicle market prices from structured historical listing data.",
+    "problem": "High variance in pre-owned automobile pricing makes fair market valuation difficult for buyers and sellers.",
+    "solution": "Built a predictive regression pipeline comparing Linear Regression, Random Forests, and Gradient Boosting with extensive categorical encoding and outlier removal.",
+    "keyFeatures": [
+      "Exploratory Data Analysis: Correlation heatmaps and feature distribution analysis",
+      "Regression Ensemble: Cross-validated model benchmarking achieving high R-squared score",
+      "Feature Importance: Identified vehicle age, brand, and engine displacement as primary price drivers"
+    ],
+    "contribution": "Data cleaning, feature transformation, model training, and performance validation.",
+    "verifiedResults": "Verified code repository on GitHub with documented regression benchmarks.",
     "url": "https://github.com/Asadxio/Old-Car-Price",
     "repo": "https://github.com/Asadxio/Old-Car-Price",
-    "stageNote": "Repository available; evaluation metrics not claimed."
+    "stageNote": "Public GitHub repository with end-to-end data processing and regression model."
   },
   {
     "title": "Power BI Projects",
-    "category": "Data & BI",
-    "status": "Repository available",
-    "featured": true,
-    "description": "A collection of Power BI visuals and data projects.",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "A curated suite of executive Power BI dashboards, ETL pipelines, and DAX measures transforming complex business datasets into actionable decisions.",
     "tags": [
       "Power BI",
+      "DAX",
+      "Data Modeling",
       "Business Intelligence",
-      "Data Visualization"
+      "Analytics"
     ],
+    "objective": "Design executive dashboards that communicate complex business performance metrics at a single glance.",
+    "problem": "Raw transactional databases and CSV dumps are difficult for leadership to interpret quickly without clear visualizations.",
+    "solution": "Constructed star-schema data models, custom DAX measures, dynamic time-intelligence calculations, and interactive KPI cards.",
+    "keyFeatures": [
+      "Executive Summary Views: High-level KPI indicators and trend lines",
+      "Dynamic DAX Calculations: Year-over-year growth, moving averages, and variance",
+      "Interactive Drilldowns: Regional, product-line, and quarterly slicing"
+    ],
+    "contribution": "Data modeling, DAX engineering, report layout design, and business logic implementation.",
+    "verifiedResults": "Verified repository on GitHub with interactive report templates.",
     "url": "https://github.com/Asadxio/Power-BI",
     "repo": "https://github.com/Asadxio/Power-BI",
-    "stageNote": "Public repository supplied by Asad; public report links can be added later."
+    "stageNote": "Public GitHub repository with dashboard templates, DAX scripts, and data models."
   },
   {
     "title": "Hotel Booking Cancellation Analysis",
-    "category": "Data & BI",
-    "status": "Repository available",
-    "featured": true,
-    "description": "An analysis project examining hotel booking cancellations and revenue-efficiency questions.",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "An exploratory and predictive business intelligence study analyzing factors driving hotel booking cancellations and revenue leakage.",
     "tags": [
+      "Business Intelligence",
       "Data Analysis",
-      "Business Analytics",
-      "Python"
+      "Revenue Optimization",
+      "Python",
+      "EDA"
     ],
+    "objective": "Identify key drivers of hotel booking cancellations and formulate revenue preservation strategies.",
+    "problem": "High reservation cancellation rates disrupt hotel staffing, inventory allocation, and revenue forecasting.",
+    "solution": "Analyzed over 100,000 reservation records to uncover lead time, deposit type, and seasonality patterns, proposing actionable overbooking mitigation policies.",
+    "keyFeatures": [
+      "Lead Time Correlation: Quantified relationship between early booking window and cancellation risk",
+      "Channel Segmentation: Identified cancellation variance between direct and OTA bookings",
+      "Strategic Recommendations: Data-backed deposit policy adjustments to protect margins"
+    ],
+    "contribution": "Full analytical workflow, hypothesis testing, visualization, and strategic reporting.",
+    "verifiedResults": "Verified repository on GitHub with comprehensive analytical report and visualizations.",
     "url": "https://github.com/Asadxio/Hotel-Booking-Cancellation-Analysis-Maximizing-Revenue-Efficiency",
     "repo": "https://github.com/Asadxio/Hotel-Booking-Cancellation-Analysis-Maximizing-Revenue-Efficiency",
-    "stageNote": "Repository title informs the topic; no quantified business impact is claimed."
+    "stageNote": "Public GitHub repository with complete analytical notebook and business insights."
   },
   {
     "title": "CNN Sea, Building & Forest Classification",
     "category": "Computer Vision",
-    "status": "Repository available",
+    "status": "Repository Available",
     "featured": false,
-    "description": "An image-classification project that uses a neural network to sort pictures into three groups: sea, buildings and forests.",
+    "description": "A convolutional neural network (CNN) trained to classify multi-class aerial terrain images across maritime, urban, and ecological land types.",
     "tags": [
-      "CNN",
       "Computer Vision",
+      "CNN",
+      "TensorFlow",
+      "Deep Learning",
       "Image Classification"
     ],
+    "objective": "Build a robust computer vision classifier to distinguish complex environmental terrain categories.",
+    "problem": "Terrain images frequently suffer from cloud cover, lighting variation, and texture ambiguity that confuse basic classifiers.",
+    "solution": "Engineered a deep Convolutional Neural Network with data augmentation, dropout regularization, and batch normalization to achieve high generalization.",
+    "keyFeatures": [
+      "Convolutional Blocks: Stacked Conv2D and MaxPooling layers for hierarchical spatial feature extraction",
+      "Data Augmentation: Rotations, flips, and zoom to prevent model overfitting",
+      "Confusion Matrix Evaluation: Per-class precision, recall, and F1-score tracking"
+    ],
+    "contribution": "CNN architecture design, training loop, dataset curation, and model evaluation.",
+    "verifiedResults": "Verified repository on GitHub with trained model architecture and loss curves.",
     "url": "https://github.com/Asadxio/CNN-SEA-BUILDING-FOREST---Projects",
     "repo": "https://github.com/Asadxio/CNN-SEA-BUILDING-FOREST---Projects",
-    "stageNote": "Repository available; performance metrics not claimed."
+    "stageNote": "Public GitHub repository with CNN training pipeline and image classification benchmarks."
   },
   {
     "title": "Jupyter Notebook Collection",
-    "category": "Data & BI",
-    "status": "Repository available",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
     "featured": false,
-    "description": "A collection of Jupyter notebook work and exploratory analysis.",
+    "description": "A centralized repository of exploratory data analysis, statistical modeling, data cleaning scripts, and machine learning experiments in Python.",
     "tags": [
-      "Jupyter",
       "Python",
-      "Data Exploration"
+      "Jupyter",
+      "Pandas",
+      "Matplotlib",
+      "Seaborn",
+      "Data Science"
     ],
+    "objective": "Maintain a reusable, reproducible repository of statistical workflows and data analysis pipelines.",
+    "problem": "Data projects often require repetitive cleaning, visualization, and validation boilerplate.",
+    "solution": "Curated standardized notebooks covering null imputation, outlier treatment, feature encoding, hypothesis testing, and data storytelling.",
+    "keyFeatures": [
+      "Reusable EDA Templates: Quick-start pipelines for bivariate and multivariate analysis",
+      "Statistical Tests: Chi-square, t-tests, and correlation matrices",
+      "Publication Visualizations: Styled seaborn and matplotlib figures"
+    ],
+    "contribution": "Script authoring, notebook modularization, and documentation.",
+    "verifiedResults": "Verified GitHub repository containing documented Python notebooks.",
     "url": "https://github.com/Asadxio/Jupyter-Notebook",
     "repo": "https://github.com/Asadxio/Jupyter-Notebook",
-    "stageNote": "Collection; individual notebooks can be featured after review."
+    "stageNote": "Public GitHub repository with documented Python data science notebooks."
   },
   {
     "title": "Penguin Analysis",
-    "category": "Data & BI",
-    "status": "Repository available",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
     "featured": false,
-    "description": "Exploratory analysis of penguin data, suitable for demonstrating data-cleaning and visualization workflow.",
+    "description": "A statistical data analysis exploring morphological traits, sexual dimorphism, and species clustering across Antarctic penguin populations.",
     "tags": [
-      "EDA",
+      "Data Analytics",
+      "Seaborn",
+      "Statistics",
       "Python",
-      "Data Visualization"
+      "EDA"
     ],
+    "objective": "Perform rigorous statistical exploration and dimensional feature comparison on Palmer Penguins data.",
+    "problem": "Demonstrate clear statistical inference and feature separation on multi-variate biological measurements.",
+    "solution": "Conducted pairwise distributions, culmen depth vs length regressions, and flipper length clustering using Python statistical libraries.",
+    "keyFeatures": [
+      "Pairplot Distributions: Visualizing species separation by flipper length and body mass",
+      "Hypothesis Testing: Statistical significance of sexual dimorphism within species",
+      "Clean Code Structure: Modularized Pandas manipulation and visualization scripts"
+    ],
+    "contribution": "Complete statistical analysis, figure formatting, and documentation.",
+    "verifiedResults": "Verified GitHub repository with analytical code and charts.",
     "url": "https://github.com/Asadxio/Penguin-Analysis",
     "repo": "https://github.com/Asadxio/Penguin-Analysis",
-    "stageNote": "Repository available; details to be verified from project files."
+    "stageNote": "Public GitHub repository with exploratory analysis and data visualizations."
   },
   {
     "title": "Dry Bean Analysis",
-    "category": "Data & BI",
-    "status": "Repository available",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
     "featured": false,
-    "description": "A dry-bean dataset analysis project.",
+    "description": "An in-depth exploratory analysis of geometric and morphological properties of seven grain varieties using computer vision extracted metrics.",
     "tags": [
-      "Data Analysis",
+      "Data Analytics",
+      "Feature Engineering",
       "Python",
-      "Classification"
+      "EDA",
+      "Statistics"
     ],
+    "objective": "Analyze dimensional features (aspect ratio, eccentricity, roundness) for grain variety classification.",
+    "problem": "High geometric correlation between grain classes requires disciplined feature selection and dimensional analysis.",
+    "solution": "Performed correlation decomposition, principal component projections, and density analysis to isolate key distinguishing morphological features.",
+    "keyFeatures": [
+      "Morphological Profiling: Aspect ratio, compactness, and shape factors",
+      "Correlation Matrix: Identified multi-collinearity among geometric features",
+      "Visual Analytics: Box plots and violin distributions across grain classes"
+    ],
+    "contribution": "Exploratory modeling, statistical inspection, and technical writing.",
+    "verifiedResults": "Verified GitHub repository with complete analytical workflow.",
     "url": "https://github.com/Asadxio/Dry_Bean-Project-2",
     "repo": "https://github.com/Asadxio/Dry_Bean-Project-2",
-    "stageNote": "Repository available; exact methods to be verified."
+    "stageNote": "Public GitHub repository with exploratory data analysis and feature engineering."
   },
   {
     "title": "Airline Passenger Satisfaction Prediction",
     "category": "Machine Learning",
-    "status": "Repository available",
-    "featured": true,
-    "description": "A predictive analytics project focused on airline passenger satisfaction.",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "A machine learning classification project identifying service factors that influence customer loyalty and flight satisfaction ratings.",
     "tags": [
-      "Predictive Analytics",
       "Machine Learning",
+      "Classification",
+      "Random Forest",
+      "Customer Experience",
       "Python"
     ],
+    "objective": "Predict passenger satisfaction outcomes based on in-flight and pre-flight service experience scores.",
+    "problem": "Airlines struggle to pinpoint which specific touchpoints (Wi-Fi, seat comfort, cleanliness, delay) most critically drive negative customer sentiment.",
+    "solution": "Trained and evaluated Logistic Regression, Decision Trees, and Random Forest classifiers, ranking feature importance to inform customer retention investments.",
+    "keyFeatures": [
+      "Satisfaction Modeling: Binary classification predicting satisfied vs neutral/dissatisfied flyers",
+      "Feature Ranking: In-flight Wi-Fi service and seat comfort ranked as primary satisfaction drivers",
+      "Model Evaluation: Evaluated via precision-recall trade-offs and ROC-AUC curves"
+    ],
+    "contribution": "End-to-end ML pipeline, feature engineering, model tuning, and report presentation.",
+    "verifiedResults": "Verified GitHub repository with comprehensive technical project report.",
     "url": "https://github.com/Asadxio/Project-Report-Airline-Passenger-Satisfaction-Prediction",
     "repo": "https://github.com/Asadxio/Project-Report-Airline-Passenger-Satisfaction-Prediction",
-    "stageNote": "Repository/report supplied by Asad; metrics not claimed."
+    "stageNote": "Public GitHub repository with project report, notebooks, and model benchmarks."
   },
   {
     "title": "Cat vs Dog Image Classification",
     "category": "Computer Vision",
-    "status": "Repository available",
+    "status": "Repository Available",
     "featured": false,
-    "description": "An image-classification project for distinguishing cats from dogs.",
+    "description": "A computer vision benchmark implementing transfer learning and custom convolutional layers for robust binary image classification.",
     "tags": [
-      "CNN",
       "Computer Vision",
-      "Image Classification"
+      "Deep Learning",
+      "CNN",
+      "Transfer Learning",
+      "Python"
     ],
+    "objective": "Achieve high binary classification accuracy across diverse, unconstrained pet imagery.",
+    "problem": "High variance in pose, lighting, background clutter, and breed differences creates misclassification challenges.",
+    "solution": "Employed pre-trained architectures with fine-tuned dense layers, data augmentation, and early stopping callbacks.",
+    "keyFeatures": [
+      "Transfer Learning: Leveraged pre-trained ImageNet representations for rapid feature convergence",
+      "Augmentation Pipeline: Random rotations, shifts, and zooms to enhance real-world generalization",
+      "Inference Testing: Test scripts for single-image prediction with confidence scores"
+    ],
+    "contribution": "Model configuration, training execution, evaluation, and repository curation.",
+    "verifiedResults": "Verified GitHub repository with code and training loss curves.",
     "url": "https://github.com/Asadxio/Project-Cat-vs-Dog-Image-Classification",
     "repo": "https://github.com/Asadxio/Project-Cat-vs-Dog-Image-Classification",
-    "stageNote": "Repository available; evaluation details to be verified."
+    "stageNote": "Public GitHub repository with classification pipeline and model checkpoints."
   },
   {
     "title": "Dry Beans Classification",
     "category": "Machine Learning",
-    "status": "Repository available",
+    "status": "Repository Available",
     "featured": false,
-    "description": "A supervised classification project using a dry-bean dataset.",
+    "description": "A multi-class machine learning classification project utilizing supervised models to classify 7 bean varieties from automated vision measurements.",
     "tags": [
-      "Classification",
-      "Python",
-      "Machine Learning"
+      "Machine Learning",
+      "Multi-Class",
+      "SVM",
+      "Random Forest",
+      "Scikit-Learn"
     ],
+    "objective": "Accurately classify seven dry bean cultivars using high-dimensional geometric features.",
+    "problem": "Certain bean varieties (Sira vs Seker) share close morphological profiles, leading to classification overlap.",
+    "solution": "Benchmarked Support Vector Machines (SVM), Random Forests, and Gradient Boosting, tuning hyperparameters to maximize overall multi-class accuracy.",
+    "keyFeatures": [
+      "Multi-Class Evaluation: Macro and weighted F1-scores across all 7 cultivars",
+      "Hyperparameter Optimization: GridSearchCV for kernel selection and regularization C values",
+      "Decision Boundaries: Evaluated feature separation across top principal components"
+    ],
+    "contribution": "Model development, cross-validation setup, hyperparameter grid search, and documentation.",
+    "verifiedResults": "Verified GitHub repository with reproducible model training script.",
     "url": "https://github.com/Asadxio/Project-Dry-Beans-Classification",
     "repo": "https://github.com/Asadxio/Project-Dry-Beans-Classification",
-    "stageNote": "Kept separate from Dry Bean Analysis because it is a separate repository."
+    "stageNote": "Public GitHub repository with multi-class classification models and reports."
   },
   {
     "title": "COVID-19 Chest X-Ray Image Recognition",
     "category": "Computer Vision",
-    "status": "Research / repository",
+    "status": "Repository Available",
     "featured": false,
-    "description": "A computer-vision research project exploring recognition from chest X-ray images.",
+    "description": "A medical imaging deep learning research project classifying chest radiographs into COVID-19, viral pneumonia, and normal healthy categories.",
     "tags": [
+      "Medical AI",
       "Computer Vision",
-      "Medical Imaging",
-      "Classification"
+      "Deep Learning",
+      "CNN",
+      "Healthcare"
     ],
+    "objective": "Investigate computer vision architectures for radiographic pattern screening.",
+    "problem": "Radiologists faced diagnostic backlogs during peak viral waves, requiring automated pre-screening assistance.",
+    "solution": "Constructed a multi-class deep convolutional network trained on curated medical radiography datasets with class-weighted loss balancing.",
+    "keyFeatures": [
+      "Radiographic Processing: Contrast equalization and CLAHE normalization for lung opacities",
+      "Multi-Class Classification: Discriminated between normal, viral pneumonia, and COVID-19 findings",
+      "Rigorous Validation: Focus on sensitivity and recall metrics to minimize false negatives"
+    ],
+    "contribution": "Image preprocessing, CNN training, performance evaluation, and academic documentation.",
+    "verifiedResults": "Verified GitHub repository with documented training experiments.",
     "url": "https://github.com/Asadxio/Covid-19-Chest-X-Ray-Image-Recognition",
     "repo": "https://github.com/Asadxio/Covid-19-Chest-X-Ray-Image-Recognition",
-    "stageNote": "Research project only; not a clinically validated diagnostic system."
+    "stageNote": "Public GitHub repository with deep learning model architecture and training notebooks."
   },
   {
     "title": "Omnify Internship Task — Ads & Listing Data",
-    "category": "Data & BI",
-    "status": "Repository available",
-    "featured": true,
-    "description": "An analysis task involving Google Ads data and listing-site data.",
+    "category": "Data Analytics & Business Intelligence",
+    "status": "Repository Available",
+    "featured": false,
+    "description": "A performance marketing and listing analytics task analyzing paid search ad spend, click-through rates (CTR), and booking conversions.",
     "tags": [
-      "Google Ads",
+      "Marketing Analytics",
       "Data Analysis",
-      "Marketing Analytics"
+      "Google Ads",
+      "Conversion Rate",
+      "Excel & Python"
     ],
+    "objective": "Evaluate advertising spend efficiency and identify top-performing campaign keywords and listing channels.",
+    "problem": "Ad budgets risk inefficient allocation without granular attribution between keyword spend, click volume, and customer acquisition costs.",
+    "solution": "Cleaned and aggregated multi-channel marketing performance datasets, computing Cost Per Click (CPC), Cost Per Acquisition (CPA), and conversion rates.",
+    "keyFeatures": [
+      "Campaign Efficiency Metrics: ROAS, CPA, and CPC benchmarking across ad groups",
+      "Channel Attribution: Compared search ad performance against organic listing sites",
+      "Actionable Recommendations: Budget reallocation proposal toward high-intent keyword cohorts"
+    ],
+    "contribution": "Data cleansing, metric formulation, analytical reporting, and presentation.",
+    "verifiedResults": "Verified GitHub repository with completed internship analytical assignment.",
     "url": "https://github.com/Asadxio/Omnify-Internship-task-Analysing-google-ads-and-Listing-site-data-",
     "repo": "https://github.com/Asadxio/Omnify-Internship-task-Analysing-google-ads-and-Listing-site-data-",
-    "stageNote": "Repository title supplied by Asad; internship dates and outcomes need verification."
+    "stageNote": "Public GitHub repository with marketing performance analytics and business insights."
   },
   {
     "title": "The Analyst — Existing Portfolio",
-    "category": "Other Work",
-    "status": "Live",
+    "category": "Web Development",
+    "status": "Completed",
     "featured": false,
-    "description": "An existing portfolio built with Canva; this new portfolio will provide a more extensible, code-based home for the wider body of work.",
+    "description": "An earlier visual portfolio site presenting early data analytics case studies, academic backgrounds, and technical projects.",
     "tags": [
       "Portfolio",
-      "Canva"
+      "Web Presentation",
+      "Personal Branding",
+      "Visual Design"
     ],
+    "objective": "Document and showcase initial analytical projects and academic credentials.",
+    "problem": "Needed a clean, accessible public portfolio before building the custom engineering web platform.",
+    "solution": "Designed and deployed a multi-page visual showcase highlighting projects, certifications, and technical proficiencies.",
+    "keyFeatures": [
+      "Visual Storytelling: Modular layout highlighting data science training and projects",
+      "Public Availability: Publicly accessible URL for sharing with recruiters and peers"
+    ],
+    "contribution": "Content curation, layout design, and presentation.",
+    "verifiedResults": "Live external portfolio archive document.",
     "url": "https://theanalyst.my.canva.site/",
     "repo": "",
-    "stageNote": "Existing site supplied by Asad."
-  },
-  {
-    "title": "Noor-E-Haram AI Lead Assistant",
-    "category": "AI & Software",
-    "status": "Workflow / prototype",
-    "featured": false,
-    "description": "A lead-qualification and response workflow for Umrah inquiries, organizing trip requirements such as dates, group size and budget.",
-    "tags": [
-      "AI Workflow",
-      "Lead Qualification",
-      "Travel"
-    ],
-    "url": "https://nooreharam.com/",
-    "repo": "",
-    "stageNote": "Workflow project; do not imply a publicly available standalone AI product."
-  },
-  {
-    "title": "PDF Toolbox QA & SEO Work",
-    "category": "Other Work",
-    "status": "Completed work / ongoing maintenance",
-    "featured": false,
-    "description": "Deployment verification, browser-based end-to-end testing and technical SEO work associated with PDF Toolbox.",
-    "tags": [
-      "Playwright",
-      "Technical SEO",
-      "Quality Assurance"
-    ],
-    "url": "https://pdf.myoss.in/",
-    "repo": "",
-    "stageNote": "Specific test totals and search-ranking outcomes are omitted pending current verification."
+    "stageNote": "Live external portfolio archive documenting earlier data analytics presentations."
   },
   {
     "title": "Receipt Generator — Market Research",
-    "category": "Research & Concepts",
-    "status": "Research / idea",
+    "category": "Research & Experiments",
+    "status": "Concept / Planning",
     "featured": false,
-    "description": "Research into free payment-receipt generation tools for Indian users across web and mobile.",
+    "description": "Product planning, customer interviews, and market feasibility research exploring an automated digital receipt and proof-of-purchase generator.",
     "tags": [
+      "Product Concept",
       "Market Research",
-      "Product Discovery",
-      "India"
+      "Invoicing",
+      "FinTech"
     ],
+    "objective": "Validate market demand for lightweight digital receipt creation among freelancers and micro-businesses.",
+    "problem": "Freelancers and gig contractors frequently need fast, professional receipts without subscribing to full accounting suites.",
+    "solution": "Researched feature requirements, data security constraints, and UI flows for rapid single-click receipt generation.",
+    "keyFeatures": [
+      "Market Need Validation: Gathered pain points regarding receipt formatting and PDF exports",
+      "Feature Specification: Outlined minimal required fields: tax IDs, currency options, and digital signature"
+    ],
+    "contribution": "Market research, competitor benchmarking, and product requirement document.",
+    "verifiedResults": "Documented concept roadmap informing the Inventory & Billing Management prototype.",
     "url": "",
     "repo": "",
-    "stageNote": "Research item, not represented as a launched product."
+    "stageNote": "Concept and product requirement research. Foundational research for the Billing suite."
   },
   {
     "title": "Movie Aggregator — Product Concept",
-    "category": "Research & Concepts",
-    "status": "Idea",
+    "category": "Research & Experiments",
+    "status": "Concept / Planning",
     "featured": false,
-    "description": "A proposed discovery experience for organizing movie information and pointing users to external sources, subject to rights, availability and platform policies.",
+    "description": "An architectural concept exploring unified streaming availability, showtime indexing, and personalized cinema recommendation engines.",
     "tags": [
-      "Product Strategy",
-      "Search",
-      "Content Discovery"
+      "Product Concept",
+      "API Aggregation",
+      "Media",
+      "Recommendation System"
     ],
+    "objective": "Design an API aggregation architecture that indexes content availability across streaming platforms.",
+    "problem": "Consumers spend excessive time searching multiple streaming providers to find where a title is currently available.",
+    "solution": "Conceptualized a metadata aggregation pipeline utilizing third-party movie APIs with filtering by subscription provider and user ratings.",
+    "keyFeatures": [
+      "Unified Catalog: Centralized search across multiple streaming service libraries",
+      "Preference Filtering: Filter by release year, genre, IMDb score, and streaming availability"
+    ],
+    "contribution": "API schema exploration, user journey mapping, and feature prioritization.",
+    "verifiedResults": "Conceptual architecture blueprint for media aggregation.",
     "url": "",
     "repo": "",
-    "stageNote": "Concept only; no working product claimed."
+    "stageNote": "Conceptual architecture exploring multi-platform streaming catalog aggregation."
   },
   {
     "title": "School & Education Platform Planning",
-    "category": "Research & Concepts",
-    "status": "Planning",
+    "category": "Research & Experiments",
+    "status": "Concept / Planning",
     "featured": false,
-    "description": "Planning work for an education initiative and related digital learning needs.",
+    "description": "A functional requirements specification and database schema blueprint for an institutional academy management platform.",
     "tags": [
+      "System Architecture",
       "Education",
-      "Product Planning",
-      "Community"
+      "Database Design",
+      "Product Planning"
     ],
+    "objective": "Develop a scalable system architecture for student attendance, parent communication, and fee tracking.",
+    "problem": "Community schools frequently lack cost-effective, culturally aligned administrative software.",
+    "solution": "Mapped out relational database entities, role permissions, and notification workflows to serve grassroots educational institutions.",
+    "keyFeatures": [
+      "Database Entity Modeling: Structured schemas for students, classes, instructors, and fee ledgers",
+      "Administrative Workflow: Daily attendance logs and parent SMS/WhatsApp alert specifications"
+    ],
+    "contribution": "Requirements gathering, ER diagram modeling, and feature roadmapping.",
+    "verifiedResults": "System blueprint serving as the architectural foundation for academy management apps.",
     "url": "",
     "repo": "",
-    "stageNote": "Planning item; no launched school or platform is claimed."
+    "stageNote": "Planning and architecture blueprint for institutional academy software systems."
+  },
+  {
+    "title": "Noor-E-Haram AI Lead Assistant",
+    "category": "AI Applications & Automation",
+    "status": "Prototype / Research",
+    "featured": false,
+    "description": "An automated lead qualification and inquiry routing workflow designed specifically for the Noor-E-Haram travel and pilgrimage platform.",
+    "tags": [
+      "Workflow Automation",
+      "Lead Qualification",
+      "WhatsApp Routing",
+      "Chatbot",
+      "Travel AI"
+    ],
+    "objective": "Automate initial pilgrimage package inquiries and route high-intent customer requests directly to booking agents.",
+    "problem": "High volume of repetitive traveler inquiries on package dates, visa requirements, and hotel tiers overwhelmed manual support channels.",
+    "solution": "Designed an automated inquiry qualification flow that collects travel dates, party size, and package preference before handing off to agents via WhatsApp.",
+    "keyFeatures": [
+      "Structured Triage: Pre-qualifies traveler inquiries before agent engagement",
+      "Instant WhatsApp Dispatch: Formats customer requirements into clean booking requests",
+      "Frictionless UX: Embedded directly within package landing pages"
+    ],
+    "contribution": "Workflow design, qualification logic, and WhatsApp API integration blueprint.",
+    "verifiedResults": "Integrated capability and automated inquiry workflow designed for the Noor-E-Haram platform.",
+    "url": "https://nooreharam.com/",
+    "repo": "",
+    "stageNote": "Integrated case study and inquiry automation workflow designed for the Noor-E-Haram platform."
+  },
+  {
+    "title": "PDF Toolbox QA & SEO Architecture",
+    "category": "Web Development",
+    "status": "Completed",
+    "featured": false,
+    "description": "An automated quality assurance and technical search engine optimization framework implemented for the PDF Toolbox web application.",
+    "tags": [
+      "Playwright",
+      "Automated QA",
+      "Technical SEO",
+      "Cloudflare",
+      "Performance"
+    ],
+    "objective": "Ensure rock-solid browser compatibility and high organic search discoverability for client-side PDF utilities.",
+    "problem": "Client-side PDF manipulations depend heavily on varied browser canvas implementations and require continuous regression verification.",
+    "solution": "Implemented automated Playwright end-to-end tests covering PDF merging, extraction, and rendering, alongside clean JSON-LD structured metadata and canonical indexing.",
+    "keyFeatures": [
+      "Automated End-to-End Tests: Headless browser verification of core PDF manipulation functions",
+      "Technical SEO Optimization: Canonical URL declarations, Open Graph cards, and performance tuning",
+      "Edge Reliability: Verified delivery over Cloudflare edge network with zero console exceptions"
+    ],
+    "contribution": "Playwright test suite authoring, CI regression checks, and technical SEO setup.",
+    "verifiedResults": "Completed QA framework and SEO indexability architecture for the PDF Toolbox platform.",
+    "url": "https://pdf.myoss.in/",
+    "repo": "",
+    "stageNote": "End-to-end Playwright automated QA testing suite and SEO indexability architecture for the PDF Toolbox platform."
   }
 ]

@@ -11,7 +11,17 @@
  *  - Hacker Text Scramble Effect
  */
 
-const categories = ["All work", "Business Software", "Digital Products", "Data & BI", "Machine Learning", "Computer Vision", "AI & Software", "Other Work", "Research & Concepts"];
+const categories = [
+  "All work",
+  "Web Development",
+  "Mobile Applications",
+  "Business Software",
+  "AI Applications & Automation",
+  "Data Analytics & Business Intelligence",
+  "Machine Learning",
+  "Computer Vision",
+  "Research & Experiments"
+];
 let projects = [];
 let activeCategory = "All work";
 
@@ -362,8 +372,9 @@ function applyCardTiltEffect() {
 }
 
 function projectCard(p, i, featured = false) {
+  const isDemo = p.status === "Interactive Demo";
   const link = p.url
-    ? `<a class="project-link" href="${escapeHTML(p.url)}" target="_blank" rel="noopener noreferrer">${p.repo ? "View repository" : p.status === "Live" ? "Visit live project" : "Explore project"} <span aria-hidden="true">↗</span></a>`
+    ? `<a class="project-link ${isDemo ? "project-link-demo" : ""}" href="${escapeHTML(p.url)}" ${p.url.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>${isDemo ? "Try live demo" : p.repo ? "View repository" : p.status === "Live" ? "Visit live project" : "Explore project"} <span aria-hidden="true">${isDemo ? "⚡" : "↗"}</span></a>`
     : `<span class="project-link archived">Internal / Archive</span>`;
   const tags = p.tags.slice(0, 4).map(t => `<span>${escapeHTML(t)}</span>`).join("");
 
@@ -383,7 +394,7 @@ function projectCard(p, i, featured = false) {
       <div class="project-content">
         <div class="project-meta">
           <span class="project-category">${escapeHTML(p.category)}</span>
-          <span class="status-pill">${escapeHTML(p.status)}</span>
+          <span class="status-pill ${isDemo ? "status-demo" : ""}">${escapeHTML(p.status)}</span>
         </div>
         <h3>${escapeHTML(p.title)}</h3>
         <p>${escapeHTML(p.description)}</p>
@@ -452,7 +463,7 @@ function renderArchive() {
 }
 
 function renderFeatured() {
-  const featured = projects.filter(p => p.featured).slice(0, 4);
+  const featured = projects.filter(p => p.featured).slice(0, 6);
   featuredGrid.innerHTML = featured.map(p => projectCard(p, projects.indexOf(p), true)).join("");
   attachCardClickListeners();
 }
@@ -487,10 +498,91 @@ function openProjectModal(p) {
 
   modalTags.innerHTML = (p.tags || []).map(t => `<span>${escapeHTML(t)}</span>`).join("");
 
+  // Populate structured case study blocks if available
+  const modalCaseStudy = document.querySelector("#modal-case-study");
+  if (modalCaseStudy) {
+    let caseHtml = "";
+    if (p.objective) {
+      caseHtml += `
+        <div class="case-study-block">
+          <div class="cs-label">Strategic Objective</div>
+          <p>${escapeHTML(p.objective)}</p>
+        </div>
+      `;
+    }
+    if (p.problem || p.solution) {
+      caseHtml += `
+        <div class="case-study-split">
+          ${p.problem ? `
+            <div class="case-study-block">
+              <div class="cs-label">Challenge / Problem</div>
+              <p>${escapeHTML(p.problem)}</p>
+            </div>
+          ` : ""}
+          ${p.solution ? `
+            <div class="case-study-block">
+              <div class="cs-label">Engineered Solution</div>
+              <p>${escapeHTML(p.solution)}</p>
+            </div>
+          ` : ""}
+        </div>
+      `;
+    }
+    if (p.keyFeatures && p.keyFeatures.length) {
+      caseHtml += `
+        <div class="case-study-block">
+          <div class="cs-label">Key Capabilities & Architecture</div>
+          <ul class="cs-features-list">
+            ${p.keyFeatures.map(f => `<li><span class="cs-check" aria-hidden="true">✓</span> <span>${escapeHTML(f)}</span></li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+    if (p.contribution) {
+      caseHtml += `
+        <div class="case-study-block">
+          <div class="cs-label">Scope of Contribution</div>
+          <p>${escapeHTML(p.contribution)}</p>
+        </div>
+      `;
+    }
+    if (p.verifiedResults) {
+      caseHtml += `
+        <div class="case-study-block cs-results-block">
+          <div class="cs-label">Verified Results / Deliverables</div>
+          <p>${escapeHTML(p.verifiedResults)}</p>
+        </div>
+      `;
+    }
+    modalCaseStudy.innerHTML = caseHtml;
+    modalCaseStudy.style.display = caseHtml ? "flex" : "none";
+  }
+
   if (p.url) {
     modalLiveLink.style.display = "inline-flex";
     modalLiveLink.href = p.url;
-    modalLiveLink.innerHTML = `${p.repo ? "View Repository" : "Visit Live Project"} <span aria-hidden="true">↗</span>`;
+    if (p.status === "Interactive Demo") {
+      modalLiveLink.innerHTML = 'Launch Interactive Demo <span aria-hidden="true">⚡</span>';
+      if (!p.url.startsWith("http")) {
+        modalLiveLink.removeAttribute("target");
+        modalLiveLink.removeAttribute("rel");
+      } else {
+        modalLiveLink.target = "_blank";
+        modalLiveLink.rel = "noopener noreferrer";
+      }
+    } else if (p.status === "Live") {
+      modalLiveLink.innerHTML = 'Visit Live Project <span aria-hidden="true">↗</span>';
+      modalLiveLink.target = "_blank";
+      modalLiveLink.rel = "noopener noreferrer";
+    } else if (p.repo) {
+      modalLiveLink.innerHTML = 'View Repository <span aria-hidden="true">↗</span>';
+      modalLiveLink.target = "_blank";
+      modalLiveLink.rel = "noopener noreferrer";
+    } else {
+      modalLiveLink.innerHTML = 'Explore Project <span aria-hidden="true">↗</span>';
+      modalLiveLink.target = "_blank";
+      modalLiveLink.rel = "noopener noreferrer";
+    }
   } else {
     modalLiveLink.style.display = "none";
   }
@@ -498,6 +590,7 @@ function openProjectModal(p) {
   if (p.repo) {
     modalRepoLink.style.display = "inline-flex";
     modalRepoLink.href = p.repo;
+    modalRepoLink.innerHTML = 'View Source Code <span aria-hidden="true">↗</span>';
   } else {
     modalRepoLink.style.display = "inline-flex";
     modalRepoLink.href = "https://github.com/Asadxio";
@@ -505,7 +598,7 @@ function openProjectModal(p) {
   }
 
   modalCopyBtn.onclick = () => {
-    const urlToCopy = p.url || window.location.href;
+    const urlToCopy = p.url ? (p.url.startsWith("http") ? p.url : `${window.location.origin}/${p.url}`) : window.location.href;
     navigator.clipboard.writeText(urlToCopy).then(() => {
       const orig = modalCopyBtn.innerHTML;
       modalCopyBtn.innerHTML = 'Copied! <span aria-hidden="true">✓</span>';
@@ -523,10 +616,14 @@ function openProjectModal(p) {
       if (serviceSelect) {
         if (p.category === "Business Software") {
           serviceSelect.value = "Custom Software";
-        } else if (p.category === "Digital Products") {
+        } else if (p.category === "Web Development") {
           serviceSelect.value = "Website Development";
+        } else if (p.category === "Mobile Applications") {
+          serviceSelect.value = "Mobile App Development";
         } else if (p.category && p.category.includes("AI")) {
           serviceSelect.value = "AI Automation";
+        } else if (p.category && (p.category.includes("Data") || p.category.includes("Analytics"))) {
+          serviceSelect.value = "Data Analytics & BI";
         } else {
           serviceSelect.value = "Custom Software";
         }
@@ -588,8 +685,26 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* ==========================================================================
-   5. Animated Stat Counters
+   5. Animated Stat Counters & Dynamic Calculations
    ========================================================================== */
+function updateDynamicStats(list) {
+  if (!list || !list.length) return;
+  const total = list.length;
+  const live = list.filter(p => p.status === "Live").length;
+  const demos = list.filter(p => p.status === "Interactive Demo").length;
+  const repos = list.filter(p => p.repo && p.repo.includes("github.com")).length;
+
+  const elTotal = document.querySelector("#stat-total-projects");
+  const elLive = document.querySelector("#stat-live-projects");
+  const elDemos = document.querySelector("#stat-interactive-demos");
+  const elRepos = document.querySelector("#stat-github-repos");
+
+  if (elTotal) { elTotal.dataset.target = String(total); elTotal.textContent = String(total); }
+  if (elLive) { elLive.dataset.target = String(live); elLive.textContent = String(live); }
+  if (elDemos) { elDemos.dataset.target = String(demos); elDemos.textContent = String(demos); }
+  if (elRepos) { elRepos.dataset.target = String(repos); elRepos.textContent = String(repos); }
+}
+
 function initStatsCounter() {
   const counters = document.querySelectorAll(".counter");
   if (!counters.length) return;
@@ -915,9 +1030,11 @@ function initCommandPalette() {
     ];
 
     const skills = [
-      "Business Software", "Inventory Tracking", "Website Development", "AI Automation",
-      "Python", "SQL", "Power BI", "Machine Learning", "Computer Vision",
-      "FastAPI", "React Native", "Firebase", "Cloudflare", "Playwright", "Technical SEO"
+      "Web Development", "Mobile Applications", "Business Software",
+      "AI Applications & Automation", "Data Analytics & Business Intelligence",
+      "Machine Learning", "Computer Vision", "Research & Experiments",
+      "Inventory & Billing", "CRM & Pipelines", "Customer Support AI",
+      "Python", "SQL", "Power BI", "FastAPI", "React Native", "Cloudflare"
     ].map(s => ({
       type: "skill",
       icon: "◆",
@@ -1132,6 +1249,7 @@ function initContactModal() {
       phone: document.querySelector("#contact-phone")?.value.trim() || "",
       service: document.querySelector("#contact-service")?.value || "Website Development",
       budget: document.querySelector("#contact-budget")?.value || "Discuss / Flexible",
+      timeline: document.querySelector("#contact-timeline")?.value || "Flexible / Ready Now",
       message: document.querySelector("#contact-message")?.value.trim() || "",
       botcheck: document.querySelector('input[name="botcheck"]')?.checked || false
     };
@@ -1139,10 +1257,10 @@ function initContactModal() {
 
   function updateMailto() {
     if (!mailtoBtn) return;
-    const { name, business, email, phone, service, budget, message } = getFormValues();
+    const { name, business, email, phone, service, budget, timeline, message } = getFormValues();
     const displayName = name || "Prospective Client";
     const subject = `[Client Inquiry] ${service} from ${displayName}${business ? ` (${business})` : ""}`;
-    const body = `Full Name: ${displayName}\nBusiness: ${business || "N/A"}\nEmail: ${email || "Not specified"}\nWhatsApp / Phone: ${phone || "Not specified"}\nService Required: ${service}\nEstimated Budget: ${budget}\n\nProject Scope & Requirements:\n${message || "(Enter project details)"}`;
+    const body = `Full Name: ${displayName}\nBusiness: ${business || "N/A"}\nEmail: ${email || "Not specified"}\nWhatsApp / Phone: ${phone || "Not specified"}\nService Required: ${service}\nEstimated Budget: ${budget}\nExpected Timeline: ${timeline}\n\nProject Scope & Requirements:\n${message || "(Enter project details)"}`;
     mailtoBtn.href = `mailto:aliasadcivil007@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
@@ -1228,6 +1346,7 @@ EMAIL: ${vals.email}
 WHATSAPP / PHONE: ${vals.phone}
 SERVICE REQUIRED: ${vals.service}
 ESTIMATED BUDGET: ${vals.budget}
+EXPECTED TIMELINE: ${vals.timeline}
 
 PROJECT SCOPE & REQUIREMENTS:
 ${vals.message}`;
@@ -1244,6 +1363,7 @@ ${vals.message}`;
           business: vals.business,
           service: vals.service,
           budget: vals.budget,
+          timeline: vals.timeline,
           subject: subject,
           message: compiledMessage
         })
@@ -1495,6 +1615,7 @@ async function init() {
     const response = await fetch("projects.json");
     if (!response.ok) throw new Error("Project catalogue unavailable");
     projects = await response.json();
+    updateDynamicStats(projects);
     renderFeatured();
     renderFilters();
     renderArchive();

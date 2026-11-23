@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Customer Support Assistant — Interactive Demo | Asad Ali Mulla</title>
+  <meta name="description" content="Interactive simulated demonstration of an AI Customer Support & Knowledge Assistant interface by Asad Ali Mulla.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #090e0b;
+      --card-bg: #101813;
+      --card-alt: #14201a;
+      --border: rgba(229, 184, 105, 0.18);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --ink: #f7f6f1;
+      --muted: #9ba89f;
+      --gold: #e5b869;
+      --emerald: #10b981;
+      --emerald-dark: #0b3d2e;
+      --blue: #38bdf8;
+      --font-display: 'Manrope', -apple-system, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+
+    .demo-topbar {
+      background: #060a08;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .demo-topbar a { color: var(--gold); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-prototype-pill {
+      background: rgba(229, 184, 105, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .demo-contact-cta { background: var(--emerald-dark); border: 1px solid var(--gold); color: #f7f6f1 !important; padding: 6px 14px; border-radius: 4px; }
+    .demo-contact-cta:hover { background: var(--gold); color: #060a08 !important; }
+
+    .demo-notice {
+      background: rgba(192, 132, 252, 0.08);
+      border-bottom: 1px solid rgba(192, 132, 252, 0.2);
+      padding: 10px 24px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #c084fc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-container { max-width: 1200px; width: 100%; margin: 0 auto; padding: 32px 24px; flex: 1; display: grid; grid-template-columns: 340px 1fr; gap: 24px; }
+    @media (max-width: 900px) { .app-container { grid-template-columns: 1fr; } }
+
+    /* Sidebar / Knowledge Base */
+    .kb-sidebar { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
+    .kb-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .kb-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .kb-search { background: #090e0b; border: 1px solid var(--border-light); color: var(--ink); padding: 8px 12px; border-radius: 4px; font-size: 13px; margin-bottom: 16px; outline: none; width: 100%; }
+    .kb-search:focus { border-color: var(--gold); }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; max-height: 440px; }
+    .faq-card { background: var(--card-alt); border: 1px solid rgba(255,255,255,0.04); border-radius: 4px; padding: 12px; cursor: pointer; transition: all 0.2s; font-size: 12px; }
+    .faq-card:hover { border-color: var(--gold); background: rgba(229,184,105,0.04); }
+    .faq-q { font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .faq-a { color: var(--muted); display: none; margin-top: 6px; font-size: 11px; line-height: 1.5; }
+    .faq-card.open .faq-a { display: block; }
+
+    /* Chat Area */
+    .chat-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; height: 680px; }
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.2);
+    }
+    .bot-profile { display: flex; align-items: center; gap: 12px; }
+    .bot-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--emerald-dark); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .bot-info h3 { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin: 0; }
+    .bot-status { font-size: 11px; color: #34d399; font-family: var(--font-mono); }
+
+    .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+    .msg { display: flex; gap: 10px; max-width: 80%; }
+    .msg-bot { align-self: flex-start; }
+    .msg-user { align-self: flex-end; flex-direction: row-reverse; }
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .msg-bot .msg-bubble { background: var(--card-alt); border: 1px solid var(--border-light); color: var(--ink); }
+    .msg-user .msg-bubble { background: var(--emerald-dark); border: 1px solid var(--border); color: #f7f6f1; }
+    .msg-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 4px; display: block; }
+
+    /* Quick Prompts */
+    .quick-prompts { display: flex; gap: 8px; overflow-x: auto; padding: 10px 20px; border-top: 1px solid var(--border-light); }
+    .prompt-chip {
+      background: var(--card-alt);
+      border: 1px solid rgba(229,184,105,0.2);
+      color: var(--gold);
+      font-size: 11px;
+      font-family: var(--font-body);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .prompt-chip:hover { background: var(--gold); color: #060a08; }
+
+    /* Input area */
+    .chat-input-bar {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      gap: 12px;
+    }
+    .chat-input {
+      flex: 1;
+      background: #090e0b;
+      border: 1px solid var(--border-light);
+      color: var(--ink);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    .chat-input:focus { border-color: var(--gold); }
+    .send-btn {
+      background: var(--emerald-dark);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .send-btn:hover { background: var(--gold); color: #060a08; }
+
+    .typing-indicator { display: none; gap: 4px; align-items: center; padding: 8px 12px; background: var(--card-alt); border-radius: 12px; width: fit-content; font-size: 11px; color: var(--muted); }
+    .typing-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 1.4s infinite both; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+
+    .escalate-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .escalate-btn:hover { background: var(--gold); color: #060a08; }
+  </style>
+</head>
+<body>
+
+  <header class="demo-topbar">
+    <a href="../index.html#work">← Return to Asad Ali Mulla Portfolio</a>
+    <div class="demo-badge-wrap">
+      <span class="demo-prototype-pill">Interactive Prototype</span>
+      <span style="color: var(--muted); font-size: 12px;">AI Customer Support &amp; Knowledge Assistant</span>
+    </div>
+    <a href="../index.html#connect" class="demo-contact-cta">Discuss Similar Project ↗</a>
+  </header>
+
+  <aside class="demo-notice">
+    <span>🤖 <strong>Simulated AI Demonstration:</strong> Demonstrates conversational context, verified knowledge retrieval, and human escalation UX. (Production integrates directly with Gemini / LLM APIs).</span>
+  </aside>
+
+  <main class="app-container">
+    <!-- Left: Knowledge Base & FAQ Search -->
+    <aside class="kb-sidebar">
+      <h2 class="kb-title">Knowledge Base</h2>
+      <p class="kb-desc">Simulated business documentation retrieved by the assistant to answer client queries accurately.</p>
+      <input type="search" class="kb-search" id="kb-search" placeholder="Search knowledge articles...">
+      <div class="faq-list" id="faq-list">
+        <div class="faq-card" data-q="services offered">
+          <div class="faq-q">What services does Asad provide?</div>
+          <div class="faq-a">Asad specializes in 5 core areas: Website Development, Mobile App Development, Custom Business Software (Inventory, Billing, CRM), AI Automation &amp; Chatbots, and Data Analytics/BI.</div>
+        </div>
+        <div class="faq-card" data-q="inventory billing custom software">
+          <div class="faq-q">Can you build custom inventory or billing software?</div>
+          <div class="faq-a">Yes. Custom inventory tracking, GST-ready invoicing, purchase/sales ledgers, and responsive web or mobile portals tailored to exact business requirements.</div>
+        </div>
+        <div class="faq-card" data-q="whatsapp chatbot automation">
+          <div class="faq-q">How does WhatsApp &amp; AI automation work?</div>
+          <div class="faq-a">Automated customer enquiry handling, order status updates, lead capture, and instant FAQ answering integrated via official WhatsApp APIs and LLMs.</div>
+        </div>
+        <div class="faq-card" data-q="timelines delivery">
+          <div class="faq-q">What are the typical project timelines?</div>
+          <div class="faq-a">High-converting landing pages: 5–7 days. Full-stack business web applications &amp; prototypes: 2–4 weeks. Complex enterprise tools: 4–8 weeks based on scope.</div>
+        </div>
+        <div class="faq-card" data-q="pricing budget quotes">
+          <div class="faq-q">How do you charge for projects?</div>
+          <div class="faq-a">Projects are quoted on a transparent, milestone-based fixed scope or dedicated retainer, customized to your scale and timeline.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: Chat Assistant Panel -->
+    <section class="chat-panel">
+      <div class="chat-header">
+        <div class="bot-profile">
+          <div class="bot-avatar">🤖</div>
+          <div class="bot-info">
+            <h3>Asad Studio Assistant</h3>
+            <span class="bot-status">● Live AI Prototype</span>
+          </div>
+        </div>
+        <button type="button" class="escalate-btn" id="escalate-btn">Request Human Agent ↗</button>
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg msg-bot">
+          <div class="msg-bubble">
+            Hello! I am Asad Ali Mulla's automated project assistant. I can answer questions regarding development services, custom business software, AI automation, or assist you in planning a project.
+            <span class="msg-time">Just now</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typing-indicator">
+        <span>Assistant is typing</span>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+
+      <!-- Quick prompts -->
+      <div class="quick-prompts">
+        <button type="button" class="prompt-chip" data-text="What services do you offer?">What services do you offer?</button>
+        <button type="button" class="prompt-chip" data-text="Can you build a custom inventory & billing system?">Can you build inventory software?</button>
+        <button type="button" class="prompt-chip" data-text="What are typical project timelines?">Typical project timelines?</button>
+        <button type="button" class="prompt-chip" data-text="How can we get started on a project?">How do we get started?</button>
+      </div>
+
+      <!-- Input Bar -->
+      <form class="chat-input-bar" id="chat-form">
+        <input type="text" class="chat-input" id="chat-input" placeholder="Type a question regarding development, software, or AI..." autocomplete="off">
+        <button type="submit" class="send-btn">Send ↵</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const KNOWLEDGE_RESPONSES = [
+      {
+        triggers: ["service", "what do you do", "offer", "help"],
+        reply: "Asad provides end-to-end technical execution across 5 key pillars:\n1. 🌐 Website Development (Corporate sites, landing pages, high-conversion web apps)\n2. 📱 Mobile Applications (Android, cross-platform apps)\n3. ⚙️ Custom Business Software (Inventory, GST billing, CRM, admin portals)\n4. 🤖 AI Automation & Chatbots (Customer support bots, WhatsApp workflows, document processing)\n5. 📊 Data Analytics & BI (Power BI dashboards, automated reporting, ML predictive models)."
+      },
+      {
+        triggers: ["inventory", "billing", "gst", "invoice", "stock", "crm"],
+        reply: "Yes! Custom business software is one of Asad's core specialties. He builds lightweight, responsive systems with live inventory tracking, SKU alerts, GST sequential PDF invoices, purchase ledgers, and exportable business analytics. Check the interactive Inventory demo in the portfolio!"
+      },
+      {
+        triggers: ["timeline", "time", "how long", "delivery", "duration"],
+        reply: "Timelines depend on project complexity:\n• Professional business websites: 5–10 business days.\n• Custom business software & prototypes: 2–4 weeks.\n• AI automation & chatbot integrations: 1–3 weeks.\nEvery engagement includes milestone checkpoints and transparent demos."
+      },
+      {
+        triggers: ["start", "begin", "hire", "contact", "pricing", "cost", "quote"],
+        reply: "To discuss your requirements or receive a project proposal, click 'Request Human Agent' above or submit your requirements on Asad's direct enquiry form. You can also email directly at aliasadcivil007@gmail.com."
+      },
+      {
+        triggers: ["whatsapp", "bot", "ai", "automation"],
+        reply: "Asad designs AI customer assistants, WhatsApp automated communication flows, and document classification pipelines that save hours of repetitive work for businesses."
+      }
+    ];
+
+    const messagesContainer = document.querySelector("#chat-messages");
+    const chatForm = document.querySelector("#chat-form");
+    const chatInput = document.querySelector("#chat-input");
+    const typingIndicator = document.querySelector("#typing-indicator");
+
+    function addMessage(text, isUser = false) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = `msg ${isUser ? "msg-user" : "msg-bot"}`;
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      msgDiv.innerHTML = `
+        <div class="msg-bubble">
+          ${text.replace(/\n/g, "<br>")}
+          <span class="msg-time">${now}</span>
+        </div>
+      `;
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function generateResponse(userText) {
+      typingIndicator.style.display = "flex";
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.style.display = "none";
+        const q = userText.toLowerCase();
+        let matched = KNOWLEDGE_RESPONSES.find(item => item.triggers.some(t => q.includes(t)));
+        let reply = matched 
+          ? matched.reply 
+          : "Thank you for asking! Asad can tailor a custom solution to your specific business requirements. Would you like to connect directly or discuss project scope in detail?";
+        addMessage(reply, false);
+      }, 700);
+    }
+
+    chatForm.onsubmit = (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addMessage(text, true);
+      chatInput.value = "";
+      generateResponse(text);
+    };
+
+    document.querySelectorAll(".prompt-chip").forEach(chip => {
+      chip.onclick = () => {
+        const text = chip.dataset.text;
+        addMessage(text, true);
+        generateResponse(text);
+      };
+    });
+
+    document.querySelectorAll(".faq-card").forEach(card => {
+      card.onclick = () => {
+        card.classList.toggle("open");
+      };
+    });
+
+    document.querySelector("#kb-search").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll(".faq-card").forEach(card => {
+        const match = card.textContent.toLowerCase().includes(q);
+        card.style.display = match ? "block" : "none";
+      });
+    });
+
+    document.querySelector("#escalate-btn").onclick = () => {
+      window.location.href = "../index.html#connect";
+    };
+  </script>
+</body>
+</html>

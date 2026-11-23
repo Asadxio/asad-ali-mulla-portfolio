@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Haus Engineering &amp; Consultancy — Portfolio Demonstration | Asad Ali Mulla</title>
+  <meta name="description" content="Corporate civil engineering and architectural consultancy website demonstration engineered by Asad Ali Mulla.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #0f1311;
+      --card-bg: #151b18;
+      --card-alt: #1c2420;
+      --ink: #f7f6f1;
+      --muted: #a4b2a9;
+      --gold: #d4a359;
+      --bronze: #b87333;
+      --emerald: #10b981;
+      --border: rgba(212, 163, 89, 0.2);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --font-display: 'Manrope', -apple-system, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.6; }
+
+    .demo-topbar {
+      background: #080c09;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .demo-topbar a { color: var(--gold); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-prototype-pill {
+      background: rgba(212, 163, 89, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .demo-contact-cta { background: #1a2f24; border: 1px solid var(--gold); color: #f7f6f1 !important; padding: 6px 14px; border-radius: 4px; }
+    .demo-contact-cta:hover { background: var(--gold); color: #080c09 !important; }
+
+    /* Site Header */
+    .site-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .brand { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .brand-mark { color: var(--gold); }
+    .nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+    .nav-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Hero */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding: 50px 20px 40px; } }
+    .hero-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(34px, 5vw, 54px); font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; margin-bottom: 20px; }
+    .hero-title em { font-style: normal; color: var(--gold); }
+    .hero-desc { font-size: 16px; color: var(--muted); margin-bottom: 32px; max-width: 560px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-gold { background: var(--gold); color: #080c09; padding: 14px 28px; border-radius: 4px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-gold:hover { background: #e5b869; transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 1px solid var(--border-light); color: var(--ink); padding: 14px 24px; border-radius: 4px; font-weight: 600; text-decoration: none; cursor: pointer; }
+    .btn-outline:hover { border-color: var(--gold); }
+
+    .hero-stats-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+    .stat-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-light); padding-bottom: 14px; }
+    .stat-row:last-child { border: none; padding: 0; }
+    .stat-num { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--gold); }
+    .stat-label { font-size: 13px; color: var(--muted); }
+
+    /* Services Section */
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-family: var(--font-display); font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .section-header p { color: var(--muted); font-size: 15px; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .service-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 28px 24px;
+      transition: all 0.2s;
+    }
+    .service-box:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .service-num { font-family: var(--font-mono); font-size: 11px; color: var(--gold); margin-bottom: 14px; display: block; }
+    .service-box h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .service-box p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* Projects Showcase */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-thumb {
+      height: 180px;
+      background: #1b2620;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .thumb-label { font-family: var(--font-mono); font-size: 12px; color: var(--gold); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; background: rgba(0,0,0,0.4); }
+    .project-info { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .project-category { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+    .project-info h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .project-info p { font-size: 13px; color: var(--muted); flex: 1; }
+
+    /* Consultation Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 1000; }
+    .modal-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; max-width: 580px; width: 100%; padding: 32px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: #090e0b; border: 1px solid var(--border-light); padding: 10px 14px; color: var(--ink); border-radius: 4px; font-size: 13px; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <header class="demo-topbar">
+    <a href="../index.html#work">← Return to Asad Ali Mulla Portfolio</a>
+    <div class="demo-badge-wrap">
+      <span class="demo-prototype-pill">Interactive Prototype</span>
+      <span style="color: var(--muted); font-size: 12px;">Design Haus — Civil Engineering Website</span>
+    </div>
+    <a href="../index.html#connect" class="demo-contact-cta">Discuss Similar Project ↗</a>
+  </header>
+
+  <!-- Site Navigation -->
+  <nav class="site-nav">
+    <div class="brand"><span class="brand-mark">▲</span> DESIGN HAUS <small style="font-size: 10px; color: var(--gold); font-family: var(--font-mono); margin-left: 6px;">ENGINEERING</small></div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#expertise">Structural Expertise</a>
+      <a href="#contact" id="nav-consult-link" style="color: var(--gold);">Request Consultation ↗</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">CIVIL ENGINEERING · STRUCTURAL DESIGN · BIM CONSULTING</div>
+      <h1 class="hero-title">Precision engineering for <em>enduring</em> infrastructure.</h1>
+      <p class="hero-desc">Design Haus provides advanced structural modeling, geotechnical assessments, and project management consultancy for commercial, residential, and industrial assets.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn-gold" id="open-consult-btn">Schedule Engineering Consultation ↗</button>
+        <a href="#projects" class="btn-outline">Explore Project Portfolio</a>
+      </div>
+    </div>
+    <div class="hero-stats-card">
+      <div class="stat-row">
+        <div>
+          <div class="stat-num">IS 456</div>
+          <div class="stat-label">Code-Compliant RCC Detailing</div>
+        </div>
+        <div style="font-family: var(--font-mono); color: var(--emerald); font-size: 12px;">VERIFIED</div>
+      </div>
+      <div class="stat-row">
+        <div>
+          <div class="stat-num">STAAD</div>
+          <div class="stat-label">3D Finite Element Structural Analysis</div>
+        </div>
+        <div style="font-family: var(--font-mono); color: var(--gold); font-size: 12px;">CERTIFIED</div>
+      </div>
+      <div class="stat-row">
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Regulatory &amp; Structural Safety Adherence</div>
+        </div>
+        <div style="font-family: var(--font-mono); color: var(--emerald); font-size: 12px;">ISO 9001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section-wrap" id="services">
+    <div class="section-header">
+      <h2>Engineering Specializations<span style="color: var(--gold);">.</span></h2>
+      <p>Comprehensive multidisciplinary solutions spanning structural analysis, geotechnical site feasibility, and BIM orchestration.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-box">
+        <span class="service-num">01 / STRUCTURAL</span>
+        <h3>RCC &amp; Steel Structural Design</h3>
+        <p>Comprehensive seismic, wind, and dead/live load simulations, beam-column scheduling, and optimized reinforcement detailing.</p>
+      </article>
+      <article class="service-box">
+        <span class="service-num">02 / GEOTECHNICAL</span>
+        <h3>Soil Investigation &amp; Foundation Engineering</h3>
+        <p>Safe bearing capacity estimation, borehole log correlation, pile foundation design, and settlement risk mitigation.</p>
+      </article>
+      <article class="service-box">
+        <span class="service-num">03 / PROJECT MANAGEMENT</span>
+        <h3>Construction Estimation &amp; BOQ</h3>
+        <p>Bill of quantities preparation, bar bending schedules, material procurement scheduling, and contractor coordination.</p>
+      </article>
+      <article class="service-box">
+        <span class="service-num">04 / DIGITAL TWINS</span>
+        <h3>BIM Modeling &amp; Clash Detection</h3>
+        <p>Revit &amp; AutoCAD 3D spatial coordination resolving MEP and structural collisions prior to construction mobilization.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section-wrap" id="projects">
+    <div class="section-header">
+      <h2>Representative Projects<span style="color: var(--gold);">.</span></h2>
+      <p>A selection of structural frameworks, commercial developments, and industrial facilities engineered for longevity.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb"><span class="thumb-label">COMMERCIAL COMPLEX</span></div>
+        <div class="project-info">
+          <span class="project-category">G+12 Commercial Framework</span>
+          <h3>Horizon Trade Center</h3>
+          <p>Seismic-resistant dual structural frame design with post-tensioned flat slabs and composite columns.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"><span class="thumb-label">INDUSTRIAL FACILITY</span></div>
+        <div class="project-info">
+          <span class="project-category">Pre-Engineered Building (PEB)</span>
+          <h3>Apex Logistics Warehousing</h3>
+          <p>42m clear-span portal frame steel structure engineered for dynamic gantry crane operations and high wind zones.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"><span class="thumb-label">CIVIL INFRASTRUCTURE</span></div>
+        <div class="project-info">
+          <span class="project-category">Geotechnical &amp; Retaining</span>
+          <h3>Crestview Hillside Retaining System</h3>
+          <p>Reinforced earth (RE) wall and contiguous bored pile design preventing slope instability on difficult terrain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consultation Modal -->
+  <div class="modal-overlay" id="consult-modal">
+    <div class="modal-box">
+      <h3 style="font-family: var(--font-display); font-size: 22px; margin-bottom: 8px;">Schedule Engineering Consultation</h3>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Request a preliminary architectural or structural consultation for your development project.</p>
+      <form id="consult-form">
+        <div class="form-group">
+          <label for="c-name">Full Name *</label>
+          <input type="text" id="c-name" required placeholder="e.g. David Miller">
+        </div>
+        <div class="form-group">
+          <label for="c-company">Organization / Firm</label>
+          <input type="text" id="c-company" placeholder="e.g. Miller Real Estate Group">
+        </div>
+        <div class="form-group">
+          <label for="c-email">Work Email *</label>
+          <input type="email" id="c-email" required placeholder="david@millergroup.com">
+        </div>
+        <div class="form-group">
+          <label for="c-type">Project Type *</label>
+          <select id="c-type">
+            <option value="Commercial Multi-Story">Commercial Multi-Story</option>
+            <option value="Industrial Warehouse / PEB">Industrial Warehouse / PEB</option>
+            <option value="Residential Development">Residential Development</option>
+            <option value="Structural Audit / Retrofit">Structural Audit / Retrofit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c-notes">Project Location &amp; Scope Requirements</label>
+          <textarea id="c-notes" rows="3" placeholder="Plot dimensions, tentative built-up area, or structural queries..."></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn-outline" id="close-consult-modal">Cancel</button>
+          <button type="submit" class="btn-gold">Submit Request ↗</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.querySelector("#consult-modal");
+    document.querySelector("#open-consult-btn").onclick = () => { modal.style.display = "flex"; };
+    document.querySelector("#nav-consult-link").onclick = (e) => { e.preventDefault(); modal.style.display = "flex"; };
+    document.querySelector("#close-consult-modal").onclick = () => { modal.style.display = "none"; };
+
+    document.querySelector("#consult-form").onsubmit = (e) => {
+      e.preventDefault();
+      const name = document.querySelector("#c-name").value;
+      alert(`Thank you, ${name}! Your consultation inquiry has been logged in this demonstration.`);
+      modal.style.display = "none";
+      document.querySelector("#consult-form").reset();
+    };
+  </script>
+</body>
+</html>

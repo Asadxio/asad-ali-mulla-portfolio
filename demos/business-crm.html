@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Business CRM Dashboard — Interactive Demo | Asad Ali Mulla</title>
+  <meta name="description" content="Interactive prototype demonstration of a modern Business CRM & Lead Pipeline platform by Asad Ali Mulla.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #090e0b;
+      --card-bg: #101813;
+      --card-alt: #14201a;
+      --border: rgba(229, 184, 105, 0.18);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --ink: #f7f6f1;
+      --muted: #9ba89f;
+      --gold: #e5b869;
+      --emerald: #10b981;
+      --emerald-dark: #0b3d2e;
+      --blue: #38bdf8;
+      --purple: #c084fc;
+      --font-display: 'Manrope', -apple-system, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+    
+    .demo-topbar {
+      background: #060a08;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .demo-topbar a { color: var(--gold); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-prototype-pill {
+      background: rgba(229, 184, 105, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .demo-contact-cta { background: var(--emerald-dark); border: 1px solid var(--gold); color: #f7f6f1 !important; padding: 6px 14px; border-radius: 4px; transition: all 0.2s; }
+    .demo-contact-cta:hover { background: var(--gold); color: #060a08 !important; }
+
+    .demo-notice {
+      background: rgba(56, 189, 248, 0.08);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 10px 24px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .reset-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--muted); padding: 2px 8px; border-radius: 3px; cursor: pointer; font-family: var(--font-mono); font-size: 11px; }
+    .reset-btn:hover { color: var(--ink); border-color: var(--gold); }
+
+    .app-container { max-width: 1400px; width: 100%; margin: 0 auto; padding: 32px 24px; flex: 1; }
+    .app-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+    .app-title h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
+    .app-title p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+    /* KPI Grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .kpi-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px; }
+    .kpi-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--muted); }
+    .kpi-value { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink); margin: 6px 0 2px; }
+    .kpi-sub { font-size: 12px; color: var(--gold); }
+
+    /* Controls bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      padding: 12px 18px;
+      border-radius: 6px;
+    }
+    .search-input {
+      background: #090e0b;
+      border: 1px solid var(--border-light);
+      color: var(--ink);
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+      min-width: 260px;
+    }
+    .search-input:focus { border-color: var(--gold); }
+    .btn {
+      background: var(--emerald-dark);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--gold); color: #060a08; }
+
+    /* Pipeline Kanban Board */
+    .pipeline-board {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      align-items: start;
+      overflow-x: auto;
+      padding-bottom: 16px;
+    }
+    @media (max-width: 1100px) {
+      .pipeline-board { grid-template-columns: repeat(5, 280px); }
+    }
+    .pipeline-column {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 16px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .column-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .column-count { font-family: var(--font-mono); font-size: 11px; background: rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 10px; }
+
+    /* Lead Card */
+    .lead-card {
+      background: var(--card-alt);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 5px;
+      padding: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lead-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .lead-company { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink); }
+    .lead-contact { font-size: 12px; color: var(--muted); margin: 3px 0 8px; }
+    .lead-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: var(--font-mono); }
+    .lead-val { color: var(--gold); font-weight: 600; }
+    .lead-date { color: var(--muted); }
+
+    /* Lead Detail Drawer / Modal */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; z-index: 1000;
+    }
+    .modal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 100%; max-width: 600px; max-height: 90vh;
+      overflow-y: auto; padding: 28px;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: #090e0b; border: 1px solid var(--border-light); padding: 10px 12px; color: var(--ink); border-radius: 4px; font-size: 13px; font-family: var(--font-body); outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-light); padding-top: 16px; }
+
+    .activity-log { margin-top: 20px; border-top: 1px solid var(--border-light); padding-top: 16px; }
+    .activity-item { font-size: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+
+  <header class="demo-topbar">
+    <a href="../index.html#work">← Return to Asad Ali Mulla Portfolio</a>
+    <div class="demo-badge-wrap">
+      <span class="demo-prototype-pill">Interactive Prototype</span>
+      <span style="color: var(--muted); font-size: 12px;">Business CRM &amp; Pipeline Dashboard</span>
+    </div>
+    <a href="../index.html#connect" class="demo-contact-cta">Discuss Similar Project ↗</a>
+  </header>
+
+  <aside class="demo-notice">
+    <span>💡 <strong>Client Prototype Note:</strong> Drag/click leads between stages. Data updates live and persists in browser LocalStorage.</span>
+    <button type="button" class="reset-btn" id="crm-reset-btn">Reset Sample CRM</button>
+  </aside>
+
+  <main class="app-container">
+    <div class="app-header">
+      <div class="app-title">
+        <h1>Business CRM &amp; Deal Pipeline</h1>
+        <p>Lead tracking, stage progression, follow-up scheduling, and deal value monitoring.</p>
+      </div>
+      <button type="button" class="btn" id="open-add-lead-btn">+ Add New Deal / Lead</button>
+    </div>
+
+    <!-- KPIs -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Active Pipeline Value</div>
+        <div class="kpi-value" id="kpi-pipeline-val">₹0</div>
+        <div class="kpi-sub" id="kpi-active-deals">0 active deals</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Closed Revenue (Won)</div>
+        <div class="kpi-value" id="kpi-won-val" style="color: #34d399;">₹0</div>
+        <div class="kpi-sub">Successfully converted</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pending Follow-ups</div>
+        <div class="kpi-value" id="kpi-followup-count" style="color: var(--gold);">0</div>
+        <div class="kpi-sub">Due this week</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Conversion Win Rate</div>
+        <div class="kpi-value" id="kpi-win-rate">0%</div>
+        <div class="kpi-sub">Proposal to Won</div>
+      </div>
+    </section>
+
+    <!-- Search Controls -->
+    <div class="controls-bar">
+      <input type="search" class="search-input" id="crm-search" placeholder="Search by company, contact, or service...">
+      <div style="font-size: 12px; color: var(--muted);">Click any card to edit details, add notes, or change deal stage.</div>
+    </div>
+
+    <!-- Pipeline Stages -->
+    <div class="pipeline-board" id="pipeline-board">
+      <div class="pipeline-column" data-stage="New Lead">
+        <div class="column-header">
+          <span class="column-title" style="color: var(--muted);">New Lead</span>
+          <span class="column-count" id="count-new">0</span>
+        </div>
+        <div class="column-cards" id="cards-new"></div>
+      </div>
+
+      <div class="pipeline-column" data-stage="Contacted">
+        <div class="column-header">
+          <span class="column-title" style="color: var(--blue);">Contacted</span>
+          <span class="column-count" id="count-contacted">0</span>
+        </div>
+        <div class="column-cards" id="cards-contacted"></div>
+      </div>
+
+      <div class="pipeline-column" data-stage="Proposal Sent">
+        <div class="column-header">
+          <span class="column-title" style="color: var(--gold);">Proposal Sent</span>
+          <span class="column-count" id="count-proposal">0</span>
+        </div>
+        <div class="column-cards" id="cards-proposal"></div>
+      </div>
+
+      <div class="pipeline-column" data-stage="Negotiation">
+        <div class="column-header">
+          <span class="column-title" style="color: var(--purple);">Negotiation</span>
+          <span class="column-count" id="count-negotiation">0</span>
+        </div>
+        <div class="column-cards" id="cards-negotiation"></div>
+      </div>
+
+      <div class="pipeline-column" data-stage="Closed Won">
+        <div class="column-header">
+          <span class="column-title" style="color: var(--emerald);">Closed Won</span>
+          <span class="column-count" id="count-won">0</span>
+        </div>
+        <div class="column-cards" id="cards-won"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add/Edit Lead Modal -->
+  <div class="modal-overlay" id="lead-modal" style="display: none;">
+    <div class="modal-box">
+      <h3 id="modal-lead-title">Add Client Lead</h3>
+      <form id="lead-form">
+        <input type="hidden" id="lead-id">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="lead-company">Company / Client Name *</label>
+            <input type="text" id="lead-company" required placeholder="e.g. Meridian Logistics">
+          </div>
+          <div class="form-group">
+            <label for="lead-contact">Primary Contact Person *</label>
+            <input type="text" id="lead-contact" required placeholder="e.g. Sarah Jenkins">
+          </div>
+          <div class="form-group">
+            <label for="lead-email">Email Address</label>
+            <input type="email" id="lead-email" placeholder="e.g. sarah@meridian.com">
+          </div>
+          <div class="form-group">
+            <label for="lead-phone">WhatsApp / Phone</label>
+            <input type="tel" id="lead-phone" placeholder="e.g. +91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label for="lead-value">Deal Value (₹) *</label>
+            <input type="number" id="lead-value" min="0" required placeholder="85000">
+          </div>
+          <div class="form-group">
+            <label for="lead-stage">Pipeline Stage *</label>
+            <select id="lead-stage">
+              <option value="New Lead">New Lead</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Proposal Sent">Proposal Sent</option>
+              <option value="Negotiation">Negotiation</option>
+              <option value="Closed Won">Closed Won</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="lead-followup">Follow-Up Date</label>
+            <input type="date" id="lead-followup">
+          </div>
+          <div class="form-group full">
+            <label for="lead-notes">Project Scope &amp; Activity Notes</label>
+            <textarea id="lead-notes" rows="3" placeholder="Client requirements, discussion points, or next action..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" style="background: transparent; border-color: rgba(255,255,255,0.2); color: #fff;" id="close-lead-modal">Cancel</button>
+          <button type="submit" class="btn">Save Deal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_LEADS = [
+      { id: 1, company: "Al-Safwa Travel Group", contact: "Tariq Al-Mansoor", email: "tariq@alsafwa.sa", phone: "+966 50 123 4567", value: 140000, stage: "Proposal Sent", followUp: "2026-11-28", notes: "Discussed custom Hajj & Umrah booking engine with payment integration." },
+      { id: 2, company: "Nexus Industrial Supply", contact: "Vikram Rathore", email: "vikram@nexusind.com", phone: "+91 98230 45678", value: 95000, stage: "Negotiation", followUp: "2026-11-26", notes: "Finalizing contract for B2B Inventory & GST invoicing software." },
+      { id: 3, company: "MedPulse Health Clinic", contact: "Dr. Ananya Sen", email: "ananya@medpulse.in", phone: "+91 98450 11223", value: 65000, stage: "Closed Won", followUp: "2026-11-20", notes: "Appointment booking web application deployed and signed off." },
+      { id: 4, company: "Urban Haven Architects", contact: "Rohit Mehta", email: "rohit@urbanhaven.com", phone: "+91 98110 99887", value: 80000, stage: "Contacted", followUp: "2026-11-29", notes: "Introductory demo call completed; preparing structural portfolio proposal." },
+      { id: 5, company: "FreshCart Grocery Retail", contact: "Irfan Qureshi", email: "irfan@freshcart.com", phone: "+91 97654 32100", value: 120000, stage: "New Lead", followUp: "2026-12-01", notes: "Inquired via portfolio contact form regarding WhatsApp automated customer bot." }
+    ];
+
+    let leads = JSON.parse(localStorage.getItem("demo_crm_leads") || JSON.stringify(DEFAULT_LEADS));
+
+    function formatINR(val) {
+      return "₹" + Number(val).toLocaleString("en-IN");
+    }
+
+    function saveLeads() {
+      localStorage.setItem("demo_crm_leads", JSON.stringify(leads));
+      renderBoard();
+      updateKPIs();
+    }
+
+    function updateKPIs() {
+      const activeLeads = leads.filter(l => l.stage !== "Closed Won");
+      const activeVal = activeLeads.reduce((acc, l) => acc + Number(l.value || 0), 0);
+      const wonVal = leads.filter(l => l.stage === "Closed Won").reduce((acc, l) => acc + Number(l.value || 0), 0);
+      const wonCount = leads.filter(l => l.stage === "Closed Won").length;
+      const winRate = leads.length > 0 ? Math.round((wonCount / leads.length) * 100) : 0;
+
+      document.querySelector("#kpi-pipeline-val").textContent = formatINR(activeVal);
+      document.querySelector("#kpi-active-deals").textContent = `${activeLeads.length} active opportunities`;
+      document.querySelector("#kpi-won-val").textContent = formatINR(wonVal);
+      document.querySelector("#kpi-followup-count").textContent = leads.filter(l => l.followUp).length;
+      document.querySelector("#kpi-win-rate").textContent = `${winRate}%`;
+    }
+
+    function renderBoard(query = "") {
+      const stages = {
+        "New Lead": { col: document.querySelector("#cards-new"), count: document.querySelector("#count-new"), items: [] },
+        "Contacted": { col: document.querySelector("#cards-contacted"), count: document.querySelector("#count-contacted"), items: [] },
+        "Proposal Sent": { col: document.querySelector("#cards-proposal"), count: document.querySelector("#count-proposal"), items: [] },
+        "Negotiation": { col: document.querySelector("#cards-negotiation"), count: document.querySelector("#count-negotiation"), items: [] },
+        "Closed Won": { col: document.querySelector("#cards-won"), count: document.querySelector("#count-won"), items: [] }
+      };
+
+      const filtered = leads.filter(l => {
+        if (!query) return true;
+        const q = query.toLowerCase();
+        return (l.company && l.company.toLowerCase().includes(q)) ||
+               (l.contact && l.contact.toLowerCase().includes(q)) ||
+               (l.notes && l.notes.toLowerCase().includes(q));
+      });
+
+      filtered.forEach(lead => {
+        if (stages[lead.stage]) stages[lead.stage].items.push(lead);
+      });
+
+      Object.keys(stages).forEach(key => {
+        const stage = stages[key];
+        stage.count.textContent = stage.items.length;
+        stage.col.innerHTML = stage.items.map(l => `
+          <div class="lead-card" onclick="openEditModal(${l.id})">
+            <div class="lead-company">${l.company}</div>
+            <div class="lead-contact">👤 ${l.contact}</div>
+            <div class="lead-meta">
+              <span class="lead-val">${formatINR(l.value)}</span>
+              <span class="lead-date">${l.followUp ? '📅 ' + l.followUp : 'No follow-up'}</span>
+            </div>
+          </div>
+        `).join("");
+      });
+    }
+
+    const modal = document.querySelector("#lead-modal");
+    document.querySelector("#open-add-lead-btn").onclick = () => {
+      document.querySelector("#lead-form").reset();
+      document.querySelector("#lead-id").value = "";
+      document.querySelector("#modal-lead-title").textContent = "Add Client Deal / Lead";
+      modal.style.display = "flex";
+    };
+    document.querySelector("#close-lead-modal").onclick = () => { modal.style.display = "none"; };
+
+    window.openEditModal = function(id) {
+      const l = leads.find(x => x.id === id);
+      if (!l) return;
+      document.querySelector("#lead-id").value = l.id;
+      document.querySelector("#lead-company").value = l.company;
+      document.querySelector("#lead-contact").value = l.contact;
+      document.querySelector("#lead-email").value = l.email || "";
+      document.querySelector("#lead-phone").value = l.phone || "";
+      document.querySelector("#lead-value").value = l.value;
+      document.querySelector("#lead-stage").value = l.stage;
+      document.querySelector("#lead-followup").value = l.followUp || "";
+      document.querySelector("#lead-notes").value = l.notes || "";
+      document.querySelector("#modal-lead-title").textContent = `Edit Deal: ${l.company}`;
+      modal.style.display = "flex";
+    };
+
+    document.querySelector("#lead-form").onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.querySelector("#lead-id").value;
+      const data = {
+        company: document.querySelector("#lead-company").value.trim(),
+        contact: document.querySelector("#lead-contact").value.trim(),
+        email: document.querySelector("#lead-email").value.trim(),
+        phone: document.querySelector("#lead-phone").value.trim(),
+        value: Number(document.querySelector("#lead-value").value),
+        stage: document.querySelector("#lead-stage").value,
+        followUp: document.querySelector("#lead-followup").value,
+        notes: document.querySelector("#lead-notes").value.trim()
+      };
+
+      if (id) {
+        const idx = leads.findIndex(x => x.id === Number(id));
+        if (idx !== -1) leads[idx] = { ...leads[idx], ...data };
+      } else {
+        leads.push({ id: Date.now(), ...data });
+      }
+
+      modal.style.display = "none";
+      saveLeads();
+    };
+
+    document.querySelector("#crm-search").addEventListener("input", (e) => {
+      renderBoard(e.target.value.trim());
+    });
+
+    document.querySelector("#crm-reset-btn").onclick = () => {
+      if (confirm("Reset CRM sample pipeline data?")) {
+        localStorage.removeItem("demo_crm_leads");
+        leads = DEFAULT_LEADS.slice();
+        saveLeads();
+      }
+    };
+
+    updateKPIs();
+    renderBoard();
+  </script>
+</body>
+</html>

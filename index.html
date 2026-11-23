@@ -73,8 +73,16 @@
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Mobile Apps & Custom Software",
-                "description": "Custom business management systems, inventory tracking, GST billing systems, and cross-platform mobile apps."
+                "name": "Mobile Application Development",
+                "description": "Cross-platform mobile apps for Android and iOS using modern frameworks, responsive UI, offline cache, and API synchronization."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Custom Business Software",
+                "description": "Tailored business software: inventory management, GST-ready billing systems, CRM pipelines, and operations portals."
               }
             },
             {
@@ -82,7 +90,15 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "AI Automation & Chatbots",
-                "description": "Automate repetitive work with AI: customer support chatbots, WhatsApp automation, and business workflow processing."
+                "description": "Automate repetitive work with AI: customer support chatbots, WhatsApp automation, and intelligent document processing."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Data Analytics & Business Intelligence",
+                "description": "Transform operational data into clear business intelligence: automated dashboards, SQL pipelines, and predictive analytics."
               }
             }
           ]
@@ -157,20 +173,20 @@
     <section class="stats-section section-wrap reveal" aria-label="Key highlights and impact">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value"><span class="counter" data-target="25">0</span><span class="stat-plus">+</span></div>
-          <div class="stat-label">Shipped & Prototyped Projects</div>
+          <div class="stat-value"><span class="counter" id="stat-total-projects" data-target="29">0</span><span class="stat-plus">+</span></div>
+          <div class="stat-label">Total Portfolio Projects</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value"><span class="counter" data-target="5">0</span><span class="stat-plus">×</span></div>
-          <div class="stat-label">Core Domains (AI · ML · BI · Vision · Web)</div>
+          <div class="stat-value"><span class="counter" id="stat-live-projects" data-target="3">0</span><span class="stat-plus"></span></div>
+          <div class="stat-label">Live Public Deployments</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value"><span class="counter" data-target="100">0</span><span class="stat-plus">%</span></div>
-          <div class="stat-label">Transparent Code & Public Demos</div>
+          <div class="stat-value"><span class="counter" id="stat-interactive-demos" data-target="5">0</span><span class="stat-plus"></span></div>
+          <div class="stat-label">Interactive Working Demos</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value"><span class="stat-text">GLOBAL</span><span class="stat-dot-live"></span></div>
-          <div class="stat-label">Open to Roles: India · Saudi · Remote</div>
+          <div class="stat-value"><span class="counter" id="stat-github-repos" data-target="15">0</span><span class="stat-plus"></span></div>
+          <div class="stat-label">Public GitHub Repositories</div>
         </div>
       </div>
     </section>
@@ -186,7 +202,7 @@
       </div>
       <div class="featured-grid" id="featured-grid" aria-live="polite"></div>
       <div class="archive-top">
-        <div><span class="eyebrow">PROJECT ARCHIVE</span><h3>Explore everything <span id="project-count">25</span></h3></div>
+        <div><span class="eyebrow">PROJECT ARCHIVE</span><h3>Explore everything <span id="project-count">29</span></h3></div>
         <label class="search-box"><span aria-hidden="true">⌕</span><input type="search" id="project-search" placeholder="Search projects, tools, topics…" aria-label="Search projects"></label>
       </div>
       <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter projects"></div>
@@ -265,10 +281,10 @@
             <li><span class="feature-check" aria-hidden="true">✓</span> Corporate websites</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> Landing pages</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> Portfolio websites</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> E-commerce websites</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> E-commerce platforms</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> Travel and hospitality websites</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Website redesign</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> SEO-friendly websites</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Website redesign and optimization</li>
           </ul>
           <div class="service-card-action">
             <button class="button button-primary service-cta-btn" type="button" data-service="Website Development">
@@ -277,24 +293,49 @@
           </div>
         </article>
 
-        <!-- Service 2: Mobile Apps & Custom Software -->
-        <article class="service-card reveal" data-service="Mobile App & Custom Software">
+        <!-- Service 2: Mobile Application Development -->
+        <article class="service-card reveal" data-service="Mobile App Development">
           <div class="service-card-header">
             <span class="service-badge">SERVICE 02</span>
+            <div class="service-icon" aria-hidden="true">📱</div>
+          </div>
+          <span class="service-category-tag">MOBILE &amp; CROSS-PLATFORM</span>
+          <h3 class="service-card-title">Mobile App Development</h3>
+          <p class="service-headline">Native &amp; Cross-Platform Apps Built for Users</p>
+          <ul class="service-features-list">
+            <li><span class="feature-check" aria-hidden="true">✓</span> Android applications</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Cross-platform mobile apps</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Educational applications</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Business applications</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Customer portals</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Admin dashboards</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Firebase integrations</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> API integrations</li>
+          </ul>
+          <div class="service-card-action">
+            <button class="button button-primary service-cta-btn" type="button" data-service="Mobile App Development">
+              Build Your Mobile App <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Service 3: Custom Business Software -->
+        <article class="service-card reveal" data-service="Custom Software">
+          <div class="service-card-header">
+            <span class="service-badge">SERVICE 03</span>
             <div class="service-icon" aria-hidden="true">⚙️</div>
           </div>
-          <span class="service-category-tag">ENGINEERED APPLICATIONS</span>
-          <h3 class="service-card-title">Mobile Apps &amp; Custom Software</h3>
+          <span class="service-category-tag">CUSTOM SOFTWARE</span>
+          <h3 class="service-card-title">Custom Business Software</h3>
           <p class="service-headline">Custom Software Built Around Your Business</p>
           <ul class="service-features-list">
-            <li><span class="feature-check" aria-hidden="true">✓</span> Android application development</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Cross-platform mobile apps</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Business management systems</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Inventory management software</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Billing and invoicing systems</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Admin dashboards</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Customer portals</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Database and API integrations</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Inventory management</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Billing and invoicing</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> CRM systems</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Business dashboards</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Management systems</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Database-driven applications</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Custom APIs</li>
           </ul>
           <div class="service-card-action">
             <button class="button button-primary service-cta-btn" type="button" data-service="Custom Software">
@@ -303,28 +344,51 @@
           </div>
         </article>
 
-        <!-- Service 3: AI Automation & Chatbots -->
-        <article class="service-card reveal" data-service="AI Automation & Chatbots">
+        <!-- Service 4: AI & Automation -->
+        <article class="service-card reveal" data-service="AI Automation">
           <div class="service-card-header">
-            <span class="service-badge">SERVICE 03</span>
+            <span class="service-badge">SERVICE 04</span>
             <div class="service-icon" aria-hidden="true">🤖</div>
           </div>
           <span class="service-category-tag">INTELLIGENT SYSTEMS</span>
-          <h3 class="service-card-title">AI Automation &amp; Chatbots</h3>
+          <h3 class="service-card-title">AI &amp; Automation</h3>
           <p class="service-headline">Automate Repetitive Work With AI</p>
           <ul class="service-features-list">
-            <li><span class="feature-check" aria-hidden="true">✓</span> AI customer support chatbots</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> WhatsApp automation</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> AI lead generation assistants</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Business workflow automation</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> AI chatbots</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> AI customer support</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> AI document processing</li>
             <li><span class="feature-check" aria-hidden="true">✓</span> Knowledge-base assistants</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> API and third-party integrations</li>
-            <li><span class="feature-check" aria-hidden="true">✓</span> Automated customer enquiry handling</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Business workflow automation</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Lead management automation</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> API integrations</li>
           </ul>
           <div class="service-card-action">
             <button class="button button-primary service-cta-btn" type="button" data-service="AI Automation">
               Automate My Business <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Service 5: Data Analytics & BI -->
+        <article class="service-card reveal" data-service="Data Analytics & BI">
+          <div class="service-card-header">
+            <span class="service-badge">SERVICE 05</span>
+            <div class="service-icon" aria-hidden="true">📊</div>
+          </div>
+          <span class="service-category-tag">DECISION INTELLIGENCE</span>
+          <h3 class="service-card-title">Data Analytics &amp; BI</h3>
+          <p class="service-headline">Actionable Insights &amp; Predictive Solutions</p>
+          <ul class="service-features-list">
+            <li><span class="feature-check" aria-hidden="true">✓</span> Data analysis</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Excel automation</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Power BI dashboards</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Data visualization</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Predictive analytics</li>
+            <li><span class="feature-check" aria-hidden="true">✓</span> Machine learning solutions</li>
+          </ul>
+          <div class="service-card-action">
+            <button class="button button-primary service-cta-btn" type="button" data-service="Data Analytics & BI">
+              Discuss Data &amp; BI Project <span aria-hidden="true">↗</span>
             </button>
           </div>
         </article>
@@ -483,6 +547,7 @@
       </div>
       <h2 class="modal-title" id="modal-title">Project Details</h2>
       <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-case-study" id="modal-case-study"></div>
       <div class="modal-meta-box">
         <span class="modal-meta-tag">STAGE & SCOPE NOTES</span>
         <p id="modal-stage-note"></p>
@@ -528,12 +593,17 @@
       <div class="contact-quick-options">
         <div class="quick-email-row">
           <div>
-            <span class="quick-email-label">DIRECT EMAIL:</span>
+            <span class="quick-email-label">DIRECT EMAIL &amp; CHAT:</span>
             <a href="mailto:aliasadcivil007@gmail.com" class="quick-email-link">aliasadcivil007@gmail.com</a>
           </div>
-          <button class="quick-email-copy-btn" id="modal-copy-email-btn" type="button" aria-label="Copy direct email address">
-            <span>Copy</span> <span aria-hidden="true">⎘</span>
-          </button>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <a href="https://wa.me/?text=Hi%20Asad,%20I%20am%20interested%20in%20discussing%20a%20project%20from%20your%20portfolio." target="_blank" rel="noopener noreferrer" class="button button-quiet" style="padding: 4px 10px; font-size: 11px;">
+              <span>WhatsApp Chat</span> <span aria-hidden="true">↗</span>
+            </a>
+            <button class="quick-email-copy-btn" id="modal-copy-email-btn" type="button" aria-label="Copy direct email address">
+              <span>Copy</span> <span aria-hidden="true">⎘</span>
+            </button>
+          </div>
         </div>
       </div>
       <form class="contact-form" id="contact-form" novalidate>
@@ -564,22 +634,31 @@
             <select id="contact-service" name="service" required>
               <option value="Website Development">Website Development</option>
               <option value="Mobile App Development">Mobile App Development</option>
-              <option value="Custom Software">Custom Software / Inventory &amp; Billing</option>
-              <option value="AI Chatbot">AI Chatbot / Customer Assistant</option>
-              <option value="AI Automation">AI Automation &amp; Workflows</option>
+              <option value="Custom Software">Custom Business Software</option>
+              <option value="AI Automation">AI &amp; Automation / Chatbots</option>
+              <option value="Data Analytics & BI">Data Analytics &amp; Business Intelligence</option>
               <option value="Other">Other / General Consultation</option>
             </select>
           </div>
           <div class="form-field">
-            <label for="contact-budget">Estimated Budget (Optional)</label>
-            <select id="contact-budget" name="budget">
-              <option value="Discuss / Flexible">Discuss / Flexible</option>
-              <option value="Under $500 / ₹40,000">Under $500 / ₹40,000</option>
-              <option value="$500 - $1,500 / ₹40k - ₹1.2L">$500 – $1,500 / ₹40k – ₹1.2L</option>
-              <option value="$1,500 - $5,000 / ₹1.2L - ₹4L">$1,500 – $5,000 / ₹1.2L – ₹4L</option>
-              <option value="$5,000+ / ₹4L+">$5,000+ / ₹4L+</option>
+            <label for="contact-timeline">Expected Timeline</label>
+            <select id="contact-timeline" name="timeline">
+              <option value="Flexible / To be discussed">Flexible / To be discussed</option>
+              <option value="Immediate / ASAP (1–2 weeks)">Immediate / ASAP (1–2 weeks)</option>
+              <option value="Standard (2–4 weeks)">Standard (2–4 weeks)</option>
+              <option value="Extended (1–2 months)">Extended (1–2 months)</option>
             </select>
           </div>
+        </div>
+        <div class="form-field">
+          <label for="contact-budget">Estimated Budget (Optional)</label>
+          <select id="contact-budget" name="budget">
+            <option value="Discuss / Flexible">Discuss / Flexible</option>
+            <option value="Under $500 / ₹40,000">Under $500 / ₹40,000</option>
+            <option value="$500 - $1,500 / ₹40k - ₹1.2L">$500 – $1,500 / ₹40k – ₹1.2L</option>
+            <option value="$1,500 - $5,000 / ₹1.2L - ₹4L">$1,500 – $5,000 / ₹1.2L – ₹4L</option>
+            <option value="$5,000+ / ₹4L+">$5,000+ / ₹4L+</option>
+          </select>
         </div>
         <div class="form-field">
           <label for="contact-message">Project Description <span class="required-star">*</span></label>

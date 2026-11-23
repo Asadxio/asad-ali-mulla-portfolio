@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile Servicing &amp; Diagnostics Suite — UI Demonstration | Asad Ali Mulla</title>
+  <meta name="description" content="Professional software interface demonstration for mobile phone diagnostics, ADB monitoring, and repair ticket management by Asad Ali Mulla.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #070c09;
+      --panel: #0d1611;
+      --panel-alt: #121e17;
+      --border: rgba(16, 185, 129, 0.2);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --ink: #f7f6f1;
+      --muted: #8d9e92;
+      --emerald: #10b981;
+      --gold: #e5b869;
+      --blue: #38bdf8;
+      --red: #ef4444;
+      --font-display: 'Manrope', -apple-system, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+
+    .demo-topbar {
+      background: #040806;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .demo-topbar a { color: var(--gold); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-prototype-pill {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .demo-contact-cta { background: #0b3d2e; border: 1px solid var(--gold); color: #f7f6f1 !important; padding: 6px 14px; border-radius: 4px; }
+    .demo-contact-cta:hover { background: var(--gold); color: #040806 !important; }
+
+    .demo-notice {
+      background: rgba(16, 185, 129, 0.08);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 10px 24px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-container { max-width: 1400px; width: 100%; margin: 0 auto; padding: 28px 24px; flex: 1; }
+    .suite-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+    .suite-header h1 { font-family: var(--font-display); font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .status-dot-pulse { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+
+    /* Layout Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 1000px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+    .panel { background: var(--panel); border: 1px solid var(--border-light); border-radius: 6px; padding: 20px; margin-bottom: 20px; }
+    .panel-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* Device Info Box */
+    .device-visual {
+      background: var(--panel-alt);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .device-icon-box { width: 54px; height: 80px; border: 2px solid var(--emerald); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .device-details h3 { font-family: var(--font-display); font-size: 16px; font-weight: 700; }
+    .device-details p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .prop-list { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+    .prop-item { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 6px; }
+    .prop-label { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+    .prop-val { font-family: var(--font-mono); font-weight: 500; color: var(--ink); }
+
+    /* Terminal Console */
+    .console-box {
+      background: #040806;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #34d399;
+      height: 220px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .console-line { margin-bottom: 4px; }
+    .console-dim { color: #526357; }
+    .console-highlight { color: var(--gold); }
+
+    /* Diagnostic Checklist */
+    .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .diag-card {
+      background: var(--panel-alt);
+      border: 1px solid var(--border-light);
+      border-radius: 5px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .diag-card:hover { border-color: var(--emerald); }
+    .diag-name { font-size: 13px; font-weight: 600; }
+    .diag-status { font-family: var(--font-mono); font-size: 11px; padding: 2px 6px; border-radius: 4px; }
+    .status-pass { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .status-pending { background: rgba(229, 184, 105, 0.15); color: var(--gold); }
+
+    /* Ticket Table */
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; padding: 10px; border-bottom: 1px solid var(--border-light); text-align: left; }
+    td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+    .btn {
+      background: #0b3d2e;
+      border: 1px solid var(--emerald);
+      color: #34d399;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--emerald); color: #070c09; }
+  </style>
+</head>
+<body>
+
+  <header class="demo-topbar">
+    <a href="../index.html#work">← Return to Asad Ali Mulla Portfolio</a>
+    <div class="demo-badge-wrap">
+      <span class="demo-prototype-pill">UI Demonstration</span>
+      <span style="color: var(--muted); font-size: 12px;">Mobile Servicing &amp; Diagnostics Suite</span>
+    </div>
+    <a href="../index.html#connect" class="demo-contact-cta">Discuss Similar Project ↗</a>
+  </header>
+
+  <aside class="demo-notice">
+    <span>📱 <strong>Diagnostics &amp; Repair Suite Demonstration:</strong> Hardware health auditing and repair workflow tracking interface. (Strictly diagnostic / management workflow; no bypass or unauthorized access).</span>
+  </aside>
+
+  <main class="app-container">
+    <div class="suite-header">
+      <div>
+        <h1><span class="status-dot-pulse"></span> Mobile Diagnostics &amp; Servicing Suite</h1>
+        <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">Hardware diagnostics audit, ADB bridge monitoring, and workshop repair intake.</p>
+      </div>
+      <div>
+        <button type="button" class="btn" id="simulate-scan-btn">▶ Run Diagnostic Hardware Check</button>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Left Column: Connected Device & ADB Console -->
+      <div>
+        <div class="panel">
+          <div class="panel-title">
+            <span>Detected Device</span>
+            <span style="font-size: 10px; color: #34d399;">USB-OTG CONNECTED</span>
+          </div>
+
+          <div class="device-visual">
+            <div class="device-icon-box">📱</div>
+            <div class="device-details">
+              <h3>Pixel 8 Pro (Simulated)</h3>
+              <p>Model: G1MNW · Android 14 (AP1A)</p>
+            </div>
+          </div>
+
+          <div class="prop-list">
+            <div class="prop-item"><span class="prop-label">CHIPSET:</span><span class="prop-val">Google Tensor G3 (9-core)</span></div>
+            <div class="prop-item"><span class="prop-label">SERIAL NUMBER:</span><span class="prop-val">FA3910A04829</span></div>
+            <div class="prop-item"><span class="prop-label">BATTERY HEALTH:</span><span class="prop-val" style="color: #34d399;">94% (312 Cycles)</span></div>
+            <div class="prop-item"><span class="prop-label">STORAGE CAPACITY:</span><span class="prop-val">128 GB (48.2 GB Free)</span></div>
+            <div class="prop-item"><span class="prop-label">BOOTLOADER STATUS:</span><span class="prop-val">Locked (Production)</span></div>
+            <div class="prop-item"><span class="prop-label">ADB AUTHORIZATION:</span><span class="prop-val" style="color: var(--emerald);">RSA Key Verified</span></div>
+          </div>
+        </div>
+
+        <!-- Terminal Output -->
+        <div class="panel">
+          <div class="panel-title">
+            <span>ADB Bridge Event Log</span>
+            <span style="font-size: 10px; color: var(--muted);">DAEMON v1.0.41</span>
+          </div>
+          <div class="console-box" id="adb-console">
+            <div class="console-line console-dim">[11:22:04] adb server started successfully (*.5037)</div>
+            <div class="console-line">[11:22:05] device connected: FA3910A04829 [device]</div>
+            <div class="console-line">[11:22:05] query: getprop ro.product.model -> Pixel 8 Pro</div>
+            <div class="console-line">[11:22:06] query: dumpsys battery -> level: 78, health: GOOD</div>
+            <div class="console-line console-highlight">[11:22:06] diagnostic daemon initialized on port 9812</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Diagnostics Checklist & Repair Queue -->
+      <div>
+        <div class="panel">
+          <div class="panel-title">
+            <span>Hardware Diagnostics Checklist</span>
+            <span style="font-size: 11px; color: var(--gold);" id="diag-summary">5/6 Tests Passed</span>
+          </div>
+
+          <div class="diag-grid">
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">OLED Multi-Touch</span>
+              <span class="diag-status status-pass">PASSED</span>
+            </div>
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">Primary &amp; Ultra-Wide Camera</span>
+              <span class="diag-status status-pass">PASSED</span>
+            </div>
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">Audio Earpiece &amp; Loudspeaker</span>
+              <span class="diag-status status-pass">PASSED</span>
+            </div>
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">USB-C Power Delivery</span>
+              <span class="diag-status status-pass">PASSED</span>
+            </div>
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">Gyrometer &amp; Proximity</span>
+              <span class="diag-status status-pass">PASSED</span>
+            </div>
+            <div class="diag-card" onclick="toggleDiag(this)">
+              <span class="diag-name">Optical Fingerprint Sensor</span>
+              <span class="diag-status status-pending">CALIBRATION</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service & Repair Tickets -->
+        <div class="panel">
+          <div class="panel-title">
+            <span>Workshop Repair Ticket Ledger</span>
+            <button type="button" class="btn" onclick="addTicketPrompt()">+ New Ticket</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Ticket ID</th>
+                <th>Device</th>
+                <th>Customer</th>
+                <th>Reported Issue</th>
+                <th>Repair Status</th>
+              </tr>
+            </thead>
+            <tbody id="ticket-tbody">
+              <tr>
+                <td><code style="color: var(--gold); font-family: var(--font-mono);">#TCK-481</code></td>
+                <td>Galaxy S23 Ultra</td>
+                <td>Faizan Ahmed</td>
+                <td>Cracked AMOLED glass replacement</td>
+                <td><span style="color: #34d399; font-family: var(--font-mono);">Parts Arrived</span></td>
+              </tr>
+              <tr>
+                <td><code style="color: var(--gold); font-family: var(--font-mono);">#TCK-482</code></td>
+                <td>iPhone 14 Pro</td>
+                <td>Sneha Patil</td>
+                <td>Battery drain &amp; thermal throttling</td>
+                <td><span style="color: var(--gold); font-family: var(--font-mono);">Diagnosis</span></td>
+              </tr>
+              <tr>
+                <td><code style="color: var(--gold); font-family: var(--font-mono);">#TCK-483</code></td>
+                <td>Pixel 8 Pro</td>
+                <td>Tariq Khan</td>
+                <td>Fingerprint sensor recalibration</td>
+                <td><span style="color: #38bdf8; font-family: var(--font-mono);">In Testing</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleDiag(el) {
+      const badge = el.querySelector(".diag-status");
+      if (badge.classList.contains("status-pass")) {
+        badge.className = "diag-status status-pending";
+        badge.textContent = "ATTENTION";
+      } else {
+        badge.className = "diag-status status-pass";
+        badge.textContent = "PASSED";
+      }
+    }
+
+    document.querySelector("#simulate-scan-btn").onclick = () => {
+      const consoleBox = document.querySelector("#adb-console");
+      const time = new Date().toTimeString().split(" ")[0];
+      consoleBox.innerHTML += `<div class="console-line console-highlight">[${time}] scanning system sensors and hardware buses...</div>`;
+      consoleBox.innerHTML += `<div class="console-line">[${time}] sysfs thermal zones read: 34.2°C (nominal)</div>`;
+      consoleBox.innerHTML += `<div class="console-line">[${time}] memory bus latency: 12.4ns · 0 ECC fault warnings</div>`;
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+    };
+
+    function addTicketPrompt() {
+      const dev = prompt("Device model (e.g. OnePlus 11):");
+      if (!dev) return;
+      const cust = prompt("Customer name:") || "Walk-in Client";
+      const issue = prompt("Reported issue:") || "Routine hardware check";
+      const tbody = document.querySelector("#ticket-tbody");
+      const id = "#TCK-" + Math.floor(484 + Math.random() * 50);
+      tbody.innerHTML += `
+        <tr>
+          <td><code style="color: var(--gold); font-family: var(--font-mono);">${id}</code></td>
+          <td>${dev}</td>
+          <td>${cust}</td>
+          <td>${issue}</td>
+          <td><span style="color: var(--gold); font-family: var(--font-mono);">New Intake</span></td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+</html>
