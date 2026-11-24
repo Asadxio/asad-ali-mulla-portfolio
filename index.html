@@ -24,7 +24,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="canonical" href="https://asad.myoss.in/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -155,16 +155,23 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-noise" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Asad Ali Mulla home">
-      <span class="brand-mark">A<span>.</span></span>
-      <span class="brand-name">ASAD ALI MULLA<small>FULL-STACK · AI · AUTOMATION</small></span>
+    <a class="brand" href="#top" aria-label="Asad Ali Mulla - Home">
+      <span class="brand-avatar">AM</span>
+      <span class="brand-text">
+        <span class="brand-name">Asad Ali Mulla</span>
+        <span class="brand-role">Software Engineer &amp; Consultant</span>
+      </span>
     </a>
     <div class="header-right">
-      <button class="cmd-k-trigger" id="cmd-k-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Quick Actions &amp; Search (Ctrl+K)">
-        <span class="cmd-k-icon" aria-hidden="true">⌕</span>
-        <span class="cmd-k-text">Search projects &amp; skills</span>
-        <kbd class="cmd-k-kbd">⌘K</kbd>
-      </button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#work-with-me">Process</a>
+        <a href="#about">About</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#connect">Contact</a>
+        <button class="nav-cta" id="nav-resume-btn" type="button">Resume ↗</button>
+      </nav>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
         <span class="theme-icon-light" aria-hidden="true">
           <svg class="svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -173,63 +180,105 @@
           <svg class="svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </span>
       </button>
+      <button class="button button-primary header-start-btn" id="header-contact-btn" type="button">Start Project →</button>
       <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Selected work</a>
-        <a href="#services">Services</a>
-        <a href="#work-with-me">Work with me</a>
-        <a href="#about">About</a>
-        <a href="#credentials">Credentials</a>
-        <a href="#connect">Connect</a>
-        <button class="nav-cta" id="nav-resume-btn" type="button">Resume →</button>
-      </nav>
     </div>
   </header>
 
   <main id="main">
     <section class="hero section-wrap" id="top">
       <div class="hero-copy reveal">
-        <div class="eyebrow"><span class="status-dot"></span> AVAILABLE FOR NEW PROJECTS · INDIA &amp; SAUDI ARABIA</div>
-        <h1>Building <span class="gold-text">web applications, custom software</span> &amp; AI automation<span class="gold-dot">.</span></h1>
-        <p class="hero-intro">I help businesses and founders in India and the Gulf turn complex ideas into fast, reliable websites, custom business tools, and intelligent workflow automation.</p>
+        <div class="eyebrow"><span class="status-dot"></span> AVAILABLE FOR CLIENT ENGAGEMENTS · INDIA &amp; SAUDI ARABIA</div>
+        <h1>Engineering reliable <span class="accent-text">web apps, custom software</span> &amp; AI automation<span class="accent-dot">.</span></h1>
+        <p class="hero-intro">I partner with business teams and founders across India and the Gulf to build fast web applications, reliable custom software, and automated workflows with production-grade engineering.</p>
         <div class="hero-actions">
           <button class="button button-primary" id="hero-contact-btn" type="button">Start a Project →</button>
-          <a class="button button-quiet" href="#work">View Work ↓</a>
+          <a class="button button-quiet" href="#work">Explore Selected Work ↓</a>
         </div>
-        <div class="hero-footnote">
-          <span class="footnote-tag">Open to select freelance contracts &amp; technical client engagements</span>
+        <div class="hero-trust-strip">
+          <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> Direct Engineer Access</span>
+          <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> 100% Client Code Ownership</span>
+          <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> 30-Day Post-Launch Warranty</span>
         </div>
       </div>
-      <div class="hero-art reveal" aria-hidden="true">
-        <canvas id="hero-3d-canvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
-        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-orbit orbit-three"></div>
-        <div class="art-core"><span class="core-symbol">A<span>.</span></span></div>
+      <div class="hero-card-col reveal">
+        <div class="executive-system-card">
+          <div class="system-card-top">
+            <div class="sys-status">
+              <span class="sys-dot"></span>
+              <span class="sys-label">SYSTEM ARCHITECTURE · ACTIVE</span>
+            </div>
+            <span class="sys-badge">v2.6 SLA</span>
+          </div>
+          <div class="system-card-body">
+            <div class="sys-meta-row">
+              <div class="sys-metric-box">
+                <span class="metric-val">99.9%</span>
+                <span class="metric-lbl">Target Reliability</span>
+              </div>
+              <div class="sys-metric-box">
+                <span class="metric-val">&lt; 1.2s</span>
+                <span class="metric-lbl">P95 Mobile Loads</span>
+              </div>
+              <div class="sys-metric-box">
+                <span class="metric-val">24h</span>
+                <span class="metric-lbl">Response Window</span>
+              </div>
+            </div>
+            <div class="sys-capabilities-list">
+              <div class="sys-cap-item">
+                <span class="cap-num">01</span>
+                <div class="cap-info">
+                  <strong>Full-Stack Web &amp; Mobile Portals</strong>
+                  <span>Next.js, React, Node.js, Fast API &amp; Offline PWAs</span>
+                </div>
+              </div>
+              <div class="sys-cap-item">
+                <span class="cap-num">02</span>
+                <div class="cap-info">
+                  <strong>Custom Business Software &amp; Billing</strong>
+                  <span>SKU Inventory, GST Invoices, CRM Pipelines</span>
+                </div>
+              </div>
+              <div class="sys-cap-item">
+                <span class="cap-num">03</span>
+                <div class="cap-info">
+                  <strong>AI Workflows &amp; Smart Chatbots</strong>
+                  <span>LLM Integration, WhatsApp Automation, Semantic Search</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="system-card-footer">
+            <div class="sys-footer-left">
+              <span class="ping-icon" aria-hidden="true">⚡</span>
+              <span>Available for fixed-price contracts &amp; dedicated sprints</span>
+            </div>
+            <a href="https://wa.me/919137330084?text=Hi%20Asad%2C%20I%20am%20interested%20in%20discussing%20a%20project." target="_blank" rel="noopener noreferrer" class="sys-direct-link">WhatsApp ↗</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="stats-section section-wrap reveal" aria-label="Key highlights and impact">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value"><span class="counter" id="stat-total-projects" data-target="29">29</span><span class="stat-plus">+</span></div>
-          <div class="stat-label">Total Portfolio Projects</div>
+      <div class="stats-bar">
+        <div class="stat-cell">
+          <div class="stat-number"><span class="counter" id="stat-total-projects" data-target="29">29</span><span class="stat-plus">+</span></div>
+          <div class="stat-title">Delivered Projects</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value"><span class="counter" id="stat-live-projects" data-target="2">2</span><span class="stat-plus"></span></div>
-          <div class="stat-label">Live Public Deployments</div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="counter" id="stat-live-projects" data-target="2">2</span></div>
+          <div class="stat-title">Live Public Systems</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value"><span class="counter" id="stat-interactive-demos" data-target="5">5</span><span class="stat-plus"></span></div>
-          <div class="stat-label">Interactive Working Demos</div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="counter" id="stat-interactive-demos" data-target="5">5</span></div>
+          <div class="stat-title">Interactive Demos</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value"><span class="counter" id="stat-github-repos" data-target="13">13</span><span class="stat-plus"></span></div>
-          <div class="stat-label">Public GitHub Repositories</div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="counter" id="stat-github-repos" data-target="13">13</span></div>
+          <div class="stat-title">GitHub Repositories</div>
         </div>
       </div>
-    </section>
-
-    <section class="ticker" aria-label="Areas of work">
-      <div class="ticker-track"><span>DATA ANALYTICS</span><i aria-hidden="true">✳</i><span>Machine Learning</span><i aria-hidden="true">✳</i><span>AI APPLICATIONS</span><i aria-hidden="true">✳</i><span>DIGITAL PRODUCTS</span><i aria-hidden="true">✳</i><span>Business Intelligence</span><i aria-hidden="true">✳</i><span>DATA ANALYTICS</span><i aria-hidden="true">✳</i><span>Machine Learning</span><i aria-hidden="true">✳</i><span>AI APPLICATIONS</span><i aria-hidden="true">✳</i><span>DIGITAL PRODUCTS</span></div>
     </section>
 
     <section class="section-wrap work-section" id="work">
@@ -823,13 +872,6 @@
       </div>
     </section>
 
-    <section class="manifesto">
-      <div class="manifesto-inner section-wrap reveal">
-        <span class="eyebrow">HOW I THINK</span>
-        <p>Good technology is not just what it can do.<br><em>It’s what it makes easier for people.</em></p>
-        <span class="manifesto-line"></span>
-      </div>
-    </section>
 
     <section class="section-wrap about-section" id="about">
       <div class="about-left reveal">
@@ -936,9 +978,9 @@
     <section class="connect-section section-wrap" id="connect">
       <div class="connect-panel reveal">
         <div class="connect-glow"></div>
-        <div class="eyebrow">HAVE A GOOD PROBLEM?</div>
-        <h2>Let’s make<br><em>something useful.</em></h2>
-        <p>Open to relevant roles, freelance projects and collaborations across India, Saudi Arabia and international markets.</p>
+        <div class="eyebrow">READY TO COLLABORATE?</div>
+        <h2>Let’s build systems that scale<br><em>with your business.</em></h2>
+        <p>Open to client contracts, custom software builds, and technical collaborations across India, Saudi Arabia and worldwide remote.</p>
         <div class="connect-actions">
           <button class="button button-gold" id="connect-modal-btn" type="button">Start an Inquiry →</button>
           <a class="button button-border" href="https://www.linkedin.com/in/asad-ali-mulla-044240262/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
@@ -964,7 +1006,13 @@
   </main>
 
   <footer class="site-footer">
-    <a class="brand footer-brand" href="#top"><span class="brand-mark">A<span>.</span></span><span class="brand-name">ASAD ALI MULLA<small>BUILT WITH INTENTION.</small></span></a>
+    <a class="brand footer-brand" href="#top" aria-label="Asad Ali Mulla — Back to top">
+      <span class="brand-avatar">AM</span>
+      <span class="brand-text">
+        <span class="brand-name">Asad Ali Mulla</span>
+        <span class="brand-role">Software Engineer &amp; Consultant</span>
+      </span>
+    </a>
     <span>© <span id="year"></span> Asad Ali Mulla</span>
     <a href="#top" class="back-top">Back to top ↑</a>
   </footer>
@@ -1166,36 +1214,6 @@
   <!-- Floating Toast Notifications -->
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Systems & Architecture Console (Developer Tool) -->
-  <div class="terminal-widget" id="terminal-widget" aria-hidden="true" role="region" aria-label="Interactive Developer Console">
-    <div class="terminal-header" id="terminal-header">
-      <div class="terminal-controls" aria-hidden="true">
-        <span class="t-dot t-red" id="t-close" title="Close console"></span>
-        <span class="t-dot t-yellow" id="t-clear" title="Clear buffer"></span>
-        <span class="t-dot t-green" id="t-expand" title="Maximize view"></span>
-      </div>
-      <div class="terminal-title">Interactive Developer Console — asad.myoss.in</div>
-      <button class="t-exit-btn" id="t-exit-btn" aria-label="Close terminal"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="terminal-body" id="terminal-body">
-      <div class="terminal-output" id="terminal-output">
-        <p class="t-dim">Asad Ali Mulla — Interactive Developer Terminal</p>
-        <p class="t-dim">Type <span class="t-hl">'help'</span> for command index or <span class="t-hl">'skills'</span> to inspect core capabilities.</p>
-      </div>
-      <div class="terminal-input-row">
-        <span class="t-prompt">asad.myoss.in &gt;</span>
-        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
-      </div>
-    </div>
-  </div>
-
-  <!-- Developer Console Launcher -->
-  <button class="terminal-launcher" id="terminal-launcher" aria-label="Open Developer Console" title="Open Developer Console">
-    <span class="terminal-icon" aria-hidden="true">&gt;_</span>
-    <span class="terminal-text">Developer Console</span>
-  </button>
-
-  <script src="assets/three.min.js" defer></script>
   <script src="assets/app.js" defer></script>
 </body>
 </html>

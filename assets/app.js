@@ -375,63 +375,40 @@ function initThreeHero() {
    3. 3D Tilt Cards with Dynamic Cursor Glare
    ========================================================================== */
 function applyCardTiltEffect() {
-  const cards = document.querySelectorAll(".project-card");
-  const isTouch = window.matchMedia("(hover: none)").matches;
-  if (isTouch) return;
-
-  cards.forEach((card) => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-
-      const rotX = ((y - cy) / cy) * -8;
-      const rotY = ((x - cx) / cx) * 8;
-
-      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-      card.style.setProperty("--mouse-x", `${x}px`);
-      card.style.setProperty("--mouse-y", `${y}px`);
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-    });
-  });
+  // Clean, subtle CSS-driven elevation for executive enterprise aesthetic
 }
 
 function projectCard(p, i, featured = false) {
   const isDemo = p.status === "Interactive Demo";
+  const isLive = p.status === "Live";
   const link = p.url
-    ? `<a class="project-link ${isDemo ? "project-link-demo" : ""}" href="${escapeHTML(p.url)}" ${p.url.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>${isDemo ? "Try live demo" : p.repo ? "View repository" : p.status === "Live" ? "Visit live project" : "Explore project"} <span aria-hidden="true">${isDemo ? "⚡" : "↗"}</span></a>`
-    : `<span class="project-link archived">Internal / Archive</span>`;
-  const tags = p.tags.slice(0, 4).map(t => `<span>${escapeHTML(t)}</span>`).join("");
+    ? `<a class="project-link ${isDemo ? "project-link-demo" : ""}" href="${escapeHTML(p.url)}" ${p.url.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>${isDemo ? "Live Demo" : p.repo ? "View Code" : isLive ? "Visit Live Site" : "Open Project"} <span aria-hidden="true">${isDemo ? "⚡" : "↗"}</span></a>`
+    : `<span class="project-link archived">Internal Project</span>`;
+  const tags = (p.tags || []).slice(0, 4).map(t => `<span class="tag-chip">${escapeHTML(t)}</span>`).join("");
+  const domainText = p.url ? escapeHTML(p.url.replace("https://", "").replace(/\/$/, "")) : p.repo ? "github.com/Asadxio" : "asad.myoss.in";
 
   return `
     <article class="project-card ${featured ? "featured-large" : ""}" data-index="${i}">
-      <div class="card-glare" aria-hidden="true"></div>
-      <div class="project-visual ${visualClass(i)}">
-        <div class="card-browser-bar" aria-hidden="true">
-          <span class="browser-dot dot-r"></span>
-          <span class="browser-dot dot-y"></span>
-          <span class="browser-dot dot-g"></span>
-          <span class="browser-address">${p.url ? escapeHTML(p.url.replace("https://", "").replace(/\/$/, "")) : "asad.myoss.in"}</span>
+      <div class="project-card-header">
+        <div class="card-domain-badge">
+          <span class="domain-icon" aria-hidden="true">
+            <svg class="svg-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </span>
+          <span class="domain-name">${domainText}</span>
         </div>
-        <span class="visual-index">${String(i + 1).padStart(2, "0")} / PORTFOLIO</span>
-        <div class="visual-word">${escapeHTML(p.title.replace(" Classification", "").replace(" Projects", ""))}</div>
+        <span class="status-indicator-pill ${isDemo ? "status-demo" : isLive ? "status-live" : "status-repo"}">
+          <span class="dot" aria-hidden="true"></span>
+          ${escapeHTML(p.status)}
+        </span>
       </div>
-      <div class="project-content">
-        <div class="project-meta">
-          <span class="project-category">${escapeHTML(p.category)}</span>
-          <span class="status-pill ${isDemo ? "status-demo" : ""}">${escapeHTML(p.status)}</span>
-        </div>
-        <h3>${escapeHTML(p.title)}</h3>
-        <p>${escapeHTML(p.description)}</p>
+      <div class="project-card-body">
+        <span class="project-category-tag">${escapeHTML(p.category)}</span>
+        <h3 class="project-title">${escapeHTML(p.title)}</h3>
+        <p class="project-desc">${escapeHTML(p.description)}</p>
         <div class="tag-list">${tags}</div>
         <div class="project-actions">
           ${link}
-          <button type="button" class="project-details-btn" data-index="${i}" aria-label="View details for ${escapeHTML(p.title)}">View details <span aria-hidden="true">→</span></button>
+          <button type="button" class="project-details-btn" data-index="${i}" aria-label="View details for ${escapeHTML(p.title)}">Overview →</button>
         </div>
       </div>
     </article>`;
@@ -1085,7 +1062,7 @@ function initCommandPalette() {
       { type: "action", icon: "✉", title: "Send Direct Message to Asad", hint: "Contact", action: () => { openContactModal(); } },
       { type: "action", icon: "✉", title: "Copy Email: aliasadcivil007@gmail.com", hint: "Contact", action: () => { navigator.clipboard.writeText("aliasadcivil007@gmail.com").then(() => showToast("Copied aliasadcivil007@gmail.com to clipboard ✓")); } },
       { type: "action", icon: "📄", title: "View Resume (Curriculum Vitae)", hint: "Credentials", action: () => { openResumeModal(); } },
-      { type: "action", icon: ">_", title: "Open Systems & Architecture Console", hint: "Console", action: () => { document.querySelector("#terminal-launcher")?.click(); } },
+      { type: "action", icon: "💬", title: "Direct WhatsApp Chat (+91 9137330084)", hint: "WhatsApp", action: () => { window.open("https://wa.me/919137330084?text=Hi%20Asad,%20I'd%20like%20to%20discuss%20a%20project.", "_blank"); } },
       { type: "action", icon: "↗", title: "Copy Portfolio URL", hint: "Share", action: () => { navigator.clipboard.writeText("https://asad.myoss.in/").then(() => showToast("Portfolio URL copied to clipboard ✓")); } }
     ];
 
@@ -1275,6 +1252,14 @@ function initContactModal() {
   if (heroBtn) {
     heroBtn.addEventListener("click", () => {
       trackEvent("start_project_clicked", { source: "hero" });
+      openContactModal();
+    });
+  }
+
+  const headerBtn = document.querySelector("#header-contact-btn");
+  if (headerBtn) {
+    headerBtn.addEventListener("click", () => {
+      trackEvent("start_project_clicked", { source: "header" });
       openContactModal();
     });
   }
@@ -1652,20 +1637,7 @@ function initBentoSpotlight() {
 }
 
 function initMagneticButtons() {
-  if (window.matchMedia("(hover: none)").matches) return;
-  const magnets = document.querySelectorAll(".button, .cmd-k-trigger, .theme-toggle, .filter-button, .nav-cta, .terminal-launcher");
-
-  magnets.forEach(el => {
-    el.addEventListener("mousemove", (e) => {
-      const rect = el.getBoundingClientRect();
-      const dx = e.clientX - (rect.left + rect.width / 2);
-      const dy = e.clientY - (rect.top + rect.height / 2);
-      el.style.transform = `translate3d(${dx * 0.22}px, ${dy * 0.22}px, 0)`;
-    });
-    el.addEventListener("mouseleave", () => {
-      el.style.transform = "";
-    });
-  });
+  // Silent execution: predictable button states for official enterprise UX
 }
 
 function initGlobalQuickActions() {
